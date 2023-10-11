@@ -13,10 +13,11 @@ public class UserRepository {
     private static final String NAME_ID = "name";
     private static final String AGE_ID = "age";
     private static final String ROLE_ID = "role";
+    private static final String USER_ID = "id";
     private static Map<String, Map<String, Object>> usersMap = new HashMap<>();
 
     public static String addUser(User user) {
-        String id = Util.getRandomString();
+        String id = user.getId();
         Map<String, Object> subMap = convertFromUser(user);
 
         usersMap.put(id, subMap);
@@ -52,24 +53,12 @@ public class UserRepository {
         return convertFromEntry(subMap);
     }
 
-    public static User findUserByUserName(String username) {
-        User valid = null;
-        for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
-            String nameValue = (String) keyValue.getValue().get(USERNAME_ID);
-            if (username.equals(nameValue)) {
-                valid = convertFromEntry(keyValue.getValue());
-                break;
-            }
-        }
-
-        return valid;
-    }
-
-    public static User findUserByPassWord(String password) {
+    public static User findUserByUsernameAndPassword(String username, String password) {
         User valid = null;
         for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
             String passwordValue = (String) keyValue.getValue().get(PASSWORD_ID);
-            if (password.equals(passwordValue)) {
+            String nameValue = (String) keyValue.getValue().get(USERNAME_ID);
+            if (password.equals(passwordValue) && username.equals(nameValue)) {
                 valid = convertFromEntry(keyValue.getValue());
                 break;
             }
@@ -77,6 +66,7 @@ public class UserRepository {
 
         return valid;
     }
+
 
     public static ArrayList<User> findUserByAge(int age) {
         ArrayList<User> users = new ArrayList<>();
@@ -97,7 +87,8 @@ public class UserRepository {
         String name = (String) keyValue.get(NAME_ID);
         int age = (int) keyValue.get(AGE_ID);
         String role = (String) keyValue.get(ROLE_ID);
-        return new User(username, password, name, age, role);
+        String id = (String) keyValue.get(USER_ID);
+        return new User(username, password, name, age, role, id);
     }
 
     public static Map<String, Object> convertFromUser(User user) {
@@ -106,6 +97,7 @@ public class UserRepository {
         String name = user.getName();
         int age = user.getAge();
         String role = user.getRole();
+        String id = user.getId();
 
         Map<String, Object> result = new HashMap<>();
         result.put(USERNAME_ID, username);
@@ -113,6 +105,7 @@ public class UserRepository {
         result.put(NAME_ID, name);
         result.put(AGE_ID, age);
         result.put(ROLE_ID, role);
+        result.put(USER_ID, id);
         return result;
     }
 
@@ -136,6 +129,8 @@ public class UserRepository {
     public static Map<String, Map<String, Object>> getUsersMap() {
         return usersMap;
     }
+
+
 
 
 

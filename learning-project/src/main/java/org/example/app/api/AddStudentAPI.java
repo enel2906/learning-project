@@ -20,6 +20,5 @@ public class AddStudentAPI {
         String subject = request.getSubject();
         String id = StudentController.getInstance().addStudent(name,age,subject);
         return new AddStudentResponse(id);
-        
     }
 }

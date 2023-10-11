@@ -13,6 +13,11 @@ public class UserController {
         return INSTANCE;
     }
 
+    public String addUser(String username, String password, String name, int age, String role){
+        return UserService.getINSTANCE().addUser(username, password, name, age, role);
+    }
+
+
     public String createToken(String id){
         return UserService.getINSTANCE().createToken(id);
     }
@@ -21,23 +26,17 @@ public class UserController {
         UserService.getINSTANCE().removeUser(token);
     }
 
-    public void addValidUSer(String username, String password){
-        boolean validUsername = UserService.getINSTANCE().idValidUserName(username);
-        boolean validPassWord = UserService.getINSTANCE().isValidPassWord(password);
-        if(validUsername==false || validPassWord == false){
-            if(validUsername == false){
-                System.out.println("Your username is invalid!!!");
-            }
-            else if(validPassWord == false){
-                System.out.println("Your password is invalid!!!");
-            }
-            else{
-                System.out.println("Your username and password are invalid!!!");
-            }
-            return;
+    public User findUserByToken(String token){
+        return UserService.getINSTANCE().findUserByToken(token);
+    }
+
+    public String accessAccount(String username, String password){
+        if(!UserService.getINSTANCE().isValidUser(username, password)){
+            System.out.println("Invalid account!!!");
+            return null;
         }
-
-        String token
-
+        User user = UserService.getINSTANCE().findAccoount(username,password);
+        String token = UserService.getINSTANCE().createToken(user.getId());
+        return token;
     }
 }

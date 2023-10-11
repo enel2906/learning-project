@@ -8,12 +8,35 @@ public class User {
     private String name;
     private int age;
     private String role;
+    private String id;
+
+    public String createId(){
+        return Util.getRandomString();
+    }
+
+    public void setId(String id){
+        this.id = id;
+    }
+
+    public String getId(){
+        return id;
+    }
     public User(String username, String password, String name, int age, String role){
         this.username = username;
         this.password = password;
         this.name = name;
         this.age = age;
         this.role = role;
+        this.id = createId();
+    }
+
+    public User(String username, String password, String name, int age, String role, String id){
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.age = age;
+        this.role = role;
+        this.id = id;
     }
 
     public String getRole() {

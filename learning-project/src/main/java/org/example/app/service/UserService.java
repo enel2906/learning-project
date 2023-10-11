@@ -39,22 +39,19 @@ public class UserService {
         return TokenIdRepository.addTokenId(id);
     }
 
-    public boolean idValidUserName(String username){
-        User user = UserRepository.findUserByUserName(username);
-        if(user != null){
-            return true;
-        }
-        return false;
+    public boolean isValidUser(String username, String password){
+        User user = UserRepository.findUserByUsernameAndPassword(username, password);
+        return user != null;
     }
 
-    public boolean isValidPassWord(String password){
-        User user = UserRepository.findUserByPassWord(password);
-        if(user != null){
-            return true;
-        }
-        return false;
+    public User findAccoount(String username, String password){
+        return UserRepository.findUserByUsernameAndPassword(username, password);
     }
 
+    public User findUserByToken(String token){
+        String id = TokenIdRepository.getId(token);
 
+        return UserRepository.findUserByID(id);
+    }
 
 }
