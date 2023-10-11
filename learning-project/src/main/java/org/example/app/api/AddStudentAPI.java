@@ -15,13 +15,11 @@ public class AddStudentAPI {
         return INSTANCE;
     }
     public AddStudentResponse execute(AddStudentRequest request){
-//        request.validateName();
-    	//Sonltt commit here 
-        //Sonltt commit again
         String name = request.getName();
         int age = request.getAge();
         String subject = request.getSubject();
         String id = StudentController.getInstance().addStudent(name,age,subject);
         return new AddStudentResponse(id);
+        
     }
 }

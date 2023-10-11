@@ -109,40 +109,7 @@ public class StudentRepository {
 
     public static Set<Map.Entry<String, Map<String, Object>>> getEntryMap(){
         return studentsMap.entrySet();
-    }
-
-
-
-
-
-
-//    public static void printValueInMap() {
-////        System.out.printf("|%-8s|%-8s|  %-6s|  %-8s|\n", "  ID", "  NAME", "AGE", "SUBJECT");
-//        for (Map.Entry<String,Student> keyValue : studentsMap.entrySet()) {
-//            System.out.println(
-//                    keyValue.getValue().getName()+" "+
-//                    keyValue.getValue().getAge()+" "+
-//                    keyValue.getValue().getSubject());
-//        }
-//    }
-
-
-
-}
-
-//    public static Student getRandomStudent(){
-//        ArrayList<String> keys = collectKeyInMap();
-//
-//        int firstIndex = 0;
-//        int lastIndex = keys.size()-1;
-//        int index = Util.getRandomInteger(firstIndex, lastIndex);
-//
-//        String id = keys.get(index);
-//
-//        Student student = findStudent(id);
-//
-//        return student;
-//    }
+    }}
 
 
 

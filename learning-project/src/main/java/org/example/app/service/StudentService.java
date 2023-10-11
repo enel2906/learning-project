@@ -12,6 +12,10 @@ public class StudentService {
 
     }
     public static final StudentService INSTANCE = new StudentService();
+
+    public static StudentService getInstance(){
+        return INSTANCE;
+    }
     public String addStudent(String name, int age, String subject){
         Student student = new Student(name, age, subject);
         return StudentRepository.addStudent(student);
