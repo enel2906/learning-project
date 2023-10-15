@@ -23,15 +23,17 @@ public class UserService {
 
     public void removeUser(String token){
         String id = TokenIdRepository.getId(token);
-        removeId(token);
+        removeToken(token);
         UserRepository.removeUser(id);
     }
+
+
 
     public String getId(String token){
         return TokenIdRepository.getId(token);
     }
 
-    public void removeId(String token){
+    public void removeToken(String token){
         TokenIdRepository.removeToken(token);
     }
 

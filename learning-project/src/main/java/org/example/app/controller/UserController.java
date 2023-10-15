@@ -39,4 +39,8 @@ public class UserController {
         String token = UserService.getINSTANCE().createToken(user.getId());
         return token;
     }
+
+    public void logoutUser(String token){
+        UserService.getINSTANCE().removeToken(token);
+    }
 }

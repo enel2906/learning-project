@@ -3,16 +3,19 @@ package org.example.app;
 import org.example.app.api.AddStudentAPI;
 import org.example.app.api.userAPI.GetInforAPI;
 import org.example.app.api.userAPI.LoginAPI;
+import org.example.app.api.userAPI.LogoutAPI;
 import org.example.app.controller.StudentController;
 import org.example.app.controller.UserController;
 import org.example.app.model.Student;
 import org.example.app.reponse.AddStudentResponse;
 import org.example.app.reponse.userreponse.InforReponse;
 import org.example.app.reponse.userreponse.LoginReponse;
+import org.example.app.reponse.userreponse.LogoutReponse;
 import org.example.app.repository.UserRepository;
 import org.example.app.request.AddStudentRequest;
 import org.example.app.request.userrequest.InforRequest;
 import org.example.app.request.userrequest.LoginRequest;
+import org.example.app.request.userrequest.LogoutRequest;
 
 import java.util.ArrayList;
 
@@ -32,11 +35,19 @@ public class Main {
 
         LoginRequest request1 = new LoginRequest("Son12", "3244");
         LoginReponse reponse1 = LoginAPI.getInstance().execute(request1);
-        System.out.println(reponse1.getToken());
+        String token1 = reponse1.getToken();
+        System.out.println(token1);
 
-        InforRequest request2 = new InforRequest(reponse1.getToken());
+        InforRequest request2 = new InforRequest(token1);
         InforReponse reponse2 = GetInforAPI.getInstance().execute(request2);
         System.out.println(reponse2.getName()+" "+reponse2.getRole()+" "+reponse2.getAge());
+
+        LogoutRequest logoutRequest = new LogoutRequest(token1);
+        LogoutReponse logoutReponse = LogoutAPI.getInstance().execute(logoutRequest);
+
+        ;
+
+
 
 ////        StudentController.getInstance().addStudent("Minh", 20, "math");
 //        AddStudentRequest request = new AddStudentRequest("Minh",20,"math");
