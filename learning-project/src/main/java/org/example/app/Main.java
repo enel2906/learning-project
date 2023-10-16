@@ -16,6 +16,7 @@ import org.example.app.request.AddStudentRequest;
 import org.example.app.request.userrequest.InforRequest;
 import org.example.app.request.userrequest.LoginRequest;
 import org.example.app.request.userrequest.LogoutRequest;
+import org.example.app.thread.userthread.LogoutPeriod;
 
 import java.util.ArrayList;
 
@@ -36,14 +37,16 @@ public class Main {
         LoginRequest request1 = new LoginRequest("Son12", "3244");
         LoginReponse reponse1 = LoginAPI.getInstance().execute(request1);
         String token1 = reponse1.getToken();
+        LogoutPeriod logoutPeriod = new LogoutPeriod(token1);
+        logoutPeriod.start();
         System.out.println(token1);
 
         InforRequest request2 = new InforRequest(token1);
         InforReponse reponse2 = GetInforAPI.getInstance().execute(request2);
         System.out.println(reponse2.getName()+" "+reponse2.getRole()+" "+reponse2.getAge());
 
-        LogoutRequest logoutRequest = new LogoutRequest(token1);
-        LogoutReponse logoutReponse = LogoutAPI.getInstance().execute(logoutRequest);
+//        LogoutRequest logoutRequest = new LogoutRequest(token1);
+//        LogoutReponse logoutReponse = LogoutAPI.getInstance().execute(logoutRequest);
 
         ;
 

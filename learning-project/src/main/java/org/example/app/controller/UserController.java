@@ -3,6 +3,8 @@ package org.example.app.controller;
 import org.example.app.model.User;
 import org.example.app.service.UserService;
 
+import java.util.Map;
+
 public class UserController {
     private UserController(){
 
@@ -42,5 +44,9 @@ public class UserController {
 
     public void logoutUser(String token){
         UserService.getINSTANCE().removeToken(token);
+    }
+
+    public Map<String, String> getTokenIdCollection(){
+        return UserService.getINSTANCE().getTokenIdCollection();
     }
 }

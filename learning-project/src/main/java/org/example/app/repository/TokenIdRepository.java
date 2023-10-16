@@ -14,6 +14,10 @@ public class TokenIdRepository {
 
             return token;
     }
+
+    public static Map<String, String> getTokenIdMap(){
+        return tokenIdMap;
+    }
     
     public static void removeToken(String token){
         tokenIdMap.remove(token);

@@ -4,6 +4,8 @@ import org.example.app.model.User;
 import org.example.app.repository.TokenIdRepository;
 import org.example.app.repository.UserRepository;
 
+import java.util.Map;
+
 public class UserService {
     private UserService(){
 
@@ -27,8 +29,9 @@ public class UserService {
         UserRepository.removeUser(id);
     }
 
-
-
+    public Map<String, String> getTokenIdCollection(){
+        return TokenIdRepository.getTokenIdMap();
+    }
     public String getId(String token){
         return TokenIdRepository.getId(token);
     }
