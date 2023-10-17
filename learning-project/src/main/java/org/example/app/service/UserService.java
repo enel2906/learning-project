@@ -23,25 +23,8 @@ public class UserService {
         return UserRepository.addUser(user);
     }
 
-    public void removeUser(String token){
-        String id = TokenIdRepository.getId(token);
-        removeToken(token);
+    public void removeUser(String id){
         UserRepository.removeUser(id);
-    }
-
-    public Map<String, String> getTokenIdCollection(){
-        return TokenIdRepository.getTokenIdMap();
-    }
-    public String getId(String token){
-        return TokenIdRepository.getId(token);
-    }
-
-    public void removeToken(String token){
-        TokenIdRepository.removeToken(token);
-    }
-
-    public String createToken(String id){
-        return TokenIdRepository.addTokenId(id);
     }
 
     public boolean isValidUser(String username, String password){
@@ -53,10 +36,9 @@ public class UserService {
         return UserRepository.findUserByUsernameAndPassword(username, password);
     }
 
-    public User findUserByToken(String token){
-        String id = TokenIdRepository.getId(token);
-
+    public User findUserById(String id){
         return UserRepository.findUserByID(id);
     }
+
 
 }

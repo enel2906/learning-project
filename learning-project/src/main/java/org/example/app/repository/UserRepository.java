@@ -54,19 +54,26 @@ public class UserRepository {
     }
 
     public static User findUserByUsernameAndPassword(String username, String password) {
-        User valid = null;
         for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
             String passwordValue = (String) keyValue.getValue().get(PASSWORD_ID);
             String nameValue = (String) keyValue.getValue().get(USERNAME_ID);
             if (password.equals(passwordValue) && username.equals(nameValue)) {
-                valid = convertFromEntry(keyValue.getValue());
-                break;
+                return convertFromEntry(keyValue.getValue());
             }
         }
-
-        return valid;
+        return null;
     }
 
+    public static boolean isValidUsernameAndPassword(String username, String password){
+        for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
+            String passwordValue = (String) keyValue.getValue().get(PASSWORD_ID);
+            String nameValue = (String) keyValue.getValue().get(USERNAME_ID);
+            if (password.equals(passwordValue) && username.equals(nameValue)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static ArrayList<User> findUserByAge(int age) {
         ArrayList<User> users = new ArrayList<>();
@@ -77,7 +84,6 @@ public class UserRepository {
                 users.add(user);
             }
         }
-
         return users;
     }
 

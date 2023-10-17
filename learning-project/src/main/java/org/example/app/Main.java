@@ -34,6 +34,8 @@ public class Main {
         UserController.getInstance().addUser("emily321", "emilypwd", "Emily Davis", 31, "manager");
         UserController.getInstance().addUser("michael555", "mikepass", "Michael Johnson", 27, "intern");
 
+
+
         LoginRequest request1 = new LoginRequest("Son12", "3244");
         LoginReponse reponse1 = LoginAPI.getInstance().execute(request1);
         String token1 = reponse1.getToken();
@@ -48,16 +50,6 @@ public class Main {
 //        LogoutRequest logoutRequest = new LogoutRequest(token1);
 //        LogoutReponse logoutReponse = LogoutAPI.getInstance().execute(logoutRequest);
 
-        ;
-
-
-
-////        StudentController.getInstance().addStudent("Minh", 20, "math");
-//        AddStudentRequest request = new AddStudentRequest("Minh",20,"math");
-//        AddStudentResponse response = AddStudentAPI.getInstance().execute(request);
-//        System.out.println(response.getId());
-//
-//        System.out.println(request.hashCode());
     }
 
 

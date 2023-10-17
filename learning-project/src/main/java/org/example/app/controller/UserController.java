@@ -19,34 +19,25 @@ public class UserController {
         return UserService.getINSTANCE().addUser(username, password, name, age, role);
     }
 
-
-    public String createToken(String id){
-        return UserService.getINSTANCE().createToken(id);
-    }
-
     public void removeUser(String token){
         UserService.getINSTANCE().removeUser(token);
     }
 
-    public User findUserByToken(String token){
-        return UserService.getINSTANCE().findUserByToken(token);
+    public User findUser(String id){
+        return UserService.getINSTANCE().findUserById(id);
     }
 
     public String accessAccount(String username, String password){
-        if(!UserService.getINSTANCE().isValidUser(username, password)){
-            System.out.println("Invalid account!!!");
+        User user = UserService.getINSTANCE().findAccoount(username,password);
+        if(user == null){
             return null;
         }
-        User user = UserService.getINSTANCE().findAccoount(username,password);
-        String token = UserService.getINSTANCE().createToken(user.getId());
-        return token;
+        return user.getId();
     }
 
-    public void logoutUser(String token){
-        UserService.getINSTANCE().removeToken(token);
+    public boolean isValidUserNameAndPassword(String username, String password){
+        return UserService.getINSTANCE().isValidUser(username, password);
     }
 
-    public Map<String, String> getTokenIdCollection(){
-        return UserService.getINSTANCE().getTokenIdCollection();
-    }
+
 }
