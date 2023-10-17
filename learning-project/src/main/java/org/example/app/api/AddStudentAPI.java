@@ -1,7 +1,7 @@
 package org.example.app.api;
 
 import org.example.app.controller.StudentController;
-import org.example.app.reponse.AddStudentResponse;
+import org.example.app.response.AddStudentResponse;
 import org.example.app.request.AddStudentRequest;
 
 public class AddStudentAPI {

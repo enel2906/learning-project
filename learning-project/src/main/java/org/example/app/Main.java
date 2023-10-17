@@ -1,12 +1,10 @@
 package org.example.app;
 
-import org.example.app.api.user.GetInforAPI;
 import org.example.app.api.user.LoginAPI;
 import org.example.app.controller.UserController;
-import org.example.app.reponse.user.InforReponse;
-import org.example.app.reponse.user.LoginReponse;
-import org.example.app.request.user.InforRequest;
+import org.example.app.response.user.LoginResponse;
 import org.example.app.request.user.LoginRequest;
+import org.example.app.response.user.LoginResponse;
 import org.example.app.thread.user.ScanTimeValid;
 import org.example.app.thread.user.UpdateTime;
 
@@ -33,12 +31,12 @@ public class Main {
 
 
         LoginRequest requestLogin1 = new LoginRequest("Son12", "3244");
-        LoginReponse loginReponse2 = LoginAPI.getInstance().execute(requestLogin1);
-        String token1 = loginReponse2.getToken();
+        LoginResponse loginResponse2 = LoginAPI.getInstance().execute(requestLogin1);
+        String token1 = loginResponse2.getToken();
         System.out.println(token1);
 
         LoginRequest requestLogin2 = new LoginRequest("david789", "david123");
-        LoginReponse loginReponse = LoginAPI.getInstance().execute(requestLogin2);
+        LoginResponse loginResponse = LoginAPI.getInstance().execute(requestLogin2);
 
 
 

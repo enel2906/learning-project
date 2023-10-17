@@ -1,11 +1,11 @@
-package org.example.app.reponse.user;
+package org.example.app.response.user;
 
-public class InforReponse {
+public class InforResponse {
     private String name;
     private String role;
     private int age;
 
-    public InforReponse(String name, String role, int age){
+    public InforResponse(String name, String role, int age){
         this.name = name;
         this.role = role;
         this.age = age;

@@ -3,7 +3,7 @@ package org.example.app.api.user;
 import org.example.app.controller.TokenController;
 import org.example.app.controller.UserController;
 import org.example.app.model.User;
-import org.example.app.reponse.user.InforReponse;
+import org.example.app.response.user.InforResponse;
 import org.example.app.request.user.InforRequest;
 
 public class GetInforAPI {
@@ -16,7 +16,7 @@ public class GetInforAPI {
     public static GetInforAPI getInstance(){
         return INSTANCE;
     }
-    public InforReponse execute(InforRequest request){
+    public InforResponse execute(InforRequest request){
         String token = request.getToken();
         if(!TokenController.getInstance().isValidToken(token)){
             System.out.println("token is null");
@@ -31,6 +31,6 @@ public class GetInforAPI {
         if(user == null){
             return null;
         }
-        return new InforReponse(user.getName(), user.getRole(), user.getAge());
+        return new InforResponse(user.getName(), user.getRole(), user.getAge());
     }
 }

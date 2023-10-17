@@ -2,8 +2,9 @@ package org.example.app.api.user;
 
 import org.example.app.controller.TokenController;
 import org.example.app.controller.UserController;
-import org.example.app.reponse.user.LoginReponse;
+import org.example.app.response.user.LoginResponse;
 import org.example.app.request.user.LoginRequest;
+import org.example.app.response.user.LoginResponse;
 import org.example.app.util.Util;
 
 public class LoginAPI {
@@ -17,7 +18,7 @@ public class LoginAPI {
         return INSTANCE;
     }
 
-    public LoginReponse execute(LoginRequest request){
+    public LoginResponse execute(LoginRequest request){
         String username = request.getUsername();
         String password = request.getPassword();
 
@@ -29,6 +30,6 @@ public class LoginAPI {
         }
 
         String token = TokenController.getInstance().createTokenAndAddToMap(id);
-        return new LoginReponse(token);
+        return new LoginResponse(token);
     }
 }
