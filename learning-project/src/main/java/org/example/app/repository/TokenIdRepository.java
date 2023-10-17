@@ -8,21 +8,41 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TokenIdRepository {
-    private static Map<String, Map<String, String>> tokenIdMap = new HashMap<>();
+    private static Map<String, Map<String, Object>> tokenIdMap = new HashMap<>();
     private static String TOKEN_ID = "token_id";
     private static String USER_ID = "user_id";
 
+    private static String TIME = "time";
+
     public static String createToken(String id){
         Token token = new Token(id);
-        Map<String, String> subMap = new HashMap<>();
+        Map<String, Object> subMap = new HashMap<>();
         String tokenId = token.getTokenId();
         String userId = token.getUserId();
+        int time = token.getTime();
 
+        subMap.put(TIME, time);
         subMap.put(TOKEN_ID, tokenId);
         subMap.put(USER_ID, userId);
         tokenIdMap.put(tokenId, subMap);
 
         return tokenId;
+    }
+
+    public static int getTime(String tokenId){
+        return (int) tokenIdMap.get(tokenId).get(TIME);
+    }
+
+    public static void updateTimeForAllToken(int timeUpdate){
+        for(Map.Entry<String, Map<String, Object>> keyValue : tokenIdMap.entrySet()){
+            int time = (int) keyValue.getValue().get(TIME);
+            String token = keyValue.getKey();
+            time += timeUpdate;
+
+            Map<String, Object> subMap = tokenIdMap.get(token);
+            subMap.put(TIME, time);
+            tokenIdMap.put(token, subMap);
+        }
     }
 
     public static void removeToken(String tokenId){
@@ -48,7 +68,7 @@ public class TokenIdRepository {
     }
 
     public static boolean isValidToken(String token) {
-        for (Map.Entry<String, Map<String, String>> keyValue : tokenIdMap.entrySet()) {
+        for (Map.Entry<String, Map<String, Object>> keyValue : tokenIdMap.entrySet()) {
             if(keyValue.getKey().equals(token)){
                 return true;
             }
@@ -59,6 +79,16 @@ public class TokenIdRepository {
     }
 
     public static String getUserId(String token){
-        return tokenIdMap.get(token).get(token);
+        return (String) tokenIdMap.get(token).get(USER_ID);
+    }
+
+    public static void checkValidTime(int timeLimit){
+        for(Map.Entry<String, Map<String, Object>> keyValue : tokenIdMap.entrySet()){
+            int time = (int) keyValue.getValue().get(TIME);
+            String token = keyValue.getKey();
+            if(time >= timeLimit){
+                removeToken(token);
+            }
+        }
     }
 }

@@ -1,10 +1,10 @@
-package org.example.app.api.userAPI;
+package org.example.app.api.user;
 
 import org.example.app.controller.TokenController;
 import org.example.app.controller.UserController;
 import org.example.app.model.User;
-import org.example.app.reponse.userreponse.InforReponse;
-import org.example.app.request.userrequest.InforRequest;
+import org.example.app.reponse.user.InforReponse;
+import org.example.app.request.user.InforRequest;
 
 public class GetInforAPI {
     private GetInforAPI(){
@@ -19,13 +19,18 @@ public class GetInforAPI {
     public InforReponse execute(InforRequest request){
         String token = request.getToken();
         if(!TokenController.getInstance().isValidToken(token)){
-            //TOD print
+            System.out.println("token is null");
             return null;
         }
         String id = TokenController.getInstance().getUserId(token);
-        //TODO check id
+        if(id == null){
+            System.out.println("id is null");
+            return null;
+        }
         User user = UserController.getInstance().findUser(id);
-        //TODO check user
+        if(user == null){
+            return null;
+        }
         return new InforReponse(user.getName(), user.getRole(), user.getAge());
     }
 }

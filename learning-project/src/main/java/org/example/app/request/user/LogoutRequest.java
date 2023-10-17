@@ -1,10 +1,8 @@
-package org.example.app.request.userrequest;
+package org.example.app.request.user;
 
-import org.example.app.reponse.userreponse.InforReponse;
-
-public class InforRequest {
+public class LogoutRequest {
     private String token;
-    public InforRequest(String token){
+    public LogoutRequest(String token){
         this.token = token;
     }
 
@@ -15,5 +13,4 @@ public class InforRequest {
     public void setToken(String token) {
         this.token = token;
     }
-
 }

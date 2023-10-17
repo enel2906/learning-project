@@ -1,28 +1,24 @@
 package org.example.app;
 
-import org.example.app.api.AddStudentAPI;
-import org.example.app.api.userAPI.GetInforAPI;
-import org.example.app.api.userAPI.LoginAPI;
-import org.example.app.api.userAPI.LogoutAPI;
-import org.example.app.controller.StudentController;
+import org.example.app.api.user.GetInforAPI;
+import org.example.app.api.user.LoginAPI;
 import org.example.app.controller.UserController;
-import org.example.app.model.Student;
-import org.example.app.reponse.AddStudentResponse;
-import org.example.app.reponse.userreponse.InforReponse;
-import org.example.app.reponse.userreponse.LoginReponse;
-import org.example.app.reponse.userreponse.LogoutReponse;
-import org.example.app.repository.UserRepository;
-import org.example.app.request.AddStudentRequest;
-import org.example.app.request.userrequest.InforRequest;
-import org.example.app.request.userrequest.LoginRequest;
-import org.example.app.request.userrequest.LogoutRequest;
-import org.example.app.thread.userthread.LogoutPeriod;
-
-import java.util.ArrayList;
+import org.example.app.reponse.user.InforReponse;
+import org.example.app.reponse.user.LoginReponse;
+import org.example.app.request.user.InforRequest;
+import org.example.app.request.user.LoginRequest;
+import org.example.app.thread.user.ScanTimeValid;
+import org.example.app.thread.user.UpdateTime;
 
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
+        UpdateTime updateTime = new UpdateTime();
+        ScanTimeValid scanTimeValid = new ScanTimeValid();
+        updateTime.start();
+        scanTimeValid.start();
+
+
         UserController.getInstance().addUser("minh123", "1234", "Minh", 20, "intern");
         UserController.getInstance().addUser("Son12", "3244", "Sơn", 26, "leader");
         UserController.getInstance().addUser("john123", "password123", "John Smith", 25, "employee");
@@ -36,19 +32,18 @@ public class Main {
 
 
 
-        LoginRequest request1 = new LoginRequest("Son12", "3244");
-        LoginReponse reponse1 = LoginAPI.getInstance().execute(request1);
-        String token1 = reponse1.getToken();
-        LogoutPeriod logoutPeriod = new LogoutPeriod(token1);
-        logoutPeriod.start();
+        LoginRequest requestLogin1 = new LoginRequest("Son12", "3244");
+        LoginReponse loginReponse2 = LoginAPI.getInstance().execute(requestLogin1);
+        String token1 = loginReponse2.getToken();
         System.out.println(token1);
 
-        InforRequest request2 = new InforRequest(token1);
-        InforReponse reponse2 = GetInforAPI.getInstance().execute(request2);
-        System.out.println(reponse2.getName()+" "+reponse2.getRole()+" "+reponse2.getAge());
+        LoginRequest requestLogin2 = new LoginRequest("david789", "david123");
+        LoginReponse loginReponse = LoginAPI.getInstance().execute(requestLogin2);
 
-//        LogoutRequest logoutRequest = new LogoutRequest(token1);
-//        LogoutReponse logoutReponse = LogoutAPI.getInstance().execute(logoutRequest);
+
+
+
+
 
     }
 

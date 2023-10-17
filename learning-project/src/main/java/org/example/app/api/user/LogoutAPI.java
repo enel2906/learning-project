@@ -1,9 +1,8 @@
-package org.example.app.api.userAPI;
+package org.example.app.api.user;
 
 import org.example.app.controller.TokenController;
-import org.example.app.controller.UserController;
-import org.example.app.reponse.userreponse.LogoutReponse;
-import org.example.app.request.userrequest.LogoutRequest;
+import org.example.app.reponse.user.LogoutReponse;
+import org.example.app.request.user.LogoutRequest;
 
 public class LogoutAPI {
     private LogoutAPI(){

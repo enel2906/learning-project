@@ -88,6 +88,9 @@ public class UserRepository {
     }
 
     public static User convertFromEntry(Map<String, Object> keyValue) {
+        if(keyValue == null){
+            return null;
+        }
         String username = (String) keyValue.get(USERNAME_ID);
         String password = (String) keyValue.get(PASSWORD_ID);
         String name = (String) keyValue.get(NAME_ID);

@@ -1,10 +1,9 @@
-package org.example.app.api.userAPI;
+package org.example.app.api.user;
 
 import org.example.app.controller.TokenController;
 import org.example.app.controller.UserController;
-import org.example.app.model.User;
-import org.example.app.reponse.userreponse.LoginReponse;
-import org.example.app.request.userrequest.LoginRequest;
+import org.example.app.reponse.user.LoginReponse;
+import org.example.app.request.user.LoginRequest;
 import org.example.app.util.Util;
 
 public class LoginAPI {
@@ -25,7 +24,7 @@ public class LoginAPI {
         String id = UserController.getInstance().accessAccount(username, password);
 
         if(Util.isNull(id)){
-            //TODO print
+            System.out.println("Id is null");
             return null;
         }
 
