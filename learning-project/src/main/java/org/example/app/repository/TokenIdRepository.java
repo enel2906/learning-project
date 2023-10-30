@@ -14,12 +14,24 @@ public class TokenIdRepository {
 
     private static String TIME = "time";
 
+    public static String getTokenId() {
+        return TOKEN_ID;
+    }
+
+    public static String getUserId() {
+        return USER_ID;
+    }
+
+    public static String getTIME() {
+        return TIME;
+    }
+
     public static String createToken(String id){
         Token token = new Token(id);
         Map<String, Object> subMap = new HashMap<>();
         String tokenId = token.getTokenId();
         String userId = token.getUserId();
-        int time = token.getTime();
+        Long time = token.getTime();
 
         subMap.put(TIME, time);
         subMap.put(TOKEN_ID, tokenId);
@@ -29,20 +41,12 @@ public class TokenIdRepository {
         return tokenId;
     }
 
-    public static int getTime(String tokenId){
-        return (int) tokenIdMap.get(tokenId).get(TIME);
+    public static Map<String, Map<String, Object>> getTokenIdMap(){
+        return tokenIdMap;
     }
 
-    public static void updateTimeForAllToken(int timeUpdate){
-        for(Map.Entry<String, Map<String, Object>> keyValue : tokenIdMap.entrySet()){
-            int time = (int) keyValue.getValue().get(TIME);
-            String token = keyValue.getKey();
-            time += timeUpdate;
-
-            Map<String, Object> subMap = tokenIdMap.get(token);
-            subMap.put(TIME, time);
-            tokenIdMap.put(token, subMap);
-        }
+    public static int getTime(String tokenId){
+        return (int) tokenIdMap.get(tokenId).get(TIME);
     }
 
     public static void removeToken(String tokenId){

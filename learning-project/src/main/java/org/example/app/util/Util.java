@@ -1,5 +1,6 @@
 package org.example.app.util;
 
+import java.time.LocalTime;
 import java.util.*;
 
 public class Util {
@@ -31,5 +32,13 @@ public class Util {
 
     public static boolean isNotNull(Object object ){
         return !isNull(object);
+    }
+
+    public static long convertTimeToSecond(LocalTime localTime){
+        long hour = localTime.getHour();
+        long minute = localTime.getMinute();
+        long second = localTime.getSecond();
+
+        return hour*3600 + minute*60 + second;
     }
 }

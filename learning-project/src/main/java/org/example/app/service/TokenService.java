@@ -2,6 +2,8 @@ package org.example.app.service;
 
 import org.example.app.repository.TokenIdRepository;
 
+import java.util.Map;
+
 public class TokenService {
     private TokenService(){
 
@@ -36,11 +38,19 @@ public class TokenService {
         return TokenIdRepository.createToken(id);
     }
 
-    public void updateTimeOfAllToken(int timeUpdate){
-        TokenIdRepository.updateTimeForAllToken(timeUpdate);
+    public Map<String, Map<String, Object>> getTokenIdMap(){
+        return TokenIdRepository.getTokenIdMap();
     }
 
-    public void scanTimeValid(int timeLimit){
-        TokenIdRepository.checkValidTime(timeLimit);
+    public  String getTokenId() {
+        return TokenIdRepository.getTokenId();
+    }
+
+    public String getUserId() {
+        return TokenIdRepository.getUserId();
+    }
+
+    public String getTIME() {
+        return TokenIdRepository.getTIME();
     }
 }

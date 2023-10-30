@@ -2,14 +2,17 @@ package org.example.app.model;
 
 import org.example.app.util.Util;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 public class Token {
     private String tokenId;
 
     private String userId;
 
-    private int time;
+    private long time;
 
-    public int getTime() {
+    public long getTime() {
         return time;
     }
 
@@ -20,7 +23,8 @@ public class Token {
     public Token(String userId){
         this.userId = userId;
         this.tokenId = createTokenId();
-        this.time = 0;
+        this.time = Util.convertTimeToSecond(LocalTime.now());
+
     }
 
     public Token(String tokenId, String userId){
