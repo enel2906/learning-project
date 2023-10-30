@@ -1,7 +1,10 @@
-package org.example.app.reponse.userreponse;
+package org.example.app.request.user;
 
-public class LoginReponse {
+public class InforRequest {
     private String token;
+    public InforRequest(String token){
+        this.token = token;
+    }
 
     public String getToken() {
         return token;
@@ -11,7 +14,4 @@ public class LoginReponse {
         this.token = token;
     }
 
-    public LoginReponse(String token){
-        this.token = token;
-    }
 }

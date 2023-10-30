@@ -28,7 +28,19 @@ public class TokenService {
        TokenIdRepository.removeToken(token);
     }
 
+    public int getTimeOfToken(String token){
+        return TokenIdRepository.getTime(token);
+    }
+
     public String createToken(String id){
         return TokenIdRepository.createToken(id);
+    }
+
+    public void updateTimeOfAllToken(int timeUpdate){
+        TokenIdRepository.updateTimeForAllToken(timeUpdate);
+    }
+
+    public void scanTimeValid(int timeLimit){
+        TokenIdRepository.checkValidTime(timeLimit);
     }
 }

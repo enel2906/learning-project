@@ -7,10 +7,20 @@ public class Token {
 
     private String userId;
 
+    private int time;
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
     public Token(String userId){
         this.userId = userId;
         this.tokenId = createTokenId();
-
+        this.time = 0;
     }
 
     public Token(String tokenId, String userId){
@@ -18,7 +28,7 @@ public class Token {
         this.userId = userId;
     }
 
-    public void serTokenId(String tokenId){
+    public void setTokenId(String tokenId){
         this.tokenId = tokenId;
     }
 
