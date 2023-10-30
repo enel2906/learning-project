@@ -29,4 +29,16 @@ public class TokenController {
         return TokenService.getInstance().isValidToken(token);
     }
 
+    public int getTimeOfToken(String tokenId){
+        return TokenService.getInstance().getTimeOfToken(tokenId);
+    }
+
+    public void updateTimeOfAllToken(int timeUpdate){
+        TokenService.getInstance().updateTimeOfAllToken(timeUpdate);
+    }
+
+    public void scanTimeValid(int timeLimit){
+        TokenService.getInstance().scanTimeValid(timeLimit);
+    }
+
 }
