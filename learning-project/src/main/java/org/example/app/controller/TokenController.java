@@ -2,6 +2,7 @@ package org.example.app.controller;
 
 import org.example.app.repository.TokenIdRepository;
 import org.example.app.service.TokenService;
+import org.example.app.util.BusinessException;
 
 import java.util.Map;
 
@@ -19,7 +20,8 @@ public class TokenController {
         return TokenService.getInstance().getUserId(tokenId);
     }
 
-    public String createTokenAndAddToMap(String id){
+    public String createTokenAndAddToMap(String id) {
+
         return TokenService.getInstance().createToken(id);
     }
 

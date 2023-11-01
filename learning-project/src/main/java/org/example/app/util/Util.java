@@ -41,4 +41,9 @@ public class Util {
 
         return hour*3600 + minute*60 + second;
     }
+
+    public static boolean isNotContainCapitalLetter(String s){
+        String sLower = s.toLowerCase();
+        return s.equals(sLower);
+    }
 }

@@ -62,9 +62,7 @@ public class UserRepository {
             }
         }
         return null;
-    }
-
-    public static boolean isValidUsernameAndPassword(String username, String password){
+    }public static boolean isValidUsernameAndPassword(String username, String password){
         for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
             String passwordValue = (String) keyValue.getValue().get(PASSWORD_ID);
             String nameValue = (String) keyValue.getValue().get(USERNAME_ID);
@@ -74,7 +72,6 @@ public class UserRepository {
         }
         return false;
     }
-
     public static ArrayList<User> findUserByAge(int age) {
         ArrayList<User> users = new ArrayList<>();
         for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
@@ -86,7 +83,6 @@ public class UserRepository {
         }
         return users;
     }
-
     public static User convertFromEntry(Map<String, Object> keyValue) {
         if(keyValue == null){
             return null;

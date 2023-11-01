@@ -12,16 +12,8 @@ import java.util.Scanner;
 // ExceptionThrown
 class GFG {
     public static void main(String[] args) {
-        try {
-            throw new NullPointerException();
-        } catch (RuntimeException e) {
-            System.out.println("b");
-        } catch (Exception r) {
-            throw new RuntimeException();
-        }
-        finally {
-            throw new RuntimeException();
-        }
-
+        String type = "moose";
+        Object obj = type;
+        Integer number = (Integer) obj;
     }
 }
