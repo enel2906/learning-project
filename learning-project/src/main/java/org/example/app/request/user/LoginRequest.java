@@ -1,11 +1,22 @@
 package org.example.app.request.user;
 
+import org.example.app.exception.BusinessException;
+import org.example.app.util.Util;
+
+import static org.example.app.constant.ExceptionCode.*;
+
 public class LoginRequest {
     private String username;
     private String password;
     public LoginRequest(String username, String password){
         this.username = username;
         this.password = password;
+    }
+
+    public void checkValidation(){
+        if(password.length() < 6 || Util.isNotContainCapitalLetter(username)){
+            throw new BusinessException(REQUEST, "Wrong data format");
+        }
     }
 
     public String getUsername() {

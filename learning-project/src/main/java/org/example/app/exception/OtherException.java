@@ -1,4 +1,4 @@
-package org.example.app.util;
+package org.example.app.exception;
 
 public class OtherException extends RuntimeException{
     int code;

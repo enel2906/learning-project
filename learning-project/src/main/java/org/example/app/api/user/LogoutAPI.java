@@ -1,10 +1,9 @@
 package org.example.app.api.user;
 
-import org.example.app.constant.ExceptionCode;
 import org.example.app.controller.TokenController;
 import org.example.app.response.user.LogoutResponse;
 import org.example.app.request.user.LogoutRequest;
-import org.example.app.util.BusinessException;
+import org.example.app.exception.BusinessException;
 
 import static org.example.app.constant.ExceptionCode.*;
 
@@ -18,15 +17,10 @@ public class LogoutAPI {
         return INSTANCE;
     }
 
-    public LogoutResponse execute(LogoutRequest logoutRequest){
+    public LogoutResponse execute(LogoutRequest request){
         try{
-            String token = logoutRequest.getToken();
-            if(token == null){
-                throw new BusinessException(REQUEST, "Token is null");
-            }
-            if(!TokenController.getInstance().isValidToken(token)){
-                throw new BusinessException(INVALID, "Invalid token");
-            }
+            request.checkValidation();
+            String token = request.getToken();
             TokenController.getInstance().removeToken(token);
             return new LogoutResponse();
         }catch (BusinessException e){

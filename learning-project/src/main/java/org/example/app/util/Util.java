@@ -43,6 +43,9 @@ public class Util {
     }
 
     public static boolean isNotContainCapitalLetter(String s){
+        if(isNull(s)){
+            return true;
+        }
         String sLower = s.toLowerCase();
         return s.equals(sLower);
     }

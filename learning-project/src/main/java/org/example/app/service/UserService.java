@@ -17,7 +17,7 @@ public class UserService {
         return INSTANCE;
     }
 
-    public String addUser(String username, String password, String name, int age, String role){
+    public String addUser(String username, String password, String name, int age, String role) throws Exception{
         User user = new User(username, password, name, age, role);
 
         return UserRepository.addUser(user);
@@ -27,16 +27,16 @@ public class UserService {
         UserRepository.removeUser(id);
     }
 
-    public boolean isValidUser(String username, String password){
+    public boolean isValidUser(String username, String password) throws Exception{
         User user = UserRepository.findUserByUsernameAndPassword(username, password);
         return user != null;
     }
 
-    public User findAccoount(String username, String password){
+    public User findAccoount(String username, String password) throws Exception{
         return UserRepository.findUserByUsernameAndPassword(username, password);
     }
 
-    public User findUserById(String id){
+    public User findUserById(String id) throws Exception{
         return UserRepository.findUserByID(id);
     }
 

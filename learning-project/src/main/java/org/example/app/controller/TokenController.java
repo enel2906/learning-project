@@ -1,10 +1,12 @@
 package org.example.app.controller;
 
-import org.example.app.repository.TokenIdRepository;
 import org.example.app.service.TokenService;
-import org.example.app.util.BusinessException;
+import org.example.app.exception.BusinessException;
 
 import java.util.Map;
+
+import static org.example.app.constant.ExceptionCode.INVALID;
+import static org.example.app.constant.ExceptionCode.UNKNOWN;
 
 public class TokenController {
     private TokenController(){
@@ -17,20 +19,30 @@ public class TokenController {
     }
 
     public String getUserId(String tokenId){
+        if(!isValidToken(tokenId)){
+            throw new BusinessException(INVALID, "Token is invalid");
+        }
         return TokenService.getInstance().getUserId(tokenId);
     }
 
     public String createTokenAndAddToMap(String id) {
-
         return TokenService.getInstance().createToken(id);
     }
 
     public void removeToken(String token){
-        TokenService.getInstance().removeToken(token);
+        try{
+            TokenService.getInstance().removeToken(token);
+        }catch(Exception e){
+            throw new BusinessException(UNKNOWN, e.getMessage());
+        }
     }
 
     public boolean isValidToken(String token){
-        return TokenService.getInstance().isValidToken(token);
+        try{
+            return TokenService.getInstance().isValidToken(token);
+        }catch(Exception e){
+            throw new BusinessException(UNKNOWN, e.getMessage());
+        }
     }
 
     public int getTimeOfToken(String tokenId){

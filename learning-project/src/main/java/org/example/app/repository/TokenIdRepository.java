@@ -53,14 +53,14 @@ public class TokenIdRepository {
         tokenIdMap.remove(tokenId);
     }
 
-    public static Token convertFromTokenMapToTokenModel(Map<String, String> tokenMap){
+    public static Token convertFromTokenMapToTokenModel(Map<String, String> tokenMap) throws Exception{
         String tokenId = tokenMap.get(TOKEN_ID);
         String userId = tokenMap.get(USER_ID);
 
         return new Token(tokenId,userId);
     }
 
-    public static Map<String, String> convertFromTokenModelToTokenIdMap(Token token){
+    public static Map<String, String> convertFromTokenModelToTokenIdMap(Token token) throws Exception{
         String tokenId = token.getTokenId();
         String userId = token.getUserId();
 
@@ -71,7 +71,7 @@ public class TokenIdRepository {
         return result;
     }
 
-    public static boolean isValidToken(String token) {
+    public static boolean isValidToken(String token) throws Exception{
         for (Map.Entry<String, Map<String, Object>> keyValue : tokenIdMap.entrySet()) {
             if(keyValue.getKey().equals(token)){
                 return true;
@@ -83,15 +83,5 @@ public class TokenIdRepository {
 
     public static String getUserId(String token){
         return (String) tokenIdMap.get(token).get(USER_ID);
-    }
-
-    public static void checkValidTime(int timeLimit){
-        for(Map.Entry<String, Map<String, Object>> keyValue : tokenIdMap.entrySet()){
-            int time = (int) keyValue.getValue().get(TIME);
-            String token = keyValue.getKey();
-            if(time >= timeLimit){
-                removeToken(token);
-            }
-        }
     }
 }

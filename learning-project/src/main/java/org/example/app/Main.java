@@ -1,15 +1,10 @@
 package org.example.app;
 
 import org.example.app.api.user.LoginAPI;
-import org.example.app.api.user.LogoutAPI;
 import org.example.app.controller.UserController;
 import org.example.app.request.user.LoginRequest;
 import org.example.app.response.user.*;
 import org.example.app.thread.user.LogoutPeriod;
-import org.example.app.util.BusinessException;
-import org.example.app.util.Util;
-
-import java.io.IOException;
 
 public class Main {
 
@@ -31,21 +26,11 @@ public class Main {
 
             LoginRequest requestLogin1 = new LoginRequest("Son12", "3244");
             LoginResponse loginResponse1 = LoginAPI.getInstance().execute(requestLogin1);
-            if(loginResponse1.getMessage() == null) {
-                System.out.println(loginResponse1.getToken());
-            }
-            if(loginResponse1.getMessage() != null){
-                System.out.println(loginResponse1.getCode() + " "+loginResponse1.getMessage());
-            }
+            System.out.println(loginResponse1.getCode() +" "+ loginResponse1.getMessage()+" "+loginResponse1.getToken());
 
             LoginRequest requestLogin2 = new LoginRequest("David789", "david123");
             LoginResponse loginResponse2 = LoginAPI.getInstance().execute(requestLogin2);
-            if(loginResponse2.getMessage() == null) {
-                System.out.println(loginResponse1.getToken());
-            }
-            if(loginResponse2.getMessage() != null){
-                System.out.println(loginResponse2.getCode() + " "+loginResponse2.getMessage());
-            }
+            System.out.println(loginResponse2.getCode() +" "+ loginResponse2.getMessage()+" "+loginResponse2.getToken());
         }
 
 

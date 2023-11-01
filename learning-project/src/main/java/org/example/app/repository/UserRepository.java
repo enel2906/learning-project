@@ -1,7 +1,6 @@
 package org.example.app.repository;
 
 import org.example.app.model.User;
-import org.example.app.util.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ public class UserRepository {
     private static final String USER_ID = "id";
     private static Map<String, Map<String, Object>> usersMap = new HashMap<>();
 
-    public static String addUser(User user) {
+    public static String addUser(User user) throws Exception {
         String id = user.getId();
         Map<String, Object> subMap = convertFromUser(user);
 
@@ -48,12 +47,12 @@ public class UserRepository {
         return usersMap.get(id).get(ROLE_ID);
     }
 
-    public static User findUserByID(String id) {
+    public static User findUserByID(String id) throws Exception{
         Map<String, Object> subMap = usersMap.get(id);
         return convertFromEntry(subMap);
     }
 
-    public static User findUserByUsernameAndPassword(String username, String password) {
+    public static User findUserByUsernameAndPassword(String username, String password) throws Exception {
         for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
             String passwordValue = (String) keyValue.getValue().get(PASSWORD_ID);
             String nameValue = (String) keyValue.getValue().get(USERNAME_ID);
@@ -62,7 +61,7 @@ public class UserRepository {
             }
         }
         return null;
-    }public static boolean isValidUsernameAndPassword(String username, String password){
+    }public static boolean isValidUsernameAndPassword(String username, String password) throws Exception{
         for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
             String passwordValue = (String) keyValue.getValue().get(PASSWORD_ID);
             String nameValue = (String) keyValue.getValue().get(USERNAME_ID);
@@ -72,7 +71,7 @@ public class UserRepository {
         }
         return false;
     }
-    public static ArrayList<User> findUserByAge(int age) {
+    public static ArrayList<User> findUserByAge(int age) throws Exception{
         ArrayList<User> users = new ArrayList<>();
         for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
             int ageValue = (int) keyValue.getValue().get(AGE_ID);
@@ -83,10 +82,7 @@ public class UserRepository {
         }
         return users;
     }
-    public static User convertFromEntry(Map<String, Object> keyValue) {
-        if(keyValue == null){
-            return null;
-        }
+    public static User convertFromEntry(Map<String, Object> keyValue) throws Exception{
         String username = (String) keyValue.get(USERNAME_ID);
         String password = (String) keyValue.get(PASSWORD_ID);
         String name = (String) keyValue.get(NAME_ID);
@@ -96,29 +92,30 @@ public class UserRepository {
         return new User(username, password, name, age, role, id);
     }
 
-    public static Map<String, Object> convertFromUser(User user) {
-        String username = user.getUsername();
-        String password = user.getPassword();
-        String name = user.getName();
-        int age = user.getAge();
-        String role = user.getRole();
-        String id = user.getId();
+    public static Map<String, Object> convertFromUser(User user) throws Exception{
+            String username = user.getUsername();
+            String password = user.getPassword();
+            String name = user.getName();
+            int age = user.getAge();
+            String role = user.getRole();
+            String id = user.getId();
 
-        Map<String, Object> result = new HashMap<>();
-        result.put(USERNAME_ID, username);
-        result.put(PASSWORD_ID, password);
-        result.put(NAME_ID, name);
-        result.put(AGE_ID, age);
-        result.put(ROLE_ID, role);
-        result.put(USER_ID, id);
-        return result;
+            Map<String, Object> result = new HashMap<>();
+            result.put(USERNAME_ID, username);
+            result.put(PASSWORD_ID, password);
+            result.put(NAME_ID, name);
+            result.put(AGE_ID, age);
+            result.put(ROLE_ID, role);
+            result.put(USER_ID, id);
+            return result;
+
     }
 
-    public static ArrayList<String> collectKeyInMap() {
+    public static ArrayList<String> collectKeyInMap() throws Exception{
         return new ArrayList<>(usersMap.keySet());
     }
 
-    public static void changeAgeOfUser(String id, int ageChange) {
+    public static void changeAgeOfUser(String id, int ageChange) throws Exception{
         Map<String, Object> subMap = usersMap.get(id);
         int ageValue = (int) subMap.get(AGE_ID);
         ageValue += ageChange;

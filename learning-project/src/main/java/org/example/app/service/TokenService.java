@@ -19,11 +19,11 @@ public class TokenService {
         return TokenIdRepository.getUserId(token);
     }
 
-    public boolean isValidToken(String token){
+    public boolean isValidToken(String token) throws Exception{
         return TokenIdRepository.isValidToken(token);
     }
 
-    public void removeToken(String token){
+    public void removeToken(String token) throws Exception{
         if(!isValidToken(token)){
             return;
         }
