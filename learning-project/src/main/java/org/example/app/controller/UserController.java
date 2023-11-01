@@ -30,16 +30,10 @@ public class UserController {
         UserService.getINSTANCE().removeUser(token);
     }
 
-    public User findUser(String id){
-        try{
+    public User findUser(String id) throws Exception{
             User user = UserService.getINSTANCE().findUserById(id);
-            if(Util.isNull(user)){
-                throw new Exception("Invalid user!");
-            }
             return user;
-        }catch (Exception e){
-            throw new BusinessException(UNKNOWN, e.getMessage());
-        }
+
     }
 
     public String accessAccount(String username, String password){

@@ -49,4 +49,15 @@ public class Util {
         String sLower = s.toLowerCase();
         return s.equals(sLower);
     }
+
+    public static boolean isPositive(int number){
+        if(isNull(number)){
+            return false;
+        }
+        return number > 0;
+    }
+
+    public static boolean isNotPositive(int number){
+        return !isPositive(number);
+    }
 }

@@ -1,22 +1,14 @@
 package org.example.app.request.user;
 
 import org.example.app.exception.BusinessException;
+import org.example.app.request.RequestData;
 import org.example.app.util.Util;
 
 import static org.example.app.constant.ExceptionCode.INVALID;
 
-public class LogoutRequest {
-    private String token;
+public class LogoutRequest extends RequestData {
     public LogoutRequest(String token){
-        this.token = token;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
+        super(token);
     }
 
     public void checkValidation(){
