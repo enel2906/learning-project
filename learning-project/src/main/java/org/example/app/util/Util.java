@@ -1,5 +1,6 @@
 package org.example.app.util;
 
+import java.lang.reflect.Field;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -50,7 +51,7 @@ public class Util {
         return s.equals(sLower);
     }
 
-    public static boolean isPositive(int number){
+    public static boolean isPositive(Integer number){
         if(isNull(number)){
             return false;
         }
@@ -60,4 +61,19 @@ public class Util {
     public static boolean isNotPositive(int number){
         return !isPositive(number);
     }
+
+    public static boolean objectsIsEqual(Object object1, Object object2){
+        return object1 == object2;
+    }
+
+    public static boolean isTokenFieldExist(Object object){
+        Class<?> clazz = object.getClass();
+        try {
+            Field field = clazz.getDeclaredField("token");
+            return true;
+        } catch (NoSuchFieldException e) {
+            return false;
+        }
+    }
+
 }

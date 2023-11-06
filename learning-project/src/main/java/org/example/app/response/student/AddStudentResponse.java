@@ -1,4 +1,4 @@
-package org.example.app.response;
+package org.example.app.response.student;
 
 public class AddStudentResponse {
 

@@ -16,6 +16,12 @@ public class CommonAPI {
     public Response execute(Request request){
         try {
             RequestData requestData = request.getRequestData();
+            requestData.checkValidation();
+            System.out.println(requestData.needCheckToken());
+            if(!requestData.needCheckToken()){
+                ResponseData responseData = doExecute(requestData);
+                return new Response(ExceptionCode.SUCCESS,"success message", responseData);
+            }
             String token = requestData.getToken();
             if(Util.isNull(token)){
                 throw new BusinessException(REQUEST, "Token is null");

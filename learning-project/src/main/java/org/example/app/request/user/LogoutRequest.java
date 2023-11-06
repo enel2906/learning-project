@@ -16,4 +16,5 @@ public class LogoutRequest extends RequestData {
             throw new BusinessException(INVALID, "Invalid token");
         }
     }
+
 }

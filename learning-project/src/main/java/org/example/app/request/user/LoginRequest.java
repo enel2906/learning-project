@@ -11,8 +11,8 @@ public class LoginRequest extends RequestData {
     private String username;
     private String password;
 
-    public LoginRequest(String token , String username, String password){
-        super(token);
+    public LoginRequest( String username, String password){
+        super();
         this.username = username;
         this.password = password;
     }
@@ -21,8 +21,12 @@ public class LoginRequest extends RequestData {
         if(password.length() < 6 || Util.isNull(username)){
             throw new BusinessException(REQUEST, "Wrong data format");
         }
+
     }
 
+    public boolean needCheckToken(){
+        return false;
+    }
     public String getUsername() {
         return username;
     }

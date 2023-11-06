@@ -1,6 +1,9 @@
 package org.example.app.request;
 
 public class RequestData {
+    public RequestData(){
+
+    }
     public RequestData(String token) {
         this.token = token;
     }
@@ -14,5 +17,9 @@ public class RequestData {
     }
 
     public void checkValidation(){}
+
+    public boolean needCheckToken(){
+        return true;
+    };
 
 }

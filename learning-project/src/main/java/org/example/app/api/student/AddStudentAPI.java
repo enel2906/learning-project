@@ -1,8 +1,8 @@
-package org.example.app.api;
+package org.example.app.api.student;
 
 import org.example.app.controller.StudentController;
-import org.example.app.response.AddStudentResponse;
-import org.example.app.request.AddStudentRequest;
+import org.example.app.response.student.AddStudentResponse;
+import org.example.app.request.student.AddStudentRequest;
 
 public class AddStudentAPI {
 

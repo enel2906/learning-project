@@ -1,4 +1,4 @@
-package org.example.app.request;
+package org.example.app.request.student;
 
 public class AddStudentRequest {
 
