@@ -20,4 +20,7 @@ public class LoginResponse extends ResponseData {
     public LoginResponse(String token){
         this.token = token;
     }
+    public String toString(){
+        return "Token: "+token;
+    }
 }

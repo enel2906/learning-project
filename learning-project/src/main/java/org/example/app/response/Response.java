@@ -37,4 +37,8 @@ public class Response {
     public void setResponseData(ResponseData responseData) {
         this.responseData = responseData;
     }
+
+    public String toString(){
+        return "code: "+code+"  message: "+message+"  reponseData: "+responseData;
+    }
 }

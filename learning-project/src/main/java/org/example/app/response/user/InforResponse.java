@@ -39,4 +39,9 @@ public class InforResponse extends ResponseData {
     public void setAge(int age) {
         this.age = age;
     }
+
+    public String toString(){
+        return "Name: "+name+"  Role: "+role+"  Age: "+age;
+    }
+
 }

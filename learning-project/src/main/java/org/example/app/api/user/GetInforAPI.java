@@ -22,12 +22,15 @@ public class GetInforAPI extends CommonAPI {
     }
 
     @Override
-    public ResponseData doExecute(RequestData request) throws Exception{
-        InforRequest inforRequest = (InforRequest) request;
+    public ResponseData doExecute(RequestData requestData) throws Exception{
+        super.doExecute(requestData);
+        InforRequest inforRequest = (InforRequest) requestData;
 
         String token = inforRequest.getToken();
         String id = TokenController.getInstance().getUserId(token);
         User user = UserController.getInstance().findUser(id);
         return new InforResponse(user.getName(), user.getRole(), user.getAge());
     }
+
+
 }

@@ -11,5 +11,7 @@ public class LogoutResponse extends ResponseData {
 
     }
 
-
+    public String toString(){
+        return "Logout successfully";
+    }
 }

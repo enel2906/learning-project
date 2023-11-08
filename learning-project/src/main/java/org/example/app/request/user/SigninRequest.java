@@ -1,11 +1,13 @@
 package org.example.app.request.user;
 
 import org.example.app.exception.BusinessException;
+import org.example.app.request.RequestData;
 import org.example.app.util.Util;
 
+import static org.example.app.constant.ApiName.SIGNIN_API_NAME;
 import static org.example.app.constant.ExceptionCode.REQUEST;
 
-public class SigninRequest {
+public class SigninRequest extends RequestData {
     private String username;
     private String password;
     private String name;
@@ -13,6 +15,8 @@ public class SigninRequest {
     private String role;
 
     public SigninRequest(String username, String password, String name, int age, String role) {
+        super();
+        setApiName(SIGNIN_API_NAME);
         this.username = username;
         this.password = password;
         this.name = name;

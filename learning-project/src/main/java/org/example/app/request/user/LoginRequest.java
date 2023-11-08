@@ -5,14 +5,17 @@ import org.example.app.request.Request;
 import org.example.app.request.RequestData;
 import org.example.app.util.Util;
 
+import static org.example.app.constant.ApiName.LOGIN_API_NAME;
 import static org.example.app.constant.ExceptionCode.*;
 
 public class LoginRequest extends RequestData {
     private String username;
     private String password;
 
+
     public LoginRequest( String username, String password){
         super();
+        setApiName(LOGIN_API_NAME);
         this.username = username;
         this.password = password;
     }
@@ -24,9 +27,6 @@ public class LoginRequest extends RequestData {
 
     }
 
-    public boolean needCheckToken(){
-        return false;
-    }
     public String getUsername() {
         return username;
     }

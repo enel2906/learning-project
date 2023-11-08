@@ -1,6 +1,10 @@
 package org.example.app.request;
 
+
+
 public class RequestData {
+
+    private String apiName;
     public RequestData(){
 
     }
@@ -18,8 +22,11 @@ public class RequestData {
 
     public void checkValidation(){}
 
-    public boolean needCheckToken(){
-        return true;
-    };
+    public String getApiName() {
+        return apiName;
+    }
 
+    public void setApiName(String apiName) {
+        this.apiName = apiName;
+    }
 }

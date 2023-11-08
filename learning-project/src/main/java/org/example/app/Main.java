@@ -1,23 +1,26 @@
 package org.example.app;
 
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.example.app.api.user.GetInforAPI;
 import org.example.app.api.user.LoginAPI;
+import org.example.app.api.user.LogoutAPI;
 import org.example.app.controller.UserController;
 import org.example.app.request.Request;
 import org.example.app.request.RequestData;
 import org.example.app.request.user.InforRequest;
 import org.example.app.request.user.LoginRequest;
+import org.example.app.request.user.LogoutRequest;
 import org.example.app.response.Response;
 import org.example.app.response.user.*;
+import org.example.app.servlet.user.GetInformation;
+import org.example.app.servlet.user.Login;
 import org.example.app.thread.user.LogoutPeriod;
 
 public class Main {
 
-    public static void main(String[] args) {
-
-        LogoutPeriod logoutPeriod = new LogoutPeriod();
-        logoutPeriod.start();
-
+    public static void main(String[] args) throws Exception{
         UserController.getInstance().addUser("minh123", "1234", "Minh", 20, "intern");
         UserController.getInstance().addUser("Son12", "3244", "Sơn", 26, "leader");
         UserController.getInstance().addUser("john123", "password123", "John Smith", 25, "employee");
@@ -29,32 +32,31 @@ public class Main {
         UserController.getInstance().addUser("emily321", "emilypwd", "Emily Davis", 31, "manager");
         UserController.getInstance().addUser("michael555", "mikepass", "Michael Johnson", 27, "intern");
 
-//            LoginRequest requestLogin1 = new LoginRequest("Son12", "3244");
-//            LoginResponse loginResponse1 = LoginAPI.getInstance().execute(requestLogin1);
+        Server server = new Server(8080);
+        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        context.setContextPath("/");
+        context.addServlet(new ServletHolder(new Login()), "/login");
+        context.addServlet(new ServletHolder(new GetInformation()), "/user");
+        server.setHandler(context);
+        server.start();
+
+//        LogoutPeriod logoutPeriod = new LogoutPeriod();
+//        logoutPeriod.start();
+
+
+//        LoginRequest loginRequestMinh123 = new LoginRequest("minh123", "1234");
+//        Request requestMinh123 = new Request(loginRequestMinh123);
+//        Response responseLoginMinh123 = LoginAPI.getInstance().execute(requestMinh123);
+//        System.out.println(responseLoginMinh123.toString());
 //
-//            InforRequest inforRequest = new InforRequest(null);
-//            Request request = new Request(inforRequest);
-//            Response inforResponse = GetInforAPI.getInstance().execute(request);
-//            InforResponse inforResponse1 = ( InforResponse) inforResponse.getResponseData();
-//            System.out.println(inforResponse.getCode()+" "+inforResponse.getMessage());
-
-//            LoginRequest loginRequest1 = new LoginRequest("Son12", "3244");
-//            Request request1 = new Request(loginRequest1);
-//            Response response1 = LoginAPI.getInstance().execute(request1);
-//            System.out.println(response1.getCode()+" "+response1.getMessage()+" "+response1.getResponseData());
-
-        LoginRequest loginRequest2 = new LoginRequest("David789", "david1234");
-        Request request2 = new Request(loginRequest2);
-        Response response2 = LoginAPI.getInstance().execute(request2);
-        System.out.println(response2.getCode() + " " + response2.getMessage());
-
-//            LoginResponse loginResponse2 = (LoginResponse) response2.getResponseData();
-//            System.out.println(response2.getCode()+" "+response2.getMessage()+" ");
 //
-//            InforRequest inforRequest1 = new InforRequest(null);
-//            Request request3 = new Request(inforRequest1);
-//            Response response3 = GetInforAPI.getInstance().execute(request3);
-//            System.out.println(response3.getCode()+" "+response3.getMessage()+" "+response3.getResponseData());
+//        LogoutRequest logoutRequestDavid789 = new LogoutRequest(tokenDavid789);
+//        Request requestLogoutDavid789 = new Request(logoutRequestDavid789);
+//        Response responseLogoutDavid789 = LogoutAPI.getInstance().execute(requestLogoutDavid789);
+//        System.out.println(responseLogoutDavid789.toString());
+
+
+
 
 
     }

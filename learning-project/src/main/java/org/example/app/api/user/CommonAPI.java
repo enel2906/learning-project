@@ -1,6 +1,8 @@
 package org.example.app.api.user;
 
+import org.example.app.constant.ApiName;
 import org.example.app.constant.ExceptionCode;
+import org.example.app.controller.TokenController;
 import org.example.app.exception.BusinessException;
 import org.example.app.request.Request;
 import org.example.app.request.RequestData;
@@ -8,8 +10,8 @@ import org.example.app.response.Response;
 import org.example.app.response.ResponseData;
 import org.example.app.util.Util;
 
-import static org.example.app.constant.ExceptionCode.REQUEST;
-import static org.example.app.constant.ExceptionCode.UNKNOWN;
+import static org.example.app.constant.ApiName.UNAUTHEN_API;
+import static org.example.app.constant.ExceptionCode.*;
 
 public class CommonAPI {
 
@@ -17,18 +19,16 @@ public class CommonAPI {
         try {
             RequestData requestData = request.getRequestData();
             requestData.checkValidation();
-            System.out.println(requestData.needCheckToken());
-            if(!requestData.needCheckToken()){
-                ResponseData responseData = doExecute(requestData);
-                return new Response(ExceptionCode.SUCCESS,"success message", responseData);
+            String apiName = requestData.getApiName();
+            if(!UNAUTHEN_API.contains(apiName)){
+                String token = requestData.getToken();
+                boolean check = TokenController.getInstance().isValidToken(token);
+                if(!check){
+                    throw new BusinessException(INVALID, "token doesn't exist in system");
+                }
             }
-            String token = requestData.getToken();
-            if(Util.isNull(token)){
-                throw new BusinessException(REQUEST, "Token is null");
-            }
-            requestData.checkValidation();
             ResponseData responseData = doExecute(requestData);
-            return new Response(ExceptionCode.SUCCESS,"success message", responseData);
+            return new Response(SUCCESS, "success message", responseData);
         }catch (BusinessException e){
             return new Response(e.getCode(), e.getMessage(), null);
         } catch(Exception e){
@@ -39,6 +39,7 @@ public class CommonAPI {
     protected ResponseData doExecute(RequestData requestData) throws Exception{
         return new ResponseData();
     }
+
 
 
 }
