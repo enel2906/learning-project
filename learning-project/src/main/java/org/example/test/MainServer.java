@@ -1,48 +1,65 @@
-package org.example.test;
+package org.example.app;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.example.app.api.user.GetInforAPI;
+import org.example.app.api.user.LoginAPI;
+import org.example.app.api.user.LogoutAPI;
+import org.example.app.controller.UserController;
+import org.example.app.request.Request;
+import org.example.app.request.RequestData;
+import org.example.app.request.user.InforRequest;
+import org.example.app.request.user.LoginRequest;
+import org.example.app.request.user.LogoutRequest;
+import org.example.app.response.Response;
+import org.example.app.response.user.*;
+import org.example.app.servlet.user.GetInformation;
+import org.example.app.servlet.user.Login;
+import org.example.app.thread.user.LogoutPeriod;
 
-import java.io.IOException;
+public class Main {
 
-public class MainServer {
-    public static void main(String[] args) throws Exception {
-        // Khởi tạo server
-        Server server = new Server(8090);
+    public static void main(String[] args) throws Exception{
+        UserController.getInstance().addUser("minh123", "1234", "Minh", 20, "intern");
+        UserController.getInstance().addUser("Son12", "3244", "Sơn", 26, "leader");
+        UserController.getInstance().addUser("john123", "password123", "John Smith", 25, "employee");
+        UserController.getInstance().addUser("alice92", "securepwd", "Alice Johnson", 30, "manager");
+        UserController.getInstance().addUser("jenny456", "pass123", "Jenny Brown", 28, "employee");
+        UserController.getInstance().addUser("David789", "david1234", "David Lee", 35, "manager");
+        UserController.getInstance().addUser("sarah567", "sarahpass", "Sarah Williams", 26, "intern");
+        UserController.getInstance().addUser("alex90", "alexpass", "Alex Green", 29, "employee");
+        UserController.getInstance().addUser("emily321", "emilypwd", "Emily Davis", 31, "manager");
+        UserController.getInstance().addUser("michael555", "mikepass", "Michael Johnson", 27, "intern");
 
-        // Tạo ServletContextHandler
+        Server server = new Server(8080);
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
-
-        // Đăng ký MyServlet với ServletContextHandler
-        context.addServlet(new ServletHolder(new MyServlet()), "/myservlet");
-
-        // Kết nối ServletContextHandler với server
+        context.addServlet(new ServletHolder(new Login()), "/login");
+        context.addServlet(new ServletHolder(new GetInformation()), "/user");
         server.setHandler(context);
-
-        // Khởi động server
         server.start();
-        server.join();
+
+//        LogoutPeriod logoutPeriod = new LogoutPeriod();
+//        logoutPeriod.start();
+
+
+//        LoginRequest loginRequestMinh123 = new LoginRequest("minh123", "1234");
+//        Request requestMinh123 = new Request(loginRequestMinh123);
+//        Response responseLoginMinh123 = LoginAPI.getInstance().execute(requestMinh123);
+//        System.out.println(responseLoginMinh123.toString());
+//
+//
+//        LogoutRequest logoutRequestDavid789 = new LogoutRequest(tokenDavid789);
+//        Request requestLogoutDavid789 = new Request(logoutRequestDavid789);
+//        Response responseLogoutDavid789 = LogoutAPI.getInstance().execute(requestLogoutDavid789);
+//        System.out.println(responseLogoutDavid789.toString());
+
+
+
+
+
     }
 
-    // Lớp MyServlet
-    public static class MyServlet extends HttpServlet {
-        @Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            response.setContentType("application/json");
-            response.getWriter().println("Hello from MyServlet!");
-        }
-
-        protected void doPost(HttpServletRequest request, HttpServletResponse response){
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-
-            
-        }
-    }
 }
+
