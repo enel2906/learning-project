@@ -30,6 +30,7 @@ import java.io.IOException;
             Response response = GetInforAPI.getInstance().execute(request);
 
             resp.getWriter().println(response.getResponseData().toString());
+
             /*
             TODO getRequest
             TODO doc thong tin request > String >  de dua ve dang Json
