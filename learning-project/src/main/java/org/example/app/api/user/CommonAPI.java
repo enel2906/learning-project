@@ -1,5 +1,6 @@
 package org.example.app.api.user;
 
+import com.google.gson.JsonObject;
 import org.example.app.constant.ApiName;
 import org.example.app.constant.ExceptionCode;
 import org.example.app.controller.TokenController;
@@ -14,10 +15,9 @@ import static org.example.app.constant.ApiName.UNAUTHEN_API;
 import static org.example.app.constant.ExceptionCode.*;
 
 public class CommonAPI {
-
-    public Response execute(Request request){
+        public Response execute(JsonObject jsonObject){
         try {
-            RequestData requestData = request.getRequestData();
+            RequestData requestData = parseRequestData(jsonObject);
             requestData.checkValidation();
             String apiName = requestData.getApiName();
             if(!UNAUTHEN_API.contains(apiName)){
@@ -40,6 +40,8 @@ public class CommonAPI {
         return new ResponseData();
     }
 
-
+    protected RequestData parseRequestData(JsonObject jsonObject){
+            return new RequestData();
+    }
 
 }

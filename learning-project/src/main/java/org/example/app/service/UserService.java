@@ -39,6 +39,8 @@ public class UserService {
     public User findUserById(String id) throws Exception{
         return UserRepository.findUserByID(id);
     }
-
+    public void changeAgeOfUser(String id, int ageChange) throws Exception{
+        UserRepository.changeAgeOfUser(id, ageChange);
+    }
 
 }

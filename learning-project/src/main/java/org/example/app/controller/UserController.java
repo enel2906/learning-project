@@ -39,6 +39,9 @@ public class UserController {
     public String accessAccount(String username, String password){
         try{
             User user = UserService.getINSTANCE().findAccoount(username,password);
+            if(Util.isNull(user)){
+                throw new Exception("user is null");
+            }
             String id = user.getId();
             if(Util.isNull(id)){
                 throw new Exception("Id is null");
@@ -55,6 +58,10 @@ public class UserController {
         }catch(Exception e){
             throw new BusinessException(UNKNOWN, e.getMessage());
         }
+    }
+
+    public void changeAgeOfUser(String id, int ageChange) throws Exception{
+        UserService.getINSTANCE().changeAgeOfUser(id, ageChange);
     }
 
 

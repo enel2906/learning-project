@@ -13,10 +13,4 @@ public class LogoutRequest extends RequestData {
         setApiName(LOGOUT_API_NAME);
     }
 
-    public void checkValidation(){
-        if(Util.isNull(token)){
-            throw new BusinessException(INVALID, "Invalid token");
-        }
-    }
-
 }

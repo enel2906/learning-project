@@ -1,5 +1,6 @@
 package org.example.app.api.user;
 
+import com.google.gson.JsonObject;
 import org.example.app.controller.TokenController;
 import org.example.app.controller.UserController;
 import org.example.app.model.User;
@@ -14,7 +15,6 @@ public class GetInforAPI extends CommonAPI {
     private GetInforAPI() {
 
     }
-
     private static GetInforAPI INSTANCE = new GetInforAPI();
 
     public static GetInforAPI getInstance() {
@@ -32,5 +32,8 @@ public class GetInforAPI extends CommonAPI {
         return new InforResponse(user.getName(), user.getRole(), user.getAge());
     }
 
-
+    @Override
+    protected RequestData parseRequestData(JsonObject jsonObject) {
+        return super.parseRequestData(jsonObject);
+    }
 }

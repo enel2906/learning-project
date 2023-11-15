@@ -13,7 +13,6 @@ public class LogoutAPI extends CommonAPI{
     private LogoutAPI(){
 
     }
-
     private static LogoutAPI INSTANCE = new LogoutAPI();
     public static LogoutAPI getInstance(){
         return INSTANCE;
@@ -22,6 +21,7 @@ public class LogoutAPI extends CommonAPI{
     public ResponseData doExecute(RequestData requestData) throws Exception{
         LogoutRequest request = (LogoutRequest) requestData;
         String token = request.getToken();
+        System.out.println(token);
         TokenController.getInstance().removeToken(token);
 
         return new LogoutResponse();

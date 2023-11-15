@@ -1,8 +1,6 @@
 package org.example.app.request;
 
 public class Request {
-
-
     private RequestData requestData;
 
     public Request(RequestData requestData) {

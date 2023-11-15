@@ -1,6 +1,7 @@
 package org.example.app.service;
 
 import org.example.app.repository.TokenIdRepository;
+import org.example.app.repository.UserRepository;
 
 import java.util.Map;
 
@@ -25,6 +26,7 @@ public class TokenService {
 
     public void removeToken(String token) throws Exception{
         if(!isValidToken(token)){
+            System.out.println("token is invalidddddddddd");
             return;
         }
        TokenIdRepository.removeToken(token);
@@ -53,4 +55,5 @@ public class TokenService {
     public String getTIME() {
         return TokenIdRepository.getTIME();
     }
+
 }

@@ -1,6 +1,7 @@
 package org.example.app.servlet.user;
 
 
+import com.google.gson.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,29 +10,35 @@ import org.example.app.api.user.LoginAPI;
 import org.example.app.request.Request;
 import org.example.app.request.user.LoginRequest;
 import org.example.app.response.Response;
-import org.example.app.response.user.LoginResponse;
-import org.example.app.servlet.CommonServlet;
 
-import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
 
-import static java.awt.SystemColor.text;
-
-public class Login extends CommonServlet {
+public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().println("welcome");
+        resp.getWriter().println("Please enter your information to login");
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
+       BufferedReader reader = req.getReader();
+       JsonElement requestBody = JsonParser.parseReader(reader);
+       JsonObject object = requestBody.getAsJsonObject();
+
+        Gson gson = new Gson();
+
+        String username = object.get("username").getAsString();
+        String password = object.get("password").getAsString();
 
         LoginRequest loginRequest = new LoginRequest(username, password);
-        Request requestLogin = new Request(loginRequest);
-        Response responseLogin = LoginAPI.getInstance().execute(requestLogin);
+        Request request = new Request(loginRequest);
+        Response response = LoginAPI.getInstance().execute(request);
 
-        resp.getWriter().println(username);
-        resp.getWriter().println("Token: " + ((LoginResponse) responseLogin.getResponseData()).getToken());
+        resp.setContentType("application/json");
+        resp.getWriter().println(gson.toJson(response));
+
+
+
     }
+
 }

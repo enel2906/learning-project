@@ -1,6 +1,8 @@
 package org.example.app.response.user;
 
-public class SigninResponse {
+import org.example.app.response.ResponseData;
+
+public class SigninResponse extends ResponseData {
     private int code;
     private String message;
     private String notification;

@@ -54,9 +54,11 @@ public class UserRepository {
 
     public static User findUserByUsernameAndPassword(String username, String password) throws Exception {
         for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
+
             String passwordValue = (String) keyValue.getValue().get(PASSWORD_ID);
             String nameValue = (String) keyValue.getValue().get(USERNAME_ID);
             if (password.equals(passwordValue) && username.equals(nameValue)) {
+
                 return convertFromEntry(keyValue.getValue());
             }
         }

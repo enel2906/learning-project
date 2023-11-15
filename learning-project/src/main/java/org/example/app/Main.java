@@ -3,26 +3,18 @@ package org.example.app;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.example.app.api.user.GetInforAPI;
-import org.example.app.api.user.LoginAPI;
-import org.example.app.api.user.LogoutAPI;
 import org.example.app.controller.UserController;
-import org.example.app.request.Request;
-import org.example.app.request.RequestData;
-import org.example.app.request.user.InforRequest;
-import org.example.app.request.user.LoginRequest;
-import org.example.app.request.user.LogoutRequest;
-import org.example.app.response.Response;
-import org.example.app.response.user.*;
-import org.example.app.servlet.user.GetInformation;
+import org.example.app.servlet.user.Post;
 import org.example.app.servlet.user.Login;
-import org.example.app.thread.user.LogoutPeriod;
+import org.example.app.servlet.user.Signin;
 
 public class Main {
 
     public static void main(String[] args) throws Exception{
+
+
         UserController.getInstance().addUser("minh123", "1234", "Minh", 20, "intern");
-        UserController.getInstance().addUser("Son12", "3244", "Sơn", 26, "leader");
+        UserController.getInstance().addUser("Son12", "123456", "Sơn", 26, "leader");
         UserController.getInstance().addUser("john123", "password123", "John Smith", 25, "employee");
         UserController.getInstance().addUser("alice92", "securepwd", "Alice Johnson", 30, "manager");
         UserController.getInstance().addUser("jenny456", "pass123", "Jenny Brown", 28, "employee");
@@ -36,7 +28,8 @@ public class Main {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         context.addServlet(new ServletHolder(new Login()), "/login");
-        context.addServlet(new ServletHolder(new GetInformation()), "/user");
+        context.addServlet(new ServletHolder(new Post()), "/user");
+        context.addServlet(new ServletHolder(new Signin()), "/signin");
         server.setHandler(context);
         server.start();
 
