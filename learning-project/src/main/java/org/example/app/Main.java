@@ -33,23 +33,6 @@ public class Main {
         server.setHandler(context);
         server.start();
 
-//        LogoutPeriod logoutPeriod = new LogoutPeriod();
-//        logoutPeriod.start();
-
-
-//        LoginRequest loginRequestMinh123 = new LoginRequest("minh123", "1234");
-//        Request requestMinh123 = new Request(loginRequestMinh123);
-//        Response responseLoginMinh123 = LoginAPI.getInstance().execute(requestMinh123);
-//        System.out.println(responseLoginMinh123.toString());
-//
-//
-//        LogoutRequest logoutRequestDavid789 = new LogoutRequest(tokenDavid789);
-//        Request requestLogoutDavid789 = new Request(logoutRequestDavid789);
-//        Response responseLogoutDavid789 = LogoutAPI.getInstance().execute(requestLogoutDavid789);
-//        System.out.println(responseLogoutDavid789.toString());
-
-
-
 
 
     }

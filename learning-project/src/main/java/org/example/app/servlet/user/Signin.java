@@ -31,15 +31,7 @@ public class Signin extends HttpServlet {
         JsonObject object = requestBody.getAsJsonObject();
 
         Gson gson = new Gson();
-        String username = object.get("username").getAsString();
-        String password = object.get("password").getAsString();
-        String name = object.get("name").getAsString();
-        int age = object.get("age").getAsInt();
-        String role = object.get("role").getAsString();
-
-        SigninRequest signinRequest = new SigninRequest(username, password, name, age, role);
-        Request request = new Request(signinRequest);
-        Response response = SigninAPI.getINSTANCE().execute(request);
+        Response response = SigninAPI.getINSTANCE().execute(object);
 
         resp.setContentType("application/json");
         resp.getWriter().println(gson.toJson(response));

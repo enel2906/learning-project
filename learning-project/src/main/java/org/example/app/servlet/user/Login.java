@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
 
         LoginRequest loginRequest = new LoginRequest(username, password);
         Request request = new Request(loginRequest);
-        Response response = LoginAPI.getInstance().execute(request);
+        Response response = LoginAPI.getInstance().execute(object);
 
         resp.setContentType("application/json");
         resp.getWriter().println(gson.toJson(response));

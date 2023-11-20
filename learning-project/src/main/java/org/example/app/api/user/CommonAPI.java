@@ -1,5 +1,6 @@
 package org.example.app.api.user;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.example.app.constant.ApiName;
 import org.example.app.constant.ExceptionCode;
@@ -40,8 +41,9 @@ public class CommonAPI {
         return new ResponseData();
     }
 
-    protected RequestData parseRequestData(JsonObject jsonObject){
-            return new RequestData();
+    protected RequestData parseRequestData(JsonObject jsonObject) {
+        Gson gson = new Gson();
+        RequestData requestData = gson.fromJson(jsonObject, RequestData.class);
+        return requestData;
     }
-
 }

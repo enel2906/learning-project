@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ApiName {
-    public static final String NAME_KEY = "api-name";
+    public static final String NAME_KEY = "apiName";
     public static final String TOKEN_KEY = "token";
     public static final String GETINFOR_API_NAME = "information";
     public static final String LOGIN_API_NAME = "log-in";
@@ -17,5 +17,5 @@ public class ApiName {
                                                                   SIGNIN_API_NAME);
 
 
-    public static String AGE_CHANGE = "age-change";
+    public static String AGE_CHANGE = "ageChange";
 }

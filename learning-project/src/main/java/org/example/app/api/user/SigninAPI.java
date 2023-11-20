@@ -1,8 +1,11 @@
 package org.example.app.api.user;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.example.app.controller.UserController;
 import org.example.app.exception.BusinessException;
 import org.example.app.request.RequestData;
+import org.example.app.request.user.InforRequest;
 import org.example.app.request.user.SigninRequest;
 import org.example.app.response.ResponseData;
 import org.example.app.response.user.SigninResponse;
@@ -31,5 +34,10 @@ public class SigninAPI extends CommonAPI{
 
         UserController.getInstance().addUser(username, password, name, age, role);
         return new SigninResponse("Sign in successfully");
+    }
+
+    protected RequestData parseRequestData(JsonObject jsonObject) {
+        Gson gson = new Gson();
+        return gson.fromJson(jsonObject, SigninRequest.class);
     }
 }

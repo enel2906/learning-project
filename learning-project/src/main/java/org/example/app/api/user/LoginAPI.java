@@ -1,5 +1,6 @@
 package org.example.app.api.user;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.example.app.controller.TokenController;
 import org.example.app.controller.UserController;
@@ -37,6 +38,7 @@ public class LoginAPI extends CommonAPI{
 
     @Override
     protected RequestData parseRequestData(JsonObject jsonObject) {
-        return super.parseRequestData(jsonObject);
+        Gson gson = new Gson();
+        return gson.fromJson(jsonObject, LoginRequest.class);
     }
 }

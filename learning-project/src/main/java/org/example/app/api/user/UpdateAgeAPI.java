@@ -1,9 +1,12 @@
 package org.example.app.api.user;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.example.app.controller.TokenController;
 import org.example.app.controller.UserController;
 import org.example.app.model.User;
 import org.example.app.request.RequestData;
+import org.example.app.request.user.InforRequest;
 import org.example.app.request.user.UpdateAgeRequest;
 import org.example.app.response.Response;
 import org.example.app.response.ResponseData;
@@ -33,5 +36,10 @@ public class UpdateAgeAPI extends CommonAPI{
             return new UpdateAgeResponse("Already add "+ageChange+" to user: "+user.getName()+"!");
         }
         return new UpdateAgeResponse("Already minute "+(-1)*ageChange+" to user: "+user.getName()+"!");
+    }
+
+    protected RequestData parseRequestData(JsonObject jsonObject) {
+        Gson gson = new Gson();
+        return gson.fromJson(jsonObject, UpdateAgeRequest.class);
     }
 }
