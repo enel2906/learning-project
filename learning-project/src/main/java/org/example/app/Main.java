@@ -1,7 +1,9 @@
 package org.example.app;
 
+import com.mongodb.client.ClientSession;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import org.bson.types.ObjectId;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -44,15 +46,18 @@ public class Main {
         MongoConfig.connect(connectionString);
         MongoCollection<Document> collection = MongoConfig.getDataBaseCollection();
 
-        Document gf = new Document("username","anh2906")
-                                        .append("password", "mia123")
-                                        .append("name","Ánh")
-                                        .append("age",20)
-                                        .append("role", "doctor").append("university","hpmu");
-        collection.insertOne(gf);
+//        Document gf = new Document("username","anh2906")
+//                                        .append("password", "mia123")
+//                                        .append("name","Ánh")
+//                                        .append("age",20)
+//                                        .append("role", "doctor").append("university","hpmu");
+//        collection.insertOne(gf);
+//
+        Document filter = new Document("name", "Sơn");
+        collection.updateMany(filter, new Document("$set", new Document("age", 26)));
+        Document condition = new Document("age", new Document("$lte", 25));
 
-        FindIterable<Document> docs = collection.find();
-        for(Document doc : docs){
+        for(Document doc : collection.find(condition).projection(new Document("_id", false))){
             System.out.println(doc.toJson());
         }
 
