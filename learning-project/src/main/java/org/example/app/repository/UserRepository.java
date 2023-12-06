@@ -1,137 +1,97 @@
 package org.example.app.repository;
 
+import com.mongodb.client.MongoCollection;
+import org.bson.types.ObjectId;
+import org.example.app.configuration.databaseconfig.MongoConfig;
 import org.example.app.model.User;
 
+import org.bson.Document;
+
+import javax.print.Doc;
+import javax.swing.event.DocumentEvent;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserRepository {
+public class  UserRepository {
     private static final String USERNAME_ID = "username";
     private static final String PASSWORD_ID = "password";
     private static final String NAME_ID = "name";
     private static final String AGE_ID = "age";
     private static final String ROLE_ID = "role";
-    private static final String USER_ID = "id";
-    private static Map<String, Map<String, Object>> usersMap = new HashMap<>();
+    private static final String USER_ID = "_id";
+    private static MongoCollection<Document> usersCollection;
 
-    public static String addUser(User user) throws Exception {
-        String id = user.getId();
-        Map<String, Object> subMap = convertFromUser(user);
-
-        usersMap.put(id, subMap);
-        return id;
+    public static void getCollection(){
+        usersCollection = MongoConfig.getDataBaseCollection();
     }
 
+
     public static void removeUser(String id) {
-        usersMap.remove(id);
+        Document filter = new Document(USER_ID, new ObjectId(id));
+        usersCollection.findOneAndDelete(filter);
     }
 
     public static Object getUsername(String id) {
-        return usersMap.get(id).get(USERNAME_ID);
+
     }
 
     public static Object getPassword(String id) {
-        return usersMap.get(id).get(PASSWORD_ID);
+
     }
 
     public static Object getName(String id) {
-        return usersMap.get(id).get(NAME_ID);
+
     }
 
     public static Object getAge(String id) {
-        return usersMap.get(id).get(AGE_ID);
+
     }
 
     public static Object getRole(String id) {
-        return usersMap.get(id).get(ROLE_ID);
+
+
     }
 
     public static User findUserByID(String id) throws Exception{
-        Map<String, Object> subMap = usersMap.get(id);
-        return convertFromEntry(subMap);
+
     }
 
     public static User findUserByUsernameAndPassword(String username, String password) throws Exception {
-        for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
-
-            String passwordValue = (String) keyValue.getValue().get(PASSWORD_ID);
-            String nameValue = (String) keyValue.getValue().get(USERNAME_ID);
-            if (password.equals(passwordValue) && username.equals(nameValue)) {
-
-                return convertFromEntry(keyValue.getValue());
-            }
-        }
-        return null;
-    }public static boolean isValidUsernameAndPassword(String username, String password) throws Exception{
-        for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
-            String passwordValue = (String) keyValue.getValue().get(PASSWORD_ID);
-            String nameValue = (String) keyValue.getValue().get(USERNAME_ID);
-            if (password.equals(passwordValue) && username.equals(nameValue)) {
-                return true;
-            }
-        }
-        return false;
+        Document filter = new Document(USERNAME_ID, username).append(PASSWORD_ID, password);
+        Document userDoc = usersCollection.find(filter).limit(1).first();
+        assert userDoc != null;
+        return convertFromEntry(userDoc);
     }
     public static ArrayList<User> findUserByAge(int age) throws Exception{
         ArrayList<User> users = new ArrayList<>();
-        for (Map.Entry<String, Map<String, Object>> keyValue : usersMap.entrySet()) {
-            int ageValue = (int) keyValue.getValue().get(AGE_ID);
-            if (age == ageValue) {
-                User user = convertFromEntry(keyValue.getValue());
-                users.add(user);
-            }
+        Document condition = new Document("age", age);
+        for(Document userDoc : usersCollection.find(condition)){
+            User user = convertFromEntry(userDoc);
+            users.add(user);
         }
         return users;
     }
-    public static User convertFromEntry(Map<String, Object> keyValue) throws Exception{
-        String username = (String) keyValue.get(USERNAME_ID);
-        String password = (String) keyValue.get(PASSWORD_ID);
-        String name = (String) keyValue.get(NAME_ID);
-        int age = (int) keyValue.get(AGE_ID);
-        String role = (String) keyValue.get(ROLE_ID);
-        String id = (String) keyValue.get(USER_ID);
+    public static User convertFromEntry(Document document) throws Exception{
+        String username = document.getString(USERNAME_ID);
+        String password = document.getString(PASSWORD_ID);
+        String name = document.getString(NAME_ID);
+        int age = document.getInteger(AGE_ID);
+        String role = document.getString(ROLE_ID);
+        String id = document.getObjectId(USER_ID).toString();
+
         return new User(username, password, name, age, role, id);
     }
 
-    public static Map<String, Object> convertFromUser(User user) throws Exception{
-            String username = user.getUsername();
-            String password = user.getPassword();
-            String name = user.getName();
-            int age = user.getAge();
-            String role = user.getRole();
-            String id = user.getId();
-
-            Map<String, Object> result = new HashMap<>();
-            result.put(USERNAME_ID, username);
-            result.put(PASSWORD_ID, password);
-            result.put(NAME_ID, name);
-            result.put(AGE_ID, age);
-            result.put(ROLE_ID, role);
-            result.put(USER_ID, id);
-            return result;
-
-    }
-
-    public static ArrayList<String> collectKeyInMap() throws Exception{
-        return new ArrayList<>(usersMap.keySet());
-    }
-
     public static void changeAgeOfUser(String id, int ageChange) throws Exception{
-        Map<String, Object> subMap = usersMap.get(id);
-        int ageValue = (int) subMap.get(AGE_ID);
-        ageValue += ageChange;
-        subMap.put(AGE_ID, ageValue);
-
-        usersMap.put(id, subMap);
+        Document filter = new Document(USER_ID, new ObjectId(id));
+        Document update = new Document("$inc", new Document(AGE_ID, ageChange));
+        usersCollection.updateOne(filter, update);
     }
 
     public void displayUser(User user) {
         System.out.println(user.toString());
-    }
-
-    public static Map<String, Map<String, Object>> getUsersMap() {
-        return usersMap;
     }
 
 
