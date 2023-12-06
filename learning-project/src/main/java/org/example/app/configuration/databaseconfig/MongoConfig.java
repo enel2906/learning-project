@@ -7,7 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 public class MongoConfig {
     private static String connectionString;
-    private static MongoDatabase dataBase;
+    private static MongoClient mongoClient;
 
     public static String getConnectionString() {
         return connectionString;
@@ -17,16 +17,13 @@ public class MongoConfig {
         MongoConfig.connectionString = connectionString;
     }
 
-    public static MongoCollection<Document> getDataBaseCollection(String collectionName) {
-        return dataBase.getCollection(collectionName);
+    public static MongoCollection<Document> getDataBaseCollection(String databaseName, String collectionName) {
+        return mongoClient.getDatabase(databaseName).getCollection(collectionName);
     }
 
     public static void connect(String connectionString){
         setConnectionString(connectionString);
-
-        MongoClient mongoClient = MongoClients.create(connectionString);
-        dataBase = mongoClient.getDatabase("company");
-        dataBase.getCollection("tokenIds").deleteMany(new Document("_id", new Document("$exists", true)));
+        mongoClient = MongoClients.create(connectionString);
     }
 
 

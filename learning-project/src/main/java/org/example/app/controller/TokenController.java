@@ -49,15 +49,9 @@ public class TokenController {
         return TokenService.getInstance().getTimeOfToken(tokenId);
     }
 
-    public  String getTokenId() {
-        return TokenService.getInstance().getTokenId();
-    }
 
-    public String getUserId() {
-        return TokenService.getInstance().getUserId();
-    }
 
-    public String getTIME() {
-        return TokenService.getInstance().getTIME();
-    }
+
+
+
 }

@@ -40,16 +40,6 @@ public class TokenService {
         return TokenIdRepository.createToken(id);
     }
 
-    public  String getTokenId() {
-        return TokenIdRepository.getTokenId();
-    }
 
-    public String getUserId() {
-        return TokenIdRepository.getUserId();
-    }
-
-    public String getTIME() {
-        return TokenIdRepository.getTIME();
-    }
 
 }

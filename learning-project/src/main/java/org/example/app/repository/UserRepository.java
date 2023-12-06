@@ -22,8 +22,9 @@ public class  UserRepository {
     private static final String AGE_ID = "age";
     private static final String ROLE_ID = "role";
     private static final String USER_ID = "_id";
+    private static final String DATABASE_NAME = "company";
     private static final String COLLECTION_NAME = "users";
-    private static MongoCollection<Document> usersCollection = MongoConfig.getDataBaseCollection(COLLECTION_NAME);
+    private static MongoCollection<Document> usersCollection = MongoConfig.getDataBaseCollection(DATABASE_NAME, COLLECTION_NAME);
     public static String addUser(String username, String password, String name, int age, String role){
         Document filter = new Document(USERNAME_ID, username)
                                         .append(PASSWORD_ID, password)
