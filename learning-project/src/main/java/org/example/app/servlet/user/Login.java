@@ -30,6 +30,7 @@ public class Login extends HttpServlet {
         String username = object.get("username").getAsString();
         String password = object.get("password").getAsString();
 
+
         LoginRequest loginRequest = new LoginRequest(username, password);
         Request request = new Request(loginRequest);
         Response response = LoginAPI.getInstance().execute(object);

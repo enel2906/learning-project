@@ -45,12 +45,8 @@ public class TokenController {
         }
     }
 
-    public int getTimeOfToken(String tokenId){
+    public long getTimeOfToken(String tokenId){
         return TokenService.getInstance().getTimeOfToken(tokenId);
-    }
-
-    public Map<String, Map<String, Object>> getTokenIdMap(){
-        return TokenService.getInstance().getTokenIdMap();
     }
 
     public  String getTokenId() {

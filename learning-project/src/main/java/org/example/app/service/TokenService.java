@@ -32,16 +32,12 @@ public class TokenService {
        TokenIdRepository.removeToken(token);
     }
 
-    public int getTimeOfToken(String token){
+    public long getTimeOfToken(String token){
         return TokenIdRepository.getTime(token);
     }
 
     public String createToken(String id){
         return TokenIdRepository.createToken(id);
-    }
-
-    public Map<String, Map<String, Object>> getTokenIdMap(){
-        return TokenIdRepository.getTokenIdMap();
     }
 
     public  String getTokenId() {

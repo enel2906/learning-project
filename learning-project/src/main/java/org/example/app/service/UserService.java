@@ -18,9 +18,7 @@ public class UserService {
     }
 
     public String addUser(String username, String password, String name, int age, String role) throws Exception{
-        User user = new User(username, password, name, age, role);
-
-        return UserRepository.addUser(user);
+        return UserRepository.addUser(username, password, name, age, role);
     }
 
     public void removeUser(String id){

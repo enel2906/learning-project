@@ -20,6 +20,11 @@ import java.io.IOException;
 
 public class Post extends HttpServlet{
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getWriter().println("Helooo");
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
         Gson gson = new Gson();

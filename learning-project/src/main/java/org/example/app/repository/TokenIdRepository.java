@@ -1,18 +1,26 @@
 package org.example.app.repository;
 
+import com.mongodb.client.MongoCollection;
+import org.bson.types.ObjectId;
+import org.example.app.configuration.databaseconfig.MongoConfig;
 import org.example.app.model.Token;
 import org.example.app.model.User;
 import org.example.app.util.Util;
 
+import javax.print.Doc;
+import org.bson.Document;
+
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TokenIdRepository {
-    private static Map<String, Map<String, Object>> tokenIdMap = new HashMap<>();
     private static String TOKEN_ID = "token_id";
     private static String USER_ID = "user_id";
 
     private static String TIME = "time";
+    private static String COLLECTION_NAME = "tokenIds";
+    private static MongoCollection<Document> tokenIdCollection = MongoConfig.getDataBaseCollection(COLLECTION_NAME);
 
     public static String getTokenId() {
         return TOKEN_ID;
@@ -27,61 +35,37 @@ public class TokenIdRepository {
     }
 
     public static String createToken(String id){
-        Token token = new Token(id);
-        Map<String, Object> subMap = new HashMap<>();
-        String tokenId = token.getTokenId();
-        String userId = token.getUserId();
-        Long time = token.getTime();
-
-        subMap.put(TIME, time);
-        subMap.put(TOKEN_ID, tokenId);
-        subMap.put(USER_ID, userId);
-        tokenIdMap.put(tokenId, subMap);
-
-        return tokenId;
+        long time = Util.convertTimeToSecond(LocalTime.now());
+        Document filter = new Document(USER_ID, id).append(TIME, time);
+        tokenIdCollection.insertOne(filter);
+        String token =  filter.get("_id").toString();
+        return token;
     }
 
-    public static Map<String, Map<String, Object>> getTokenIdMap(){
-        return tokenIdMap;
-    }
 
-    public static int getTime(String tokenId){
-        return (int) tokenIdMap.get(tokenId).get(TIME);
+    public static long getTime(String tokenId){
+        Document filter = new Document("_id", new ObjectId(tokenId));
+        return (long) tokenIdCollection.find(filter).limit(1).first().get(TIME);
     }
 
     public static void removeToken(String tokenId){
-        tokenIdMap.remove(tokenId);
+        Document filter = new Document("_id", new ObjectId(tokenId));
+        tokenIdCollection.deleteOne(filter);
     }
 
-    public static Token convertFromTokenMapToTokenModel(Map<String, String> tokenMap) throws Exception{
-        String tokenId = tokenMap.get(TOKEN_ID);
-        String userId = tokenMap.get(USER_ID);
+    public static Token convertFromDocumentToTokenModel(Document tokenDoc) throws Exception{
+        String tokenId = tokenDoc.get(TOKEN_ID).toString();
+        String userId = tokenDoc.get(USER_ID).toString();
 
         return new Token(tokenId,userId);
     }
-
-    public static Map<String, String> convertFromTokenModelToTokenIdMap(Token token) throws Exception{
-        String tokenId = token.getTokenId();
-        String userId = token.getUserId();
-
-        Map<String, String> result = new HashMap<>();
-        result.put(TOKEN_ID, tokenId);
-        result.put(USER_ID, userId);
-
-        return result;
-    }
-
     public static boolean isValidToken(String token) throws Exception{
-        for (Map.Entry<String, Map<String, Object>> keyValue : tokenIdMap.entrySet()) {
-            if(keyValue.getKey().equals(token)){
-                return true;
-            }
-        }
-        return false;
-
+        Document filter = new Document("_id", new ObjectId(token));
+        return tokenIdCollection.find(filter).first() != null;
     }
 
     public static String getUserId(String token){
-        return (String) tokenIdMap.get(token).get(USER_ID);
+        Document filter = new Document("_id", new ObjectId(token));
+        return (String) tokenIdCollection.find(filter).limit(1).first().get(USER_ID);
     }
 }

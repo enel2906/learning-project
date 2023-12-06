@@ -30,6 +30,7 @@ public class LoginAPI extends CommonAPI{
         LoginRequest request = (LoginRequest) requestData;
         String username = request.getUsername();
         String password = request.getPassword();
+        System.out.println(username);
         String id = UserController.getInstance().accessAccount(username, password);
         String token = TokenController.getInstance().createTokenAndAddToMap(id);
 

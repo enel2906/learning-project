@@ -22,46 +22,23 @@ public class Main {
     public static void main(String[] args) throws Exception{
 
 
-//        UserController.getInstance().addUser("minh123", "1234", "Minh", 20, "intern");
-//        UserController.getInstance().addUser("Son12", "123456", "Sơn", 26, "leader");
-//        UserController.getInstance().addUser("john123", "password123", "John Smith", 25, "employee");
-//        UserController.getInstance().addUser("alice92", "securepwd", "Alice Johnson", 30, "manager");
-//        UserController.getInstance().addUser("jenny456", "pass123", "Jenny Brown", 28, "employee");
-//        UserController.getInstance().addUser("David789", "david1234", "David Lee", 35, "manager");
-//        UserController.getInstance().addUser("sarah567", "sarahpass", "Sarah Williams", 26, "intern");
-//        UserController.getInstance().addUser("alex90", "alexpass", "Alex Green", 29, "employee");
-//        UserController.getInstance().addUser("emily321", "emilypwd", "Emily Davis", 31, "manager");
-//        UserController.getInstance().addUser("michael555", "mikepass", "Michael Johnson", 27, "intern");
-//
-//        Server server = new Server(8080);
-//        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-//        context.setContextPath("/");
-//        context.addServlet(new ServletHolder(new Login()), "/login");
-//        context.addServlet(new ServletHolder(new Post()), "/user");
-//        context.addServlet(new ServletHolder(new Signin()), "/signin");
-//        server.setHandler(context);
-//        server.start();
-
         String connectionString = "mongodb://localhost:27017";
         MongoConfig.connect(connectionString);
-        MongoCollection<Document> collection = MongoConfig.getDataBaseCollection();
+        Server server = new Server(8080);
+        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        context.setContextPath("/");
+        context.addServlet(new ServletHolder(new Login()), "/login");
+        context.addServlet(new ServletHolder(new Post()), "/user");
+        context.addServlet(new ServletHolder(new Signin()), "/signin");
+        server.setHandler(context);
+        server.start();
 
-//        Document gf = new Document("username","anh2906")
-//                                        .append("password", "mia123")
-//                                        .append("name","Ánh")
-//                                        .append("age",20)
-//                                        .append("role", "doctor").append("university","hpmu");
-//        collection.insertOne(gf);
-//
-        Document filter = new Document("name", "Sơn");
-        collection.updateMany(filter, new Document("$set", new Document("age", 26)));
-        Document condition = new Document("age", new Document("$lte", 25));
 
-        for(Document doc : collection.find(condition).projection(new Document("_id", false))){
-            System.out.println(doc.toJson());
+
+
         }
 
     }
 
-}
+
 

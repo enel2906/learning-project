@@ -21,7 +21,7 @@ public class LoginRequest extends RequestData {
     }
 
     public void checkValidation(){
-        if(password.length() < 6 || Util.isNull(username)){
+        if(Util.isNull(username) || Util.isNull(password)){
             throw new BusinessException(REQUEST, "Wrong data format");
         }
 
