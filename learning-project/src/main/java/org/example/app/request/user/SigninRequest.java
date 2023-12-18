@@ -12,16 +12,25 @@ public class SigninRequest extends RequestData {
     private String password;
     private String name;
     private int age;
-    private String role;
+    private int role;
+    private String address;
 
-    public SigninRequest(String username, String password, String name, int age, String role) {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public SigninRequest(String username, String password, String name, int age, int role, String address) {
         super();
-        setApiName(SIGNIN_API_NAME);
         this.username = username;
         this.password = password;
         this.name = name;
         this.age = age;
         this.role = role;
+        this.address = address;
     }
 
     public String getUsername() {
@@ -56,11 +65,11 @@ public class SigninRequest extends RequestData {
         this.age = age;
     }
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
@@ -70,7 +79,7 @@ public class SigninRequest extends RequestData {
                 Util.isNotContainCapitalLetter(name) ||
                 Util.isNotPositive(age)
         ){
-            throw new BusinessException(REQUEST, "Wrong data format!");
+            throw new BusinessException(REQUEST.getCode(), "Wrong data format!");
         }
     }
 }

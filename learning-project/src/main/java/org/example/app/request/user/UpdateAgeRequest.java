@@ -17,7 +17,6 @@ public class UpdateAgeRequest extends RequestData {
 
     public UpdateAgeRequest(String token, int ageChange){
         super(token);
-        setApiName(UPDATE_AGE_NAME);
         this.ageChange = ageChange;
     }
 }

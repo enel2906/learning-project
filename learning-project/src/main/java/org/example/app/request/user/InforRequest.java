@@ -13,7 +13,6 @@ public class InforRequest extends RequestData {
 
     public InforRequest(String token) {
         super(token);
-        setApiName(GETINFOR_API_NAME);
     }
 
 }

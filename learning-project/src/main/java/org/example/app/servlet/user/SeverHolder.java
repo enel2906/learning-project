@@ -4,11 +4,10 @@ import com.google.gson.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import org.example.app.api.user.*;
-import org.example.app.request.Request;
-import org.example.app.request.RequestData;
-import org.example.app.request.user.InforRequest;
-import org.example.app.request.user.LogoutRequest;
-import org.example.app.request.user.UpdateAgeRequest;
+import org.example.app.constant.ApiName;
+import static org.example.app.constant.Role.*;
+
+import org.example.app.constant.Role;
 import org.example.app.response.Response;
 import org.example.app.util.Util;
 
@@ -18,7 +17,7 @@ import static org.example.app.constant.ApiName.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class Post extends HttpServlet{
+public class SeverHolder extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.getWriter().println("Helooo");
@@ -32,10 +31,12 @@ public class Post extends HttpServlet{
         JsonElement requestBody = JsonParser.parseReader(reader);
         JsonObject object = requestBody.getAsJsonObject();
 
-        String apiName = (String) object.get(NAME_KEY).getAsString();
+
+
+        String apiName = (String) object.get(NAME_KEY.name).getAsString();
         CommonAPI api = APIManager.getAPI(apiName);
         if(Util.isNull(api)){
-
+            System.out.println("api name is nullllllllllllllll");
         }
         Response response = api.execute(object);
         resp.setContentType("application/json");

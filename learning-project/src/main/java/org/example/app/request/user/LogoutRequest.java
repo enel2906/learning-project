@@ -10,7 +10,6 @@ import static org.example.app.constant.ExceptionCode.INVALID;
 public class LogoutRequest extends RequestData {
     public LogoutRequest(String token){
         super(token);
-        setApiName(LOGOUT_API_NAME);
     }
 
 }

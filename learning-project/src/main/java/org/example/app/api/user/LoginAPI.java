@@ -2,19 +2,17 @@ package org.example.app.api.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import org.example.app.controller.TokenController;
+import org.example.app.controller.SessionController;
 import org.example.app.controller.UserController;
-import org.example.app.request.Request;
+import org.example.app.exception.BusinessException;
 import org.example.app.request.RequestData;
-import org.example.app.request.user.InforRequest;
 import org.example.app.response.ResponseData;
 import org.example.app.response.user.LoginResponse;
 import org.example.app.request.user.LoginRequest;
-import org.example.app.exception.BusinessException;
-import org.example.app.response.Response;
 
+import static org.example.app.constant.PostType.*;
+import static org.example.app.constant.Role.*;
 import static org.example.app.constant.ExceptionCode.*;
-
 public class LoginAPI extends CommonAPI{
     private LoginAPI() {
 
@@ -30,9 +28,13 @@ public class LoginAPI extends CommonAPI{
         LoginRequest request = (LoginRequest) requestData;
         String username = request.getUsername();
         String password = request.getPassword();
-        System.out.println(username);
+        String ipLogin = request.getIpLogin();
         String id = UserController.getInstance().accessAccount(username, password);
-        String token = TokenController.getInstance().createTokenAndAddToMap(id);
+        if(SessionController.getInstance().countIdLogin(id) == 3){
+            throw new BusinessException(REQUEST.getCode(), "this account is already login from 3 different IP");
+        }
+        int role = UserController.getInstance().getRole(id);
+        String token = SessionController.getInstance().createSession(id, ipLogin, role);
 
         return new LoginResponse(token);
     }

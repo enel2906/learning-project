@@ -3,14 +3,11 @@ package org.example.app.api.user;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.example.app.constant.ApiName;
-import org.example.app.constant.ExceptionCode;
-import org.example.app.controller.TokenController;
+import org.example.app.controller.SessionController;
 import org.example.app.exception.BusinessException;
-import org.example.app.request.Request;
 import org.example.app.request.RequestData;
 import org.example.app.response.Response;
 import org.example.app.response.ResponseData;
-import org.example.app.util.Util;
 
 import static org.example.app.constant.ApiName.UNAUTHEN_API;
 import static org.example.app.constant.ExceptionCode.*;
@@ -20,20 +17,22 @@ public class CommonAPI {
         try {
             RequestData requestData = parseRequestData(jsonObject);
             requestData.checkValidation();
-            String apiName = requestData.getApiName();
+            String apiNameString = requestData.getApiName();
+            ApiName apiName = ApiName.fromString(apiNameString);
             if(!UNAUTHEN_API.contains(apiName)){
                 String token = requestData.getToken();
-                boolean check = TokenController.getInstance().isValidToken(token);
+                boolean check = SessionController.getInstance().isValidToken(token);
                 if(!check){
-                    throw new BusinessException(INVALID, "token doesn't exist in system");
+                    throw new BusinessException(INVALID.getCode(), "token doesn't exist in system");
                 }
+                SessionController.getInstance().updateCurrentActivity(token);
             }
             ResponseData responseData = doExecute(requestData);
-            return new Response(SUCCESS, "success message", responseData);
+            return new Response(SUCCESS.getCode(), "success message", responseData);
         }catch (BusinessException e){
             return new Response(e.getCode(), e.getMessage(), null);
         } catch(Exception e){
-            return new Response(UNKNOWN, "ERROR" , null);
+            return new Response(UNKNOWN.getCode(), e.getMessage(), null);
         }
 
     }
@@ -43,7 +42,6 @@ public class CommonAPI {
 
     protected RequestData parseRequestData(JsonObject jsonObject) {
         Gson gson = new Gson();
-        RequestData requestData = gson.fromJson(jsonObject, RequestData.class);
-        return requestData;
+        return gson.fromJson(jsonObject, RequestData.class);
     }
 }

@@ -28,7 +28,7 @@ public class RequestData {
 
     public void checkValidation(){
         if(Util.isNull(token)){
-            throw new BusinessException(INVALID, "Invalid token");
+            throw new BusinessException(INVALID.getCode(), "Invalid token");
         }
     }
 

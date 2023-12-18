@@ -10,6 +10,9 @@ import org.example.app.request.user.SigninRequest;
 import org.example.app.response.ResponseData;
 import org.example.app.response.user.SigninResponse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.example.app.constant.ExceptionCode.REQUEST;
 import static org.example.app.constant.ExceptionCode.UNKNOWN;
 
@@ -30,9 +33,10 @@ public class SigninAPI extends CommonAPI{
         String password = request.getPassword();
         String name = request.getName();
         int age = request.getAge();
-        String role = request.getRole();
-
-        UserController.getInstance().addUser(username, password, name, age, role);
+        int role = request.getRole();
+        String address = request.getAddress();
+        List<String> ipLogins = new ArrayList<>();
+        UserController.getInstance().addUser(username, password, name, age, role,address, ipLogins);
         return new SigninResponse("Sign in successfully");
     }
 

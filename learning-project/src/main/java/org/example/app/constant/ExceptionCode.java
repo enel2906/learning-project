@@ -1,8 +1,22 @@
 package org.example.app.constant;
 
-public class ExceptionCode {
-    public static final int SUCCESS = 0;
-    public static final int UNKNOWN = 1;
-    public static final int INVALID = 2;
-    public static final int REQUEST = 3;
+public enum ExceptionCode {
+    SUCCESS(0),
+    UNKNOWN(1),
+    INVALID(2),
+    REQUEST(3);
+
+    private int code;
+
+    ExceptionCode(int code) {
+        this.code = code;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 }

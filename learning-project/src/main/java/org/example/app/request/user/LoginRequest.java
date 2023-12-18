@@ -11,18 +11,27 @@ import static org.example.app.constant.ExceptionCode.*;
 public class LoginRequest extends RequestData {
     private String username;
     private String password;
+    private String ipLogin;
 
+    public String getIpLogin() {
+        return ipLogin;
+    }
 
-    public LoginRequest( String username, String password){
+    public void setIpLogin(String ipLogin) {
+        this.ipLogin = ipLogin;
+    }
+
+    public LoginRequest(String apiName, String username, String password, String ipLogin){
         super();
-        setApiName(LOGIN_API_NAME);
+        setApiName(apiName);
         this.username = username;
         this.password = password;
+        this.ipLogin = ipLogin;
     }
 
     public void checkValidation(){
-        if(Util.isNull(username) || Util.isNull(password)){
-            throw new BusinessException(REQUEST, "Wrong data format");
+        if(Util.isNull(username) || Util.isNull(password) || Util.isNull(ipLogin)){
+            throw new BusinessException(REQUEST.getCode(), "Wrong data format");
         }
 
     }

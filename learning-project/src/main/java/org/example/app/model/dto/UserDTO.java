@@ -1,20 +1,10 @@
-package org.example.app.response.user;
+package org.example.app.model.dto;
 
-import org.example.app.response.Response;
-import org.example.app.response.ResponseData;
-
-public class InforResponse extends ResponseData {
+public class UserDTO {
     private String name;
     private int role;
     private int age;
-
-    public InforResponse() {
-    }
-    public InforResponse(String name, int role, int age){
-        this.name = name;
-        this.role = role;
-        this.age = age;
-    }
+    private String address;
 
     public String getName() {
         return name;
@@ -40,8 +30,18 @@ public class InforResponse extends ResponseData {
         this.age = age;
     }
 
-    public String toString(){
-        return "Name: "+name+"  Role: "+role+"  Age: "+age;
+    public String getAddress() {
+        return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public UserDTO(String name, int role, int age,String address) {
+        this.name = name;
+        this.role = role;
+        this.age = age;
+        this.address = address;
+    }
 }

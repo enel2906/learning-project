@@ -4,18 +4,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ApiName {
-    public static final String NAME_KEY = "apiName";
-    public static final String TOKEN_KEY = "token";
-    public static final String GETINFOR_API_NAME = "information";
-    public static final String LOGIN_API_NAME = "log-in";
-    public static final String LOGOUT_API_NAME = "logout";
-    public static final String SIGNIN_API_NAME = "sign-in";
-    public static final String UPDATE_AGE_NAME = "update-age";
+public enum ApiName {
+    NAME_KEY("apiName"),
+    GETINFOR_API_NAME("information"),
+    LOGIN_API_NAME("log-in"),
+    LOGOUT_API_NAME("logout"),
+    SIGNIN_API_NAME("sign-in"),
+    UPDATE_AGE_NAME("update-age"),
+    ADD_NEW_POST("add-post"),
+    DELETE_POST("delete-post"),
+    GET_POST("get-post"),
+    GET_USER_INFOR("get-user-infor"),
+    ADD_LIKE("like");
 
-    public static final List<String> UNAUTHEN_API = Arrays.asList(LOGIN_API_NAME,
+    public static final List<ApiName> UNAUTHEN_API = Arrays.asList(LOGIN_API_NAME,
                                                                   SIGNIN_API_NAME);
+    public final String name;
 
 
-    public static String AGE_CHANGE = "ageChange";
+    ApiName(String name) {
+        this.name = name;
+    }
+
+    public static ApiName fromString(String name) {
+        for (ApiName apiName : values()) {
+            if (apiName.name.equals(name)) {
+                return apiName;
+            }
+        }
+        return null;
+    }
+
 }

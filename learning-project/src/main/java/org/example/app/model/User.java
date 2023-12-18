@@ -2,18 +2,28 @@ package org.example.app.model;
 
 import org.example.app.util.Util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private String username;
     private String password;
     private String name;
     private int age;
-    private String role;
+    private int role;
+
     private String id;
+    private String address;
 
-    public String createId(){
-        return Util.getRandomString();
+    public User(String username, String password, String name, int age, int role, String id, String address){
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.age = age;
+        this.role = role;
+        this.id = id;
+        this.address = address;
     }
-
     public void setId(String id){
         this.id = id;
     }
@@ -21,29 +31,18 @@ public class User {
     public String getId(){
         return id;
     }
-    public User(String username, String password, String name, int age, String role){
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.age = age;
-        this.role = role;
-        this.id = createId();
-    }
 
-    public User(String username, String password, String name, int age, String role, String id){
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.age = age;
-        this.role = role;
-        this.id = id;
-    }
-
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public String getAddress() {
+        return address;
+    }
+
+
+
+    public void setRole(int role) {
         this.role = role;
     }
 
@@ -79,4 +78,11 @@ public class User {
     public void setAge(int age) {
         this.age = age;
     }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 }
+
+
