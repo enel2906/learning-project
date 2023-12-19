@@ -6,17 +6,17 @@ import org.example.app.response.ResponseData;
 import java.util.ArrayList;
 
 public class GetPostResponse extends ResponseData {
-    private ArrayList<PostDTO> posts;
+    private ArrayList<GetPostByIdResponse> listPost;
 
-    public ArrayList<PostDTO> getPosts() {
-        return posts;
+    public ArrayList<GetPostByIdResponse> getListPost() {
+        return listPost;
     }
 
-    public void setPosts(ArrayList<PostDTO> posts) {
-        this.posts = posts;
+    public void setListPost(ArrayList<GetPostByIdResponse> listPost) {
+        this.listPost = listPost;
     }
 
-    public GetPostResponse(ArrayList<PostDTO> posts) {
-        this.posts = posts;
+    public GetPostResponse(ArrayList<GetPostByIdResponse> listPost) {
+        this.listPost = listPost;
     }
 }

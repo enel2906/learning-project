@@ -13,9 +13,10 @@ public enum ApiName {
     UPDATE_AGE_NAME("update-age"),
     ADD_NEW_POST("add-post"),
     DELETE_POST("delete-post"),
-    GET_POST("get-post"),
+    GET_POST("get-post-of-user"),
     GET_USER_INFOR("get-user-infor"),
-    ADD_LIKE("like");
+    ADD_LIKE("like"),
+    GET_POST_BY_ID("get-post-by-id");
 
     public static final List<ApiName> UNAUTHEN_API = Arrays.asList(LOGIN_API_NAME,
                                                                   SIGNIN_API_NAME);

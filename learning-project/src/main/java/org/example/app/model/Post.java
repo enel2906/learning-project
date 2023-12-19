@@ -8,44 +8,18 @@ public class Post {
     private String id;
     private String userId;
     private String author;
-    private List<String> likedUsers;
-    private int numLike;
 
-    public List<String> getLikedUsers() {
-        return likedUsers;
-    }
 
-    public void setLikedUsers(List<String> likedUsers) {
-        this.likedUsers = likedUsers;
-    }
 
-    public int getNumLike() {
-        return numLike;
-    }
-
-    public void setNumLike(int numLike) {
-        this.numLike = numLike;
-    }
-
-    public Post(String id, String userId, String author, List<String> likedUsers, int numLike, String content, String type) {
+    public Post(String id, String userId, String author, String content, String type) {
         this.id = id;
         this.userId = userId;
         this.author = author;
-        this.likedUsers = likedUsers;
-        this.numLike = numLike;
         this.content = content;
         this.type = type;
     }
 
     public Post(String userId, String author, String content, String type) {
-        this.userId = userId;
-        this.author = author;
-        this.content = content;
-        this.type = type;
-    }
-
-    public Post(String id, String userId, String author, String content, String type) {
-        this.id = id;
         this.userId = userId;
         this.author = author;
         this.content = content;

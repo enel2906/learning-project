@@ -6,12 +6,12 @@ import org.example.app.response.ResponseData;
 
 import java.util.List;
 
-public class AddLikeResponse extends ResponseData {
+public class GetPostByIdResponse extends ResponseData {
     private PostDTO post;
     private long numLike;
     private List<UserDTO> listUserLiked;
 
-    public AddLikeResponse(PostDTO post, long numLike, List<UserDTO> listUserLiked) {
+    public GetPostByIdResponse(PostDTO post, long numLike, List<UserDTO> listUserLiked) {
         this.post = post;
         this.numLike = numLike;
         this.listUserLiked = listUserLiked;

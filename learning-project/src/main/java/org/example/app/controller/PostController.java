@@ -6,6 +6,7 @@ import org.example.app.repository.PostRepository;
 import org.example.app.service.PostService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PostController {
     private PostController(){
@@ -29,20 +30,10 @@ public class PostController {
         return PostService.getINSTANCE().getOtherPostById(userId);
     }
 
-    public ArrayList<PostDTO> getAllPostByName(String userName) throws Exception {
-        return PostService.getINSTANCE().getOtherPostByName(userName);
-    }
     public boolean isExistPostOfUserId(String postId, String userId) throws Exception {
         return PostService.getINSTANCE().existPostOfUserId(postId,userId);
     }
 
-    public boolean alreadyLike(String userId, String postId) throws Exception {
-        return PostService.getINSTANCE().alreadyLike(userId, postId);
-    }
-
-    public void addLike(String userId, String postId) throws Exception{
-        PostService.getINSTANCE().addLike(userId, postId);
-    }
 
     public PostDTO findPostDisplayById(String postId) throws Exception {
         return PostService.getINSTANCE().getPostDisplayById(postId);
@@ -50,5 +41,8 @@ public class PostController {
 
     public Post findPostById(String postId) throws Exception {
         return PostService.getINSTANCE().findPostById(postId);
+    }
+    public List<String> getListPostIdByUserId(String userId) throws Exception {
+        return PostService.getINSTANCE().getListPostIdByUserId(userId);
     }
 }

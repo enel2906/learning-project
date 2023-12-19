@@ -19,10 +19,7 @@ import static org.example.app.constant.Role.*;
 import javax.print.Doc;
 import javax.swing.event.DocumentEvent;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.ObjDoubleConsumer;
 
 public class  UserRepository {
@@ -155,5 +152,21 @@ public class  UserRepository {
         String address = document.getString(ADDRESS_ID);
 
         return new UserDTO(name, role, age, address);
+    }
+
+    public static List<UserDTO> getListUsers(List<String> listUserIds) throws Exception {
+        List<UserDTO> result = new ArrayList<>();
+        List<ObjectId> objectIds = new ArrayList<>();
+        for(String userId : listUserIds){
+            objectIds.add(new ObjectId(userId));
+        }
+        Document query = new Document(USER_ID, new Document("$in", objectIds));
+        List<Document> users = usersCollection.find(query).into(new ArrayList<>());
+        Iterator<Document> usersIterator = users.iterator();
+        while(usersIterator.hasNext()){
+            UserDTO userDTO = getUserDisplayFromDocument(usersIterator.next());
+            result.add(userDTO);
+        }
+        return result;
     }
 }

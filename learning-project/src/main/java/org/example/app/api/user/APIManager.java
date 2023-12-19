@@ -1,16 +1,6 @@
 package org.example.app.api.user;
 
-import com.google.gson.JsonObject;
 import org.example.app.constant.ApiName;
-import org.example.app.request.Request;
-import org.example.app.request.RequestData;
-import org.example.app.request.user.InforRequest;
-import org.example.app.request.user.LogoutRequest;
-import org.example.app.request.user.UpdateAgeRequest;
-import org.example.app.response.Response;
-
-import org.example.app.constant.ApiName;
-
 
 
 public class APIManager {
@@ -25,9 +15,10 @@ public class APIManager {
                 case SIGNIN_API_NAME -> SigninAPI.getINSTANCE();
                 case ADD_NEW_POST -> AddNewPostAPI.getINSTANCE();
                 case DELETE_POST -> DeletePostAPI.getINSTANCE();
-                case GET_POST -> GetPostsAPI.getINSTANCE();
+                case GET_POST -> GetPostOfUserAPI.getINSTANCE();
                 case GET_USER_INFOR -> GetUserInforAPI.getInstance();
                 case ADD_LIKE -> AddLikeAPI.getINSTANCE();
+                case GET_POST_BY_ID -> GetPostByIdAPI.getINSTANCE();
                 default -> null;
             };
         } catch (IllegalArgumentException e) {

@@ -4,6 +4,8 @@ import org.example.app.model.User;
 import org.example.app.model.dto.UserDTO;
 import org.example.app.repository.UserRepository;
 
+import java.util.List;
+
 import java.util.ArrayList;
 
 public class UserService {
@@ -55,5 +57,9 @@ public class UserService {
     }
     public ArrayList<UserDTO> getUserAndAdminByName(String name) throws Exception {
         return UserRepository.getUserAndAdminByName(name);
+    }
+
+    public List<UserDTO> getListUserFromId(List<String> userIds) throws Exception {
+        return UserRepository.getListUsers(userIds);
     }
 }

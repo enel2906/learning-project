@@ -2,14 +2,14 @@ package org.example.app.request.user;
 
 import org.example.app.request.RequestData;
 
-public class DeleteRequest extends RequestData {
+public class DeletePostRequest extends RequestData {
     private String postId;
 
-    public DeleteRequest(String postId) {
+    public DeletePostRequest(String postId) {
         this.postId = postId;
     }
 
-    public DeleteRequest(String token, String postId) {
+    public DeletePostRequest(String token, String postId) {
         super(token);
         this.postId = postId;
     }

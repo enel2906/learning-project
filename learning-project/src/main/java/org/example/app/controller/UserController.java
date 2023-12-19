@@ -73,4 +73,7 @@ public class UserController {
     public ArrayList<UserDTO> getUserAndAdminByName(String name) throws Exception{
         return UserService.getINSTANCE().getUserAndAdminByName(name);
     }
+    public List<UserDTO> getListUserFromId(List<String> userIds) throws Exception {
+        return UserService.getINSTANCE().getListUserFromId(userIds);
+    }
 }
