@@ -27,26 +27,17 @@ public class UserController {
             return UserService.getINSTANCE().addUser(username, password, name, age, role, address);
     }
 
-    public void removeUser(String token){
-        UserService.getINSTANCE().removeUser(token);
+    public void removeUser(String token) throws Exception {
+        UserService.getINSTANCE().remove(token);
     }
 
     public User findUser(String id) throws Exception{
-            User user = UserService.getINSTANCE().findUserById(id);
-            return user;
-
+        return UserService.getINSTANCE().findByKey(id);
     }
 
     public String accessAccount(String username, String password) throws Exception {
             User user = UserService.getINSTANCE().findAccoount(username,password);
-            if(Util.isNull(user)){
-                throw new Exception("user is null");
-            }
-            String id = user.getId();
-            if(Util.isNull(id)){
-                throw new Exception("Id is null");
-            }
-            return id;
+            return user.getId();
     }
 
     public boolean isValidUserNameAndPassword(String username, String password) throws Exception {
@@ -65,7 +56,7 @@ public class UserController {
         return UserService.getINSTANCE().getName(id);
     }
     public UserDTO getUserDTO(String userId) throws Exception{
-        return UserService.getINSTANCE().getUserDTO(userId);
+        return UserService.getINSTANCE().findDTOByKey(userId);
     }
     public ArrayList<UserDTO> getNormalUser(String name) throws Exception {
         return UserService.getINSTANCE().getNormalUser(name);

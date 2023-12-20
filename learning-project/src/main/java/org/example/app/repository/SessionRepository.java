@@ -2,6 +2,7 @@ package org.example.app.repository;
 
 import com.mongodb.client.MongoCollection;
 import org.bson.types.ObjectId;
+import org.eclipse.jetty.server.session.Session;
 import org.example.app.configuration.databaseconfig.MongoConfig;
 import org.example.app.model.Token;
 
@@ -96,4 +97,11 @@ public class SessionRepository {
         Document condition = new Document(TIME, new Document("$lte", timeCheck));
         tokenIdCollection.deleteMany(condition);
     }
+    public static Token findById(String token) throws Exception{
+        Document query = new Document(TOKEN, token);
+        Document tokenDoc = tokenIdCollection.find(query).limit(1).first();
+        assert tokenDoc != null;
+        return convertFromDocumentToTokenModel(tokenDoc);
+    }
+
 }

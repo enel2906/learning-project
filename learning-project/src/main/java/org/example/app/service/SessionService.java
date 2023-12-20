@@ -1,8 +1,9 @@
 package org.example.app.service;
 
+import org.example.app.model.Token;
 import org.example.app.repository.SessionRepository;
 
-public class SessionService {
+public class SessionService implements ServiceInterface<Token>{
     private SessionService(){
 
     }
@@ -12,21 +13,17 @@ public class SessionService {
     public static SessionService getInstance(){
         return INSTANCE;
     }
-
-    public String getUserId(String token){
-        return SessionRepository.getUserId(token);
+    public Token findByKey(String token) throws Exception {
+        return SessionRepository.findById(token);
     }
-
-    public boolean isValidToken(String token) throws Exception{
+    public void remove(String token) throws Exception{
+        SessionRepository.removeToken(token);
+    }
+    public boolean isValid(String token) throws Exception {
         return SessionRepository.isValidToken(token);
     }
-
-    public void removeToken(String token) throws Exception{
-        if(!isValidToken(token)){
-            System.out.println("token is invalidddddddddd");
-            return;
-        }
-       SessionRepository.removeToken(token);
+    public String getUserId(String token){
+        return SessionRepository.getUserId(token);
     }
 
     public long getTimeOfToken(String token) throws Exception {

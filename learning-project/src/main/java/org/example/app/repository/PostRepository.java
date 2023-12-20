@@ -1,5 +1,6 @@
 package org.example.app.repository;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
@@ -29,8 +30,8 @@ public class PostRepository {
         return filter.get(POST_ID).toString();
     }
 
-    public static void deletePost(String id, String userId) throws Exception{
-        Document condition = new Document(POST_ID, new ObjectId(id)).append(USER_ID, userId);
+    public static void deletePost(String id) throws Exception{
+        Document condition = new Document(POST_ID, new ObjectId(id));
         postCollection.deleteOne(condition);
     }
 
@@ -96,5 +97,10 @@ public class PostRepository {
             result.add(postId);
         }
         return result;
+    }
+    public static boolean isValidPostId(String postId) throws Exception {
+        Document query = new Document(POST_ID, new ObjectId(postId));
+        FindIterable<Document> result = postCollection.find(query).limit(1);
+        return result.iterator().hasNext();
     }
 }

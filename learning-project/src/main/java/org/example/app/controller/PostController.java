@@ -22,8 +22,8 @@ public class PostController {
         return PostService.getINSTANCE().addNewPost(userId, name, content, type);
     }
 
-    public void deletePost(String postId, String userId) throws Exception {
-        PostService.getINSTANCE().deletePost(postId, userId);
+    public void deletePost(String postId) throws Exception {
+        PostService.getINSTANCE().remove(postId);
     }
 
     public ArrayList<PostDTO> getAllPostById(String userId) throws Exception {
@@ -36,11 +36,11 @@ public class PostController {
 
 
     public PostDTO findPostDisplayById(String postId) throws Exception {
-        return PostService.getINSTANCE().getPostDisplayById(postId);
+        return PostService.getINSTANCE().findDTOByKey(postId);
     }
 
     public Post findPostById(String postId) throws Exception {
-        return PostService.getINSTANCE().findPostById(postId);
+        return PostService.getINSTANCE().findByKey(postId);
     }
     public List<String> getListPostIdByUserId(String userId) throws Exception {
         return PostService.getINSTANCE().getListPostIdByUserId(userId);

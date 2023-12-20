@@ -25,11 +25,11 @@ public class SessionController {
     }
 
     public void removeToken(String token) throws Exception{
-            SessionService.getInstance().removeToken(token);
+            SessionService.getInstance().remove(token);
     }
 
     public boolean isValidToken(String token) throws Exception {
-            return SessionService.getInstance().isValidToken(token);
+            return SessionService.getInstance().isValid(token);
     }
 
     public long getTimeOfToken(String tokenId) throws Exception {

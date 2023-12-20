@@ -31,8 +31,11 @@ public class AddNewPostAPI extends CommonAPI {
         String userId = SessionController.getInstance().getUserId(token);
         int role = UserController.getInstance().getRole(userId);
         String type = addNewPostRequest.getType();
+        if(!ListPostType.contains(type)){
+            throw new BusinessException(REQUEST.getCode(), "Invalid type");
+        }
         if(role == USER.getRole() && !type.equals(GREEN.getType())){
-            throw new BusinessException(REQUEST.getCode(), "normal user onle has type "+GREEN.getType());
+            throw new BusinessException(REQUEST.getCode(), "normal user only has type "+GREEN.getType());
         }
         String name = UserController.getInstance().getName(userId);
         String content = addNewPostRequest.getContent();

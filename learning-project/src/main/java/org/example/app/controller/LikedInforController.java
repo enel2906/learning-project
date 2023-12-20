@@ -14,6 +14,15 @@ public class LikedInforController {
     public static LikedInforController getINSTANCE() {
         return INSTANCE;
     }
+    public List<String> getUsersLiked(String postId) throws Exception {
+        return LikedInforService.getINSTANCE().findByKey(postId);
+    }
+    public void deletePost(String postId) throws Exception {
+        LikedInforService.getINSTANCE().remove(postId);
+    }
+    public boolean idValidPostLiked(String postId) throws Exception {
+        return LikedInforService.getINSTANCE().isValid(postId);
+    }
     public void addNewLikeInfor(String userId, String postId) throws Exception {
         LikedInforService.getINSTANCE().addNewLikeInfor(userId, postId);
     }
@@ -22,11 +31,5 @@ public class LikedInforController {
     }
     public long getNumLikeInfor(String postId) throws Exception {
         return LikedInforService.getINSTANCE().getNumLikeInfor(postId);
-    }
-    public List<String> getUsersLiked(String postId) throws Exception {
-        return LikedInforService.getINSTANCE().getUsersLiked(postId);
-    }
-    public void deletePost(String postId) throws Exception {
-        LikedInforService.getINSTANCE().deletePost(postId);
     }
 }

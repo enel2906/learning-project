@@ -6,7 +6,7 @@ import org.example.app.repository.LikeInforRepository;
 import java.util.List;
 
 
-public class LikedInforService {
+public class LikedInforService implements ServiceInterface<Object>{
     private LikedInforService(){
 
     }
@@ -24,11 +24,14 @@ public class LikedInforService {
     public long getNumLikeInfor(String postId) throws Exception {
         return LikeInforRepository.getNumLike(postId);
     }
-    public List<String> getUsersLiked(String postId) throws Exception {
+    public List<String> findByKey(String postId) throws Exception {
         return LikeInforRepository.getLikedUsers(postId);
     }
-    public void deletePost(String postId) throws Exception {
+    public void remove(String postId) throws Exception {
         LikeInforRepository.deletePost(postId);
+    }
+    public boolean isValid(String postId) throws Exception {
+        return LikeInforRepository.isValidPostId(postId);
     }
 
 }

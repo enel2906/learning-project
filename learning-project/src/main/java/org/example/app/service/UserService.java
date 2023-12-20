@@ -8,24 +8,34 @@ import java.util.List;
 
 import java.util.ArrayList;
 
-public class UserService {
+public class UserService implements ServiceInterfaceDTO<UserDTO, User> {
     private UserService(){
 
     }
 
-    private static final UserService INSTANCE = new UserService();
-
     public static UserService getINSTANCE() {
         return INSTANCE;
+    }
+
+    private static final UserService INSTANCE = new UserService();
+    public User findByKey(String id) throws Exception {
+        return UserRepository.findUserByID(id);
+    }
+    public void remove(String id) throws Exception{
+        UserRepository.removeUser(id);
+    }
+
+    public boolean isValid(String id) throws Exception {
+        return false;
+    }
+    public UserDTO findDTOByKey(String id) throws Exception {
+        return UserRepository.getUserDTO(id);
     }
 
     public String addUser(String username, String password, String name, int age, int role, String address) throws Exception{
         return UserRepository.addUser(username, password, name, age, role, address);
     }
 
-    public void removeUser(String id){
-        UserRepository.removeUser(id);
-    }
 
     public boolean isValidUser(String username, String password) throws Exception{
         User user = UserRepository.findUserByUsernameAndPassword(username, password);
@@ -34,10 +44,6 @@ public class UserService {
 
     public User findAccoount(String username, String password) throws Exception{
         return UserRepository.findUserByUsernameAndPassword(username, password);
-    }
-
-    public User findUserById(String id) throws Exception{
-        return UserRepository.findUserByID(id);
     }
     public void changeAgeOfUser(String id, int ageChange) throws Exception{
         UserRepository.changeAgeOfUser(id, ageChange);
@@ -48,9 +54,6 @@ public class UserService {
 
     public String getName(String id) throws Exception{
         return UserRepository.getName(id);
-    }
-    public UserDTO getUserDTO(String userId) throws Exception {
-        return UserRepository.getUserDTO(userId);
     }
     public ArrayList<UserDTO> getNormalUser(String name) throws Exception {
         return UserRepository.getNormalUser(name);

@@ -32,7 +32,7 @@ public class DeletePostAPI extends CommonAPI{
             throw new BusinessException(REQUEST.getCode(), "No post id match this userId");
         }
         LikedInforController.getINSTANCE().deletePost(postId);
-        PostController.getINSTANCE().deletePost(postId, userId);
+        PostController.getINSTANCE().deletePost(postId);
         return new DeletePostResponse("Deleted post "+postId);
     }
 

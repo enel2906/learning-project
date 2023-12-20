@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.example.app.configuration.databaseconfig.MongoConfig;
+import org.example.app.model.LikedInfor;
 
 import javax.print.Doc;
 import java.util.ArrayList;
@@ -42,5 +43,10 @@ public class LikeInforRepository {
     public static void deletePost(String postId) throws Exception {
         Document query = new Document(POST_ID, postId);
         likedInforCollection.deleteMany(query);
+    }
+    public static boolean isValidPostId(String postId) throws Exception {
+        Document query = new Document(POST_ID, postId);
+        FindIterable<Document> result = likedInforCollection.find(query);
+        return result.iterator().hasNext();
     }
 }
