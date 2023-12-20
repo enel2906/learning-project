@@ -1,5 +1,12 @@
-package org.example.app.api.user;
+package org.example.app.api;
 
+import org.example.app.api.CommonAPI;
+import org.example.app.api.likedinfor.AddLikeAPI;
+import org.example.app.api.post.user.AddNewPostAPI;
+import org.example.app.api.post.user.DeletePostAPI;
+import org.example.app.api.post.user.GetPostByIdAPI;
+import org.example.app.api.post.user.GetPostOfUserAPI;
+import org.example.app.api.user.*;
 import org.example.app.constant.ApiName;
 
 

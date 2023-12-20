@@ -1,4 +1,4 @@
-package org.example.app.api.user;
+package org.example.app.api;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

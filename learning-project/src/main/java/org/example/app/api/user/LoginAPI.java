@@ -2,6 +2,7 @@ package org.example.app.api.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.example.app.api.CommonAPI;
 import org.example.app.controller.SessionController;
 import org.example.app.controller.UserController;
 import org.example.app.exception.BusinessException;
@@ -10,10 +11,8 @@ import org.example.app.response.ResponseData;
 import org.example.app.response.user.LoginResponse;
 import org.example.app.request.user.LoginRequest;
 
-import static org.example.app.constant.PostType.*;
-import static org.example.app.constant.Role.*;
 import static org.example.app.constant.ExceptionCode.*;
-public class LoginAPI extends CommonAPI{
+public class LoginAPI extends CommonAPI {
     private LoginAPI() {
 
     }

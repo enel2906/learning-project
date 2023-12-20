@@ -2,6 +2,7 @@ package org.example.app.api.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.example.app.api.CommonAPI;
 import org.example.app.controller.SessionController;
 import org.example.app.controller.UserController;
 import org.example.app.model.User;
@@ -10,7 +11,7 @@ import org.example.app.request.user.UpdateAgeRequest;
 import org.example.app.response.ResponseData;
 import org.example.app.response.user.UpdateAgeResponse;
 
-public class UpdateAgeAPI extends CommonAPI{
+public class UpdateAgeAPI extends CommonAPI {
 
     private UpdateAgeAPI(){
 

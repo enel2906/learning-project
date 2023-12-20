@@ -1,7 +1,8 @@
-package org.example.app.api.user;
+package org.example.app.api.post.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.example.app.api.CommonAPI;
 import org.example.app.controller.LikedInforController;
 import org.example.app.controller.PostController;
 import org.example.app.controller.SessionController;
@@ -12,7 +13,7 @@ import org.example.app.response.ResponseData;
 import org.example.app.response.user.DeletePostResponse;
 
 import static org.example.app.constant.ExceptionCode.*;
-public class DeletePostAPI extends CommonAPI{
+public class DeletePostAPI extends CommonAPI {
     private DeletePostAPI(){
 
     }

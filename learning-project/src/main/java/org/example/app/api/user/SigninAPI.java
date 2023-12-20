@@ -2,10 +2,9 @@ package org.example.app.api.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.example.app.api.CommonAPI;
 import org.example.app.controller.UserController;
-import org.example.app.exception.BusinessException;
 import org.example.app.request.RequestData;
-import org.example.app.request.user.InforRequest;
 import org.example.app.request.user.SigninRequest;
 import org.example.app.response.ResponseData;
 import org.example.app.response.user.SigninResponse;
@@ -13,10 +12,7 @@ import org.example.app.response.user.SigninResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.example.app.constant.ExceptionCode.REQUEST;
-import static org.example.app.constant.ExceptionCode.UNKNOWN;
-
-public class SigninAPI extends CommonAPI{
+public class SigninAPI extends CommonAPI {
     private static final SigninAPI INSTANCE = new SigninAPI();
 
     private SigninAPI(){

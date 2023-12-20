@@ -1,11 +1,11 @@
-package org.example.app.api.user;
+package org.example.app.api.post.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.example.app.api.CommonAPI;
 import org.example.app.controller.LikedInforController;
 import org.example.app.controller.PostController;
 import org.example.app.controller.UserController;
-import org.example.app.model.LikedInfor;
 import org.example.app.model.dto.PostDTO;
 import org.example.app.model.dto.UserDTO;
 import org.example.app.request.RequestData;
@@ -17,7 +17,7 @@ import org.example.app.response.user.GetPostResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetPostOfUserAPI extends CommonAPI{
+public class GetPostOfUserAPI extends CommonAPI {
     private GetPostOfUserAPI(){
 
     }

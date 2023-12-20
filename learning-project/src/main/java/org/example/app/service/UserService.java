@@ -16,7 +16,6 @@ public class UserService implements ServiceInterfaceDTO<UserDTO, User> {
     public static UserService getINSTANCE() {
         return INSTANCE;
     }
-
     private static final UserService INSTANCE = new UserService();
     public User findByKey(String id) throws Exception {
         return UserRepository.findUserByID(id);

@@ -1,7 +1,8 @@
-package org.example.app.api.user;
+package org.example.app.api.post.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.example.app.api.CommonAPI;
 import org.example.app.controller.PostController;
 import org.example.app.controller.SessionController;
 import org.example.app.controller.UserController;
