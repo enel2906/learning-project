@@ -16,12 +16,12 @@ import java.io.IOException;
 
 public class SeverHolder extends HttpServlet{
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.getWriter().println("Helooo");
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         BufferedReader reader = req.getReader();
         Gson gson = new Gson();
 
@@ -36,6 +36,4 @@ public class SeverHolder extends HttpServlet{
         resp.setContentType("application/json");
         resp.getWriter().println(gson.toJson(api.execute(object)));
     }
-
-
 }

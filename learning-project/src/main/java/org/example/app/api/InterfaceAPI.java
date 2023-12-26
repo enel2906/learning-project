@@ -5,10 +5,7 @@ import com.google.gson.JsonObject;
 import org.example.app.request.RequestData;
 import org.example.app.response.ResponseData;
 
-public interface InterfaceAPI<T , V> {
-    V execute(JsonObject jsonObject);
+public interface InterfaceAPI{
+    ResponseData execute(JsonObject jsonObject);
 
-    V doExecute(T r) throws Exception;
-
-    T parseRequestData(JsonObject jsonObject) throws Exception;
 }

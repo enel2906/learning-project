@@ -13,10 +13,10 @@ import java.util.List;
 import static org.example.app.constant.ApiName.UNAUTHEN_API;
 import static org.example.app.constant.ExceptionCode.*;
 
-public abstract class CommonAPI<T extends RequestData, V extends ResponseData> implements InterfaceAPI<T, V> {
-        public V execute(JsonObject jsonObject){
+public abstract class CommonAPI<T extends RequestData, V extends ResponseData> implements InterfaceAPI {
+    public ResponseData execute(JsonObject jsonObject){
         try {
-            T requestData = (T) parseRequestData(jsonObject);
+            T requestData =  parseRequestData(jsonObject);
             requestData.checkValidation();
             String apiNameString = requestData.getApiName();
             ApiName apiName = ApiName.fromString(apiNameString);
@@ -30,9 +30,9 @@ public abstract class CommonAPI<T extends RequestData, V extends ResponseData> i
             }
             return doExecute(requestData);
         }catch (BusinessException e){
-            return (V) new ResponseData(e.getCode(), e.getMessage());
+            return new ResponseData(e.getCode(), e.getMessage());
         } catch(Exception e){
-            return (V) new ResponseData(UNKNOWN.getCode(), e.getMessage());
+            return new ResponseData(UNKNOWN.getCode(), e.getMessage());
         }
     }
     public abstract V doExecute(T r) throws Exception;
