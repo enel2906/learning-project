@@ -7,15 +7,13 @@ import org.example.app.controller.SessionController;
 import org.example.app.controller.UserController;
 import org.example.app.exception.BusinessException;
 import org.example.app.model.dto.UserDTO;
-import org.example.app.request.RequestData;
 import org.example.app.request.user.GetUserInforRequest;
-import org.example.app.response.ResponseData;
 import org.example.app.response.user.GetUserInforResponse;
 
 import static org.example.app.constant.ExceptionCode.*;
 
 import static org.example.app.constant.Role.*;
-public class GetUserInforAPI extends CommonAPI {
+public class GetUserInforAPI extends CommonAPI<GetUserInforRequest, GetUserInforResponse> {
     private GetUserInforAPI(){
 
     }
@@ -26,8 +24,7 @@ public class GetUserInforAPI extends CommonAPI {
     }
 
     @Override
-    protected ResponseData doExecute(RequestData requestData) throws Exception {
-        GetUserInforRequest getUserInforRequest = (GetUserInforRequest) requestData;
+    public GetUserInforResponse doExecute(GetUserInforRequest getUserInforRequest) throws Exception {
         String token = getUserInforRequest.getToken();
         String userId = getUserInforRequest.getUserId();
         int role = SessionController.getInstance().getRoleByToken(token);
@@ -39,7 +36,7 @@ public class GetUserInforAPI extends CommonAPI {
     }
 
     @Override
-    protected RequestData parseRequestData(JsonObject jsonObject) {
+    public GetUserInforRequest parseRequestData(JsonObject jsonObject) {
         Gson gson = new Gson();
         return gson.fromJson(jsonObject, GetUserInforRequest.class);
     }

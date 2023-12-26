@@ -4,7 +4,6 @@ import org.example.app.exception.BusinessException;
 import org.example.app.request.RequestData;
 import org.example.app.util.Util;
 
-import static org.example.app.constant.ApiName.SIGNIN_API_NAME;
 import static org.example.app.constant.ExceptionCode.REQUEST;
 
 public class SigninRequest extends RequestData {

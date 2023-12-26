@@ -1,4 +1,4 @@
-package org.example.app.response.user;
+package org.example.app.response.post;
 
 import org.example.app.response.ResponseData;
 

@@ -1,13 +1,9 @@
-package org.example.app.request.user;
+package org.example.app.request.likeinfor;
 
 import org.example.app.request.RequestData;
 
-public class GetPostByIdRequest extends RequestData {
+public class AddLikeRequest extends RequestData {
     private String postId;
-
-    public GetPostByIdRequest(String postId) {
-        this.postId = postId;
-    }
 
     public String getPostId() {
         return postId;
@@ -17,7 +13,11 @@ public class GetPostByIdRequest extends RequestData {
         this.postId = postId;
     }
 
-    public GetPostByIdRequest(String token, String postId) {
+    public AddLikeRequest(String postId) {
+        this.postId = postId;
+    }
+
+    public AddLikeRequest(String token, String postId) {
         super(token);
         this.postId = postId;
     }

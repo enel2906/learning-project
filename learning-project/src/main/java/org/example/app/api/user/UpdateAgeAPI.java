@@ -6,12 +6,10 @@ import org.example.app.api.CommonAPI;
 import org.example.app.controller.SessionController;
 import org.example.app.controller.UserController;
 import org.example.app.model.User;
-import org.example.app.request.RequestData;
 import org.example.app.request.user.UpdateAgeRequest;
-import org.example.app.response.ResponseData;
 import org.example.app.response.user.UpdateAgeResponse;
 
-public class UpdateAgeAPI extends CommonAPI {
+public class UpdateAgeAPI extends CommonAPI<UpdateAgeRequest, UpdateAgeResponse> {
 
     private UpdateAgeAPI(){
 
@@ -23,8 +21,7 @@ public class UpdateAgeAPI extends CommonAPI {
         return INSTANCE;
     }
 
-    protected ResponseData doExecute(RequestData requestData) throws Exception{
-        UpdateAgeRequest request = (UpdateAgeRequest) requestData;
+    public UpdateAgeResponse doExecute(UpdateAgeRequest request ) throws Exception{
         String token = request.getToken();
         int ageChange = request.getAgeChange();
 
@@ -37,7 +34,7 @@ public class UpdateAgeAPI extends CommonAPI {
         return new UpdateAgeResponse("Already minute "+(-1)*ageChange+" to user: "+user.getName()+"!");
     }
 
-    protected RequestData parseRequestData(JsonObject jsonObject) {
+    public UpdateAgeRequest parseRequestData(JsonObject jsonObject) {
         Gson gson = new Gson();
         return gson.fromJson(jsonObject, UpdateAgeRequest.class);
     }

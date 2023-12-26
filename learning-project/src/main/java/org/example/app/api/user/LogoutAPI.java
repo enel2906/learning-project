@@ -4,12 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.example.app.api.CommonAPI;
 import org.example.app.controller.SessionController;
-import org.example.app.request.RequestData;
-import org.example.app.response.ResponseData;
 import org.example.app.response.user.LogoutResponse;
 import org.example.app.request.user.LogoutRequest;
 
-public class LogoutAPI extends CommonAPI {
+public class LogoutAPI extends CommonAPI<LogoutRequest, LogoutResponse> {
     private LogoutAPI(){
 
     }
@@ -18,8 +16,7 @@ public class LogoutAPI extends CommonAPI {
         return INSTANCE;
     }
 
-    public ResponseData doExecute(RequestData requestData) throws Exception{
-        LogoutRequest request = (LogoutRequest) requestData;
+    public LogoutResponse doExecute(LogoutRequest request) throws Exception{
         String token = request.getToken();
         System.out.println(token);
         SessionController.getInstance().removeToken(token);
@@ -27,7 +24,7 @@ public class LogoutAPI extends CommonAPI {
         return new LogoutResponse();
     }
 
-    protected RequestData parseRequestData(JsonObject jsonObject) {
+    public LogoutRequest parseRequestData(JsonObject jsonObject) {
         Gson gson = new Gson();
         return gson.fromJson(jsonObject, LogoutRequest.class);
     }

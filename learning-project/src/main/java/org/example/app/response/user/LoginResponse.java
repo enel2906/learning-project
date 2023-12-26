@@ -1,14 +1,16 @@
 package org.example.app.response.user;
 
-import org.example.app.response.Response;
 import org.example.app.response.ResponseData;
 
+import static org.example.app.constant.ExceptionCode.*;
 public class LoginResponse extends ResponseData {
     private String token;
 
     public LoginResponse(int code, String message) {
-
+        super(code, message);
     }
+
+
     public String getToken() {
         return token;
     }
@@ -18,6 +20,7 @@ public class LoginResponse extends ResponseData {
     }
 
     public LoginResponse(String token){
+        super(SUCCESS.getCode(), "Login successfully!");
         this.token = token;
     }
     public String toString(){

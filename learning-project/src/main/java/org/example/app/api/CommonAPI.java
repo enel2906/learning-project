@@ -6,16 +6,17 @@ import org.example.app.constant.ApiName;
 import org.example.app.controller.SessionController;
 import org.example.app.exception.BusinessException;
 import org.example.app.request.RequestData;
-import org.example.app.response.Response;
 import org.example.app.response.ResponseData;
+
+import java.util.List;
 
 import static org.example.app.constant.ApiName.UNAUTHEN_API;
 import static org.example.app.constant.ExceptionCode.*;
 
-public class CommonAPI {
-        public Response execute(JsonObject jsonObject){
+public abstract class CommonAPI<T extends RequestData, V extends ResponseData> implements InterfaceAPI<T, V> {
+        public V execute(JsonObject jsonObject){
         try {
-            RequestData requestData = parseRequestData(jsonObject);
+            T requestData = (T) parseRequestData(jsonObject);
             requestData.checkValidation();
             String apiNameString = requestData.getApiName();
             ApiName apiName = ApiName.fromString(apiNameString);
@@ -27,21 +28,15 @@ public class CommonAPI {
                 }
                 SessionController.getInstance().updateCurrentActivity(token);
             }
-            ResponseData responseData = doExecute(requestData);
-            return new Response(SUCCESS.getCode(), "success message", responseData);
+            return doExecute(requestData);
         }catch (BusinessException e){
-            return new Response(e.getCode(), e.getMessage(), null);
+            return (V) new ResponseData(e.getCode(), e.getMessage());
         } catch(Exception e){
-            return new Response(UNKNOWN.getCode(), e.getMessage(), null);
+            return (V) new ResponseData(UNKNOWN.getCode(), e.getMessage());
         }
+    }
+    public abstract V doExecute(T r) throws Exception;
 
-    }
-    protected ResponseData doExecute(RequestData requestData) throws Exception{
-        return new ResponseData();
-    }
+    public abstract T parseRequestData(JsonObject jsonObject) throws Exception;
 
-    protected RequestData parseRequestData(JsonObject jsonObject) {
-        Gson gson = new Gson();
-        return gson.fromJson(jsonObject, RequestData.class);
-    }
 }

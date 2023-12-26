@@ -1,17 +1,20 @@
-package org.example.app.response.user;
+package org.example.app.response.likeinfor;
 
 import org.example.app.model.dto.PostDTO;
 import org.example.app.model.dto.UserDTO;
 import org.example.app.response.ResponseData;
 
+import static org.example.app.constant.ExceptionCode.*;
+
 import java.util.List;
 
-public class GetPostByIdResponse extends ResponseData {
+public class AddLikeResponse extends ResponseData {
     private PostDTO post;
     private long numLike;
     private List<UserDTO> listUserLiked;
 
-    public GetPostByIdResponse(PostDTO post, long numLike, List<UserDTO> listUserLiked) {
+    public AddLikeResponse(PostDTO post, long numLike, List<UserDTO> listUserLiked) {
+        super(SUCCESS.getCode(), "Add like successfully!");
         this.post = post;
         this.numLike = numLike;
         this.listUserLiked = listUserLiked;

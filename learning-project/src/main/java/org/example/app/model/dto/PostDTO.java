@@ -3,14 +3,41 @@ package org.example.app.model.dto;
 import java.util.List;
 
 public class PostDTO {
-    private String type;
     private String author;
+    private String type;
     private String content;
+    private long numLike;
+    private List<UserDTO> listUserLiked;
 
-    public PostDTO(String type, String author, String content) {
+    public long getNumLike() {
+        return numLike;
+    }
+
+    public void setNumLike(long numLike) {
+        this.numLike = numLike;
+    }
+
+
+    public PostDTO(String author, String type, String content) {
         this.type = type;
         this.author = author;
         this.content = content;
+    }
+
+    public List<UserDTO> getListUserLiked() {
+        return listUserLiked;
+    }
+
+    public void setListUserLiked(List<UserDTO> listUserLiked) {
+        this.listUserLiked = listUserLiked;
+    }
+
+    public PostDTO(String author, String type, String content, long numLike, List<UserDTO> listUserLiked) {
+        this.author = author;
+        this.type = type;
+        this.content = content;
+        this.numLike = numLike;
+        this.listUserLiked = listUserLiked;
     }
 
     public String getAuthor() {

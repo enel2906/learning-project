@@ -1,7 +1,8 @@
 package org.example.app.response.user;
 
-import org.example.app.response.Response;
 import org.example.app.response.ResponseData;
+
+import static org.example.app.constant.ExceptionCode.*;
 
 public class InforResponse extends ResponseData {
     private String name;
@@ -9,8 +10,10 @@ public class InforResponse extends ResponseData {
     private int age;
 
     public InforResponse() {
+        super();
     }
     public InforResponse(String name, int role, int age){
+        super(SUCCESS.getCode(), "Get Information successfully!");
         this.name = name;
         this.role = role;
         this.age = age;

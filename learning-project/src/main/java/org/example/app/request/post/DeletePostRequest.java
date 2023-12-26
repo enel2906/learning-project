@@ -1,4 +1,4 @@
-package org.example.app.request.user;
+package org.example.app.request.post;
 
 import org.example.app.request.RequestData;
 

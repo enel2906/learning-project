@@ -10,16 +10,14 @@ import org.example.app.controller.UserController;
 import org.example.app.exception.BusinessException;
 import org.example.app.model.dto.PostDTO;
 import org.example.app.model.dto.UserDTO;
-import org.example.app.request.RequestData;
-import org.example.app.request.user.AddLikeRequest;
-import org.example.app.response.ResponseData;
-import org.example.app.response.user.AddLikeResponse;
+import org.example.app.request.likeinfor.AddLikeRequest;
+import org.example.app.response.likeinfor.AddLikeResponse;
 
 import java.util.List;
 
 import static org.example.app.constant.ExceptionCode.*;
 
-public class AddLikeAPI extends CommonAPI {
+public class AddLikeAPI extends CommonAPI<AddLikeRequest, AddLikeResponse> {
     private AddLikeAPI(){
 
     }
@@ -30,8 +28,7 @@ public class AddLikeAPI extends CommonAPI {
     }
 
     @Override
-    protected ResponseData doExecute(RequestData requestData) throws Exception {
-        AddLikeRequest addLikeRequest = (AddLikeRequest) requestData;
+    public AddLikeResponse doExecute(AddLikeRequest addLikeRequest) throws Exception {
         String token = addLikeRequest.getToken();
         String postId = addLikeRequest.getPostId();
         String userId = SessionController.getInstance().getUserId(token);
@@ -47,7 +44,7 @@ public class AddLikeAPI extends CommonAPI {
     }
 
     @Override
-    protected RequestData parseRequestData(JsonObject jsonObject) {
+    public AddLikeRequest parseRequestData(JsonObject jsonObject) {
         Gson gson = new Gson();
         return gson.fromJson(jsonObject, AddLikeRequest.class);
     }

@@ -4,12 +4,8 @@ import com.google.gson.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import org.example.app.api.CommonAPI;
-import org.example.app.api.post.*;
-import org.example.app.api.user.*;
-import org.example.app.api.likedinfor.*;
 
 import org.example.app.api.APIManager;
-import org.example.app.response.Response;
 import org.example.app.util.Util;
 
 import static org.example.app.constant.ApiName.*;

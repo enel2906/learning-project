@@ -6,13 +6,11 @@ import org.example.app.api.CommonAPI;
 import org.example.app.controller.SessionController;
 import org.example.app.controller.UserController;
 import org.example.app.exception.BusinessException;
-import org.example.app.request.RequestData;
-import org.example.app.response.ResponseData;
 import org.example.app.response.user.LoginResponse;
 import org.example.app.request.user.LoginRequest;
 
 import static org.example.app.constant.ExceptionCode.*;
-public class LoginAPI extends CommonAPI {
+public class LoginAPI extends CommonAPI<LoginRequest, LoginResponse> {
     private LoginAPI() {
 
     }
@@ -23,8 +21,7 @@ public class LoginAPI extends CommonAPI {
     }
 
 
-    protected ResponseData doExecute(RequestData requestData) throws Exception{
-        LoginRequest request = (LoginRequest) requestData;
+    public LoginResponse doExecute(LoginRequest request) throws Exception{
         String username = request.getUsername();
         String password = request.getPassword();
         String ipLogin = request.getIpLogin();
@@ -39,7 +36,7 @@ public class LoginAPI extends CommonAPI {
     }
 
     @Override
-    protected RequestData parseRequestData(JsonObject jsonObject) {
+    public LoginRequest parseRequestData(JsonObject jsonObject) {
         Gson gson = new Gson();
         return gson.fromJson(jsonObject, LoginRequest.class);
     }

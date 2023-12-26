@@ -1,4 +1,4 @@
-package org.example.app.api.post.user;
+package org.example.app.api.post;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -7,15 +7,14 @@ import org.example.app.controller.PostController;
 import org.example.app.controller.SessionController;
 import org.example.app.controller.UserController;
 import org.example.app.exception.BusinessException;
-import org.example.app.request.RequestData;
-import org.example.app.request.user.AddNewPostRequest;
-import org.example.app.response.ResponseData;
-import org.example.app.response.user.AddNewPostResponse;
+import org.example.app.request.post.AddNewPostRequest;
+import org.example.app.request.post.AddNewPostRequest;
+import org.example.app.response.post.AddNewPostResponse;
 
 import static org.example.app.constant.PostType.*;
 import static org.example.app.constant.Role.*;
 import static org.example.app.constant.ExceptionCode.*;
-public class AddNewPostAPI extends CommonAPI {
+public class AddNewPostAPI extends CommonAPI<AddNewPostRequest, AddNewPostResponse> {
     private AddNewPostAPI(){
 
     }
@@ -26,8 +25,7 @@ public class AddNewPostAPI extends CommonAPI {
     }
 
     @Override
-    public ResponseData doExecute(RequestData requestData) throws Exception {
-        AddNewPostRequest addNewPostRequest = (AddNewPostRequest) requestData;
+    public AddNewPostResponse doExecute(AddNewPostRequest addNewPostRequest) throws Exception {
         String token = addNewPostRequest.getToken();
         String userId = SessionController.getInstance().getUserId(token);
         int role = UserController.getInstance().getRole(userId);
@@ -45,7 +43,7 @@ public class AddNewPostAPI extends CommonAPI {
     }
 
     @Override
-    protected RequestData parseRequestData(JsonObject jsonObject) {
+    public AddNewPostRequest  parseRequestData(JsonObject jsonObject) {
         Gson gson = new Gson();
         return gson.fromJson(jsonObject, AddNewPostRequest.class);
     }

@@ -6,12 +6,10 @@ import org.example.app.api.CommonAPI;
 import org.example.app.controller.SessionController;
 import org.example.app.controller.UserController;
 import org.example.app.model.User;
-import org.example.app.request.RequestData;
 import org.example.app.request.user.InforRequest;
-import org.example.app.response.ResponseData;
 import org.example.app.response.user.InforResponse;
 
-public class GetInforAPI extends CommonAPI {
+public class GetInforAPI extends CommonAPI<InforRequest, InforResponse> {
     private GetInforAPI() {
 
     }
@@ -22,9 +20,7 @@ public class GetInforAPI extends CommonAPI {
     }
 
     @Override
-    public ResponseData doExecute(RequestData requestData) throws Exception{
-        InforRequest inforRequest = (InforRequest) requestData;
-
+    public InforResponse doExecute(InforRequest inforRequest) throws Exception{
         String token = inforRequest.getToken();
         String id = SessionController.getInstance().getUserId(token);
         User user = UserController.getInstance().findUser(id);
@@ -32,7 +28,7 @@ public class GetInforAPI extends CommonAPI {
     }
 
     @Override
-    protected RequestData parseRequestData(JsonObject jsonObject) {
+    public InforRequest parseRequestData(JsonObject jsonObject) throws Exception{
         Gson gson = new Gson();
         return gson.fromJson(jsonObject, InforRequest.class);
     }

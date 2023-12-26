@@ -2,8 +2,6 @@ package org.example.app.request.user;
 
 import org.example.app.request.RequestData;
 
-import static org.example.app.constant.ApiName.UPDATE_AGE_NAME;
-
 public class UpdateAgeRequest extends RequestData {
     private int ageChange;
 

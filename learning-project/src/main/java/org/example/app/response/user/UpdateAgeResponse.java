@@ -2,6 +2,8 @@ package org.example.app.response.user;
 
 import org.example.app.response.ResponseData;
 
+import static org.example.app.constant.ExceptionCode.*;
+
 public class UpdateAgeResponse extends ResponseData {
     private String success;
 
@@ -14,6 +16,7 @@ public class UpdateAgeResponse extends ResponseData {
     }
 
     public UpdateAgeResponse(String success) {
+        super(SUCCESS.getCode(), "Add age successfully!");
         this.success = success;
     }
 }
