@@ -6,6 +6,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.example.app.configuration.databaseconfig.MongoConfig;
 import org.example.app.servlet.user.SeverHolder;
 import org.example.app.thread.user.LogoutPeriod;
+import org.springframework.context.annotation.Bean;
 
 public class Main {
 
@@ -23,13 +24,9 @@ public class Main {
         server.setHandler(context);
         server.start();
 
-
-
-
-
-        }
-
     }
+
+}
 
 
 
