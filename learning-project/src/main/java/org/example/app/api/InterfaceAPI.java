@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import org.example.app.request.RequestData;
 import org.example.app.response.ResponseData;
 
-public interface InterfaceAPI{
-    ResponseData execute(JsonObject jsonObject);
+public interface InterfaceAPI<T>{
+    ResponseData execute(T requestData);
 
 }

@@ -3,12 +3,12 @@ package org.example.app.api.user;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.example.app.api.CommonAPI;
-import org.example.app.controller.SessionController;
-import org.example.app.controller.UserController;
 import org.example.app.exception.BusinessException;
 import org.example.app.model.dto.UserDTO;
 import org.example.app.request.user.GetUserInforRequest;
 import org.example.app.response.user.GetUserInforResponse;
+import org.example.app.service.SessionService;
+import org.example.app.service.UserService;
 
 import static org.example.app.constant.ExceptionCode.*;
 
@@ -27,17 +27,11 @@ public class GetUserInforAPI extends CommonAPI<GetUserInforRequest, GetUserInfor
     public GetUserInforResponse doExecute(GetUserInforRequest getUserInforRequest) throws Exception {
         String token = getUserInforRequest.getToken();
         String userId = getUserInforRequest.getUserId();
-        int role = SessionController.getInstance().getRoleByToken(token);
-        UserDTO userDTO = UserController.getInstance().getUserDTO(userId);
+        int role = SessionService.getINSTANCE().getRoleByToken(token);
+        UserDTO userDTO = UserService.getINSTANCE().findDTOByKey(userId);
         if(role != ADMIN.getRole() && userDTO.getRole() == ADMIN.getRole()){
             throw new BusinessException(REQUEST.getCode(), "Normal user can't view information of admin");
         }
         return new GetUserInforResponse(userDTO);
-    }
-
-    @Override
-    public GetUserInforRequest parseRequestData(JsonObject jsonObject) {
-        Gson gson = new Gson();
-        return gson.fromJson(jsonObject, GetUserInforRequest.class);
     }
 }

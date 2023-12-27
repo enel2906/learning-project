@@ -10,7 +10,7 @@ public class SessionService implements ServiceInterface<Token>{
 
     private static SessionService INSTANCE = new SessionService();
 
-    public static SessionService getInstance(){
+    public static SessionService getINSTANCE() {
         return INSTANCE;
     }
     public Token findByKey(String token) throws Exception {

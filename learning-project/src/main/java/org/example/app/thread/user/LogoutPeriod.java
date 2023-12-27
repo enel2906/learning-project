@@ -1,6 +1,6 @@
 package org.example.app.thread.user;
 
-import org.example.app.controller.SessionController;
+import org.example.app.service.SessionService;
 import org.example.app.util.Util;
 
 public class LogoutPeriod extends Thread {
@@ -20,7 +20,7 @@ public class LogoutPeriod extends Thread {
     }
 
     public void scanAndRemoveInvalidTime() throws Exception {
-        SessionController.getInstance().deleteNonActiveSessions(LOGOUT_PERIOD);
+        SessionService.getINSTANCE().deleteNonActiveSessions(LOGOUT_PERIOD);
     }
 
 }

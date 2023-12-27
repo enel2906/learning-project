@@ -3,13 +3,13 @@ package org.example.app.api.post;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.example.app.api.CommonAPI;
-import org.example.app.controller.LikedInforController;
-import org.example.app.controller.PostController;
-import org.example.app.controller.SessionController;
 import org.example.app.exception.BusinessException;
 import org.example.app.request.post.DeletePostRequest;
 import org.example.app.request.post.DeletePostRequest;
 import org.example.app.response.post.DeletePostResponse;
+import org.example.app.service.LikedInforService;
+import org.example.app.service.PostService;
+import org.example.app.service.SessionService;
 
 import static org.example.app.constant.ExceptionCode.*;
 public class DeletePostAPI extends CommonAPI<DeletePostRequest, DeletePostResponse> {
@@ -25,18 +25,12 @@ public class DeletePostAPI extends CommonAPI<DeletePostRequest, DeletePostRespon
     public DeletePostResponse doExecute(DeletePostRequest deleteRequest) throws Exception {
         String token = deleteRequest.getToken();
         String postId = deleteRequest.getPostId();
-        String userId = SessionController.getInstance().getUserId(token);
-        if(!PostController.getINSTANCE().isExistPostOfUserId(postId, userId)){
+        String userId = SessionService.getINSTANCE().getUserId(token);
+        if(!PostService.getINSTANCE().existPostOfUserId(postId, userId)){
             throw new BusinessException(REQUEST.getCode(), "No post id match this userId");
         }
-        LikedInforController.getINSTANCE().deletePost(postId);
-        PostController.getINSTANCE().deletePost(postId);
+        LikedInforService.getINSTANCE().remove(postId);
+        PostService.getINSTANCE().remove(postId);
         return new DeletePostResponse("Deleted post "+postId);
-    }
-
-    @Override
-    public DeletePostRequest parseRequestData(JsonObject jsonObject) {
-        Gson gson = new Gson();
-        return gson.fromJson(jsonObject, DeletePostRequest.class);
     }
 }

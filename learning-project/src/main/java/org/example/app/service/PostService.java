@@ -1,6 +1,5 @@
 package org.example.app.service;
 
-import org.example.app.controller.PostController;
 import org.example.app.model.Post;
 import org.example.app.model.dto.PostDTO;
 import org.example.app.repository.PostRepository;

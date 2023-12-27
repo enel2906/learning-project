@@ -3,30 +3,30 @@ package org.example.app.api;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.example.app.constant.ApiName;
-import org.example.app.controller.SessionController;
 import org.example.app.exception.BusinessException;
 import org.example.app.request.RequestData;
 import org.example.app.response.ResponseData;
+import org.example.app.service.SessionService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 import static org.example.app.constant.ApiName.UNAUTHEN_API;
 import static org.example.app.constant.ExceptionCode.*;
 
-public abstract class CommonAPI<T extends RequestData, V extends ResponseData> implements InterfaceAPI {
-    public ResponseData execute(JsonObject jsonObject){
+public abstract class CommonAPI<T extends RequestData, V extends ResponseData> implements InterfaceAPI<T> {
+    public ResponseData execute(@RequestBody T requestData){
         try {
-            T requestData =  parseRequestData(jsonObject);
             requestData.checkValidation();
             String apiNameString = requestData.getApiName();
             ApiName apiName = ApiName.fromString(apiNameString);
             if(!UNAUTHEN_API.contains(apiName)){
                 String token = requestData.getToken();
-                boolean check = SessionController.getInstance().isValidToken(token);
+                boolean check = SessionService.getINSTANCE().isValid(token);
                 if(!check){
                     throw new BusinessException(INVALID.getCode(), "token doesn't exist in system");
                 }
-                SessionController.getInstance().updateCurrentActivity(token);
+                SessionService.getINSTANCE().updateRecentActivity(token);
             }
             return doExecute(requestData);
         }catch (BusinessException e){
@@ -37,6 +37,5 @@ public abstract class CommonAPI<T extends RequestData, V extends ResponseData> i
     }
     public abstract V doExecute(T r) throws Exception;
 
-    public abstract T parseRequestData(JsonObject jsonObject) throws Exception;
 
 }

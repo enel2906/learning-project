@@ -3,13 +3,13 @@ package org.example.app.api.post;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.example.app.api.CommonAPI;
-import org.example.app.controller.PostController;
-import org.example.app.controller.SessionController;
-import org.example.app.controller.UserController;
 import org.example.app.exception.BusinessException;
 import org.example.app.request.post.AddNewPostRequest;
 import org.example.app.request.post.AddNewPostRequest;
 import org.example.app.response.post.AddNewPostResponse;
+import org.example.app.service.PostService;
+import org.example.app.service.SessionService;
+import org.example.app.service.UserService;
 
 import static org.example.app.constant.PostType.*;
 import static org.example.app.constant.Role.*;
@@ -27,8 +27,8 @@ public class AddNewPostAPI extends CommonAPI<AddNewPostRequest, AddNewPostRespon
     @Override
     public AddNewPostResponse doExecute(AddNewPostRequest addNewPostRequest) throws Exception {
         String token = addNewPostRequest.getToken();
-        String userId = SessionController.getInstance().getUserId(token);
-        int role = UserController.getInstance().getRole(userId);
+        String userId = SessionService.getINSTANCE().getUserId(token);
+        int role = UserService.getINSTANCE().getRole(userId);
         String type = addNewPostRequest.getType();
         if(!ListPostType.contains(type)){
             throw new BusinessException(REQUEST.getCode(), "Invalid type");
@@ -36,15 +36,10 @@ public class AddNewPostAPI extends CommonAPI<AddNewPostRequest, AddNewPostRespon
         if(role == USER.getRole() && !type.equals(GREEN.getType())){
             throw new BusinessException(REQUEST.getCode(), "normal user only has type "+GREEN.getType());
         }
-        String name = UserController.getInstance().getName(userId);
+        String name = UserService.getINSTANCE().getName(userId);
         String content = addNewPostRequest.getContent();
-        String id = PostController.getINSTANCE().addNewPost(userId, name, content, type);
+        String id = PostService.getINSTANCE().addNewPost(userId, name, content, type);
         return new AddNewPostResponse("Add post successfully!");
     }
 
-    @Override
-    public AddNewPostRequest  parseRequestData(JsonObject jsonObject) {
-        Gson gson = new Gson();
-        return gson.fromJson(jsonObject, AddNewPostRequest.class);
-    }
 }
