@@ -1,5 +1,8 @@
 package org.example.app.response;
 
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@ResponseBody
 public class ResponseData{
    private int code;
    private String message;

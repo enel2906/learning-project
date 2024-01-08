@@ -1,13 +1,18 @@
 package org.example.app.model;
 
 import org.example.app.util.Util;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+@Document(collection = "sessions")
 public class Token {
+    @Id
     private String tokenId;
 
     private String userId;

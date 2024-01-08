@@ -1,7 +1,9 @@
 package org.example.app.response.post;
 
 import org.example.app.response.ResponseData;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+@ResponseBody
 public class AddNewPostResponse extends ResponseData {
     private String message;
 

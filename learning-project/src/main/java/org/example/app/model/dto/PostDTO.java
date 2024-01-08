@@ -1,8 +1,14 @@
 package org.example.app.model.dto;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
+@Document
 public class PostDTO {
+    @Id
     private String author;
     private String type;
     private String content;

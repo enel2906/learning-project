@@ -6,18 +6,27 @@ import org.example.app.api.CommonAPI;
 import org.example.app.exception.BusinessException;
 import org.example.app.response.user.LoginResponse;
 import org.example.app.request.user.LoginRequest;
+import org.example.app.service.LikedInforService;
+import org.example.app.service.PostService;
 import org.example.app.service.SessionService;
 import org.example.app.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static org.example.app.constant.ExceptionCode.*;
+@Component
 public class LoginAPI extends CommonAPI<LoginRequest, LoginResponse> {
-    private LoginAPI() {
+    private final SessionService sessionService;
+    private final PostService postService;
+    private final LikedInforService likedInforService;
+    private final UserService userService;
 
-    }
-    private static final LoginAPI INSTANCE = new LoginAPI();
-
-    public static LoginAPI getInstance() {
-        return INSTANCE;
+    public LoginAPI(SessionService sessionService, PostService postService, LikedInforService likedInforService, UserService userService){
+        super(sessionService);
+        this.sessionService = sessionService;
+        this.postService = postService;
+        this.likedInforService = likedInforService;
+        this.userService = userService;
     }
 
 
@@ -25,12 +34,12 @@ public class LoginAPI extends CommonAPI<LoginRequest, LoginResponse> {
         String username = request.getUsername();
         String password = request.getPassword();
         String ipLogin = request.getIpLogin();
-        String id = UserService.getINSTANCE().findAccoount(username, password).getId();
-        if(SessionService.getINSTANCE().countIpLogin(id) == 3){
+        String id = userService.findAccoount(username, password).getId();
+        if(sessionService.countIpLogin(id) == 3){
             throw new BusinessException(REQUEST.getCode(), "this account is already login from 3 different IP");
         }
-        int role = UserService.getINSTANCE().getRole(id);
-        String token = SessionService.getINSTANCE().createToken(id, ipLogin, role);
+        int role = userService.getRole(id);
+        String token = sessionService.createToken(id, ipLogin, role);
 
         return new LoginResponse(token);
     }

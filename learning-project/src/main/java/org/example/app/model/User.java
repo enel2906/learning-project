@@ -1,11 +1,16 @@
 package org.example.app.model;
 
 import org.example.app.util.Util;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 
+@Document(collection = "users")
 public class User {
+    @Id
     private String username;
     private String password;
     private String name;

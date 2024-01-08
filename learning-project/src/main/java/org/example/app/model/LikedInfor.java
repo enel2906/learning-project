@@ -1,6 +1,13 @@
 package org.example.app.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Document(collection = "likedinfors")
 public class LikedInfor {
+    @Id
     private String postId;
     private String userId;
 

@@ -1,10 +1,16 @@
 package org.example.app.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
 import static org.example.app.constant.PostType.*;
 
+@Document(collection = "posts")
 public class Post {
+    @Id
     private String id;
     private String userId;
     private String author;

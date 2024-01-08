@@ -10,27 +10,33 @@ import org.example.app.response.post.DeletePostResponse;
 import org.example.app.service.LikedInforService;
 import org.example.app.service.PostService;
 import org.example.app.service.SessionService;
+import org.example.app.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.example.app.constant.ExceptionCode.*;
 public class DeletePostAPI extends CommonAPI<DeletePostRequest, DeletePostResponse> {
-    private DeletePostAPI(){
+    private final SessionService sessionService;
+    private final PostService postService;
+    private final LikedInforService likedInforService;
+    private final UserService userService;
 
-    }
-    private static DeletePostAPI INSTANCE = new DeletePostAPI();
-
-    public static DeletePostAPI getINSTANCE() {
-        return INSTANCE;
+    public DeletePostAPI(SessionService sessionService, PostService postService, LikedInforService likedInforService, UserService userService){
+        super(sessionService);
+        this.sessionService = sessionService;
+        this.postService = postService;
+        this.likedInforService = likedInforService;
+        this.userService = userService;
     }
 
     public DeletePostResponse doExecute(DeletePostRequest deleteRequest) throws Exception {
         String token = deleteRequest.getToken();
         String postId = deleteRequest.getPostId();
-        String userId = SessionService.getINSTANCE().getUserId(token);
-        if(!PostService.getINSTANCE().existPostOfUserId(postId, userId)){
+        String userId = sessionService.getUserId(token);
+        if(!postService.existPostOfUserId(postId, userId)){
             throw new BusinessException(REQUEST.getCode(), "No post id match this userId");
         }
-        LikedInforService.getINSTANCE().remove(postId);
-        PostService.getINSTANCE().remove(postId);
+        likedInforService.remove(postId);
+        postService.remove(postId);
         return new DeletePostResponse("Deleted post "+postId);
     }
 }

@@ -4,6 +4,10 @@ import org.example.app.service.SessionService;
 import org.example.app.util.Util;
 
 public class LogoutPeriod extends Thread {
+    private final SessionService sessionService;
+    public LogoutPeriod(SessionService sessionService){
+        this.sessionService = sessionService;
+    }
     private static final int LOGOUT_PERIOD = 3; //time check in minutes
 
     private static final int CHECK_PERIOD = 30000; //time sleep in millisecond
@@ -20,7 +24,7 @@ public class LogoutPeriod extends Thread {
     }
 
     public void scanAndRemoveInvalidTime() throws Exception {
-        SessionService.getINSTANCE().deleteNonActiveSessions(LOGOUT_PERIOD);
+        sessionService.deleteNonActiveSessions(LOGOUT_PERIOD);
     }
 
 }

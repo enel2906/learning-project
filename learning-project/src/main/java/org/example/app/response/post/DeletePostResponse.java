@@ -1,7 +1,10 @@
 package org.example.app.response.post;
 
 import org.example.app.response.ResponseData;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+@ResponseBody
 public class DeletePostResponse extends ResponseData {
     private String message;
 

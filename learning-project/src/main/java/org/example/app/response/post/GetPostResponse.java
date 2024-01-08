@@ -2,11 +2,13 @@ package org.example.app.response.post;
 
 import org.example.app.model.dto.PostDTO;
 import org.example.app.response.ResponseData;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import static org.example.app.constant.ExceptionCode.*;
 
 import java.util.ArrayList;
 
+@ResponseBody
 public class GetPostResponse extends ResponseData {
     private ArrayList<PostDTO> listPost;
 

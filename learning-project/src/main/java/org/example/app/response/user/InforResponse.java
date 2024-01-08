@@ -1,9 +1,10 @@
 package org.example.app.response.user;
 
 import org.example.app.response.ResponseData;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import static org.example.app.constant.ExceptionCode.*;
-
+@ResponseBody
 public class InforResponse extends ResponseData {
     private String name;
     private int role;

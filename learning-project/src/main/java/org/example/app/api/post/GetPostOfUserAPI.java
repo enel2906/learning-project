@@ -11,31 +11,37 @@ import org.example.app.response.post.GetPostByIdResponse;
 import org.example.app.response.post.GetPostResponse;
 import org.example.app.service.LikedInforService;
 import org.example.app.service.PostService;
+import org.example.app.service.SessionService;
 import org.example.app.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GetPostOfUserAPI extends CommonAPI<GetPostRequest, GetPostResponse> {
-    private GetPostOfUserAPI(){
+    private final SessionService sessionService;
+    private final PostService postService;
+    private final LikedInforService likedInforService;
+    private final UserService userService;
 
-    }
-    private static GetPostOfUserAPI INSTANCE = new GetPostOfUserAPI();
-
-    public static GetPostOfUserAPI getINSTANCE() {
-        return INSTANCE;
+    public GetPostOfUserAPI(SessionService sessionService, PostService postService, LikedInforService likedInforService, UserService userService){
+        super(sessionService);
+        this.sessionService = sessionService;
+        this.postService = postService;
+        this.likedInforService = likedInforService;
+        this.userService = userService;
     }
 
     @Override
     public GetPostResponse doExecute(GetPostRequest getPostsRequest) throws Exception {
         String userId = getPostsRequest.getUserId();
         ArrayList<PostDTO> postDTOs = new ArrayList<>();
-        List<String> postIds = PostService.getINSTANCE().getListPostIdByUserId(userId);
+        List<String> postIds = postService.getListPostIdByUserId(userId);
         for(String postId : postIds){
-            PostDTO postDTO = PostService.getINSTANCE().findDTOByKey(postId);
-            long numLike = LikedInforService.getINSTANCE().getNumLikeInfor(postId);
-            List<String> userIds = LikedInforService.getINSTANCE().findByKey(postId);
-            List<UserDTO> userDTOs = UserService.getINSTANCE().getListUserFromId(userIds);
+            PostDTO postDTO = postService.findDTOByKey(postId);
+            long numLike = likedInforService.getNumLikeInfor(postId);
+            List<String> userIds = likedInforService.findByKey(postId);
+            List<UserDTO> userDTOs = userService.getListUserFromId(userIds);
             postDTO.setNumLike(numLike);
             postDTO.setListUserLiked(userDTOs);
             postDTOs.add(postDTO);

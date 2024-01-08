@@ -2,56 +2,55 @@ package org.example.app.service;
 
 import org.example.app.model.Token;
 import org.example.app.repository.SessionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class SessionService implements ServiceInterface<Token>{
-    private SessionService(){
+@Service
+public class SessionService {
+    private final SessionRepository sessionRepository;
 
-    }
-
-    private static SessionService INSTANCE = new SessionService();
-
-    public static SessionService getINSTANCE() {
-        return INSTANCE;
+    public SessionService(SessionRepository sessionRepository){
+        this.sessionRepository = sessionRepository;
     }
     public Token findByKey(String token) throws Exception {
-        return SessionRepository.findById(token);
+        return sessionRepository.findById(token);
     }
     public void remove(String token) throws Exception{
-        SessionRepository.removeToken(token);
+        sessionRepository.removeToken(token);
     }
     public boolean isValid(String token) throws Exception {
-        return SessionRepository.isValidToken(token);
+        return sessionRepository.isValidToken(token);
     }
     public String getUserId(String token){
-        return SessionRepository.getUserId(token);
+        return sessionRepository.getUserId(token);
     }
 
     public long getTimeOfToken(String token) throws Exception {
-        return SessionRepository.getTime(token);
+        return sessionRepository.getTime(token);
     }
 
     public String createToken(String id, String ipLogin, int role) throws Exception{
-        return SessionRepository.createToken(id, ipLogin, role);
+        return sessionRepository.createToken(id, ipLogin, role);
     }
 
     public long getRecentActivity(String token) throws Exception {
-        return SessionRepository.getRecentActivity(token);
+        return sessionRepository.getRecentActivity(token);
     }
 
     public void updateRecentActivity(String token) throws Exception {
-        SessionRepository.updateRecentActivity(token);
+        sessionRepository.updateRecentActivity(token);
     }
 
     public int countIpLogin(String id) throws Exception {
-        return SessionRepository.countIpLogin(id);
+        return sessionRepository.countIpLogin(id);
     }
 
     public void deleteNonActiveSessions(long timePeriod) throws Exception {
-        SessionRepository.deleteNonActiveSessions(timePeriod);
+        sessionRepository.deleteNonActiveSessions(timePeriod);
     }
 
     public int getRoleByToken(String token) throws Exception{
-        return SessionRepository.getRoleByToken(token);
+        return sessionRepository.getRoleByToken(token);
     }
 
 }

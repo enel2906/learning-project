@@ -1,6 +1,13 @@
 package org.example.app.model.dto;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Document
 public class UserDTO {
+    @Id
     private String name;
     private int role;
     private int age;

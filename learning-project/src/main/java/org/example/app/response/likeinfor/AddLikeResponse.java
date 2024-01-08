@@ -3,11 +3,13 @@ package org.example.app.response.likeinfor;
 import org.example.app.model.dto.PostDTO;
 import org.example.app.model.dto.UserDTO;
 import org.example.app.response.ResponseData;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import static org.example.app.constant.ExceptionCode.*;
 
 import java.util.List;
 
+@ResponseBody
 public class AddLikeResponse extends ResponseData {
     private PostDTO post;
     private long numLike;

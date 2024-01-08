@@ -2,36 +2,35 @@ package org.example.app.service;
 
 import org.example.app.model.LikedInfor;
 import org.example.app.repository.LikeInforRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+public class LikedInforService {
+    private LikeInforRepository likeInforRepository;
 
-public class LikedInforService implements ServiceInterface<Object>{
-    private LikedInforService(){
-
-    }
-    private static LikedInforService INSTANCE = new LikedInforService();
-
-    public static LikedInforService getINSTANCE() {
-        return INSTANCE;
+    public LikedInforService(LikeInforRepository likeInforRepository){
+        this.likeInforRepository = likeInforRepository;
     }
     public void addNewLikeInfor(String userId, String postId) throws Exception {
-        LikeInforRepository.addNewLikeInfor(userId, postId);
+        likeInforRepository.addNewLikeInfor(userId, postId);
     }
     public boolean alreadyLiked(String userId, String postId) throws Exception {
-        return LikeInforRepository.alreadyLiked(userId, postId);
+        return likeInforRepository.alreadyLiked(userId, postId);
     }
     public long getNumLikeInfor(String postId) throws Exception {
-        return LikeInforRepository.getNumLike(postId);
+        return likeInforRepository.getNumLike(postId);
     }
     public List<String> findByKey(String postId) throws Exception {
-        return LikeInforRepository.getLikedUsers(postId);
+        return likeInforRepository.getLikedUsers(postId);
     }
     public void remove(String postId) throws Exception {
-        LikeInforRepository.deletePost(postId);
+        likeInforRepository.deletePost(postId);
     }
     public boolean isValid(String postId) throws Exception {
-        return LikeInforRepository.isValidPostId(postId);
+        return likeInforRepository.isValidPostId(postId);
     }
 
 }
