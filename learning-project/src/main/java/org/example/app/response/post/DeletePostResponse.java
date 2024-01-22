@@ -11,6 +11,9 @@ public class DeletePostResponse extends ResponseData {
     public DeletePostResponse(String message) {
         this.message = message;
     }
+    public DeletePostResponse(int code, String message){
+        super(code, message);
+    }
 
     public String getMessage() {
         return message;

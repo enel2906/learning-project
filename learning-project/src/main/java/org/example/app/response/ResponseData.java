@@ -7,8 +7,7 @@ public class ResponseData{
    private int code;
    private String message;
 
-
-    public int getCode() {
+   public int getCode() {
         return code;
     }
 

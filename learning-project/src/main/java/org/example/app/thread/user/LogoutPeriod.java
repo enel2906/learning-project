@@ -2,7 +2,10 @@ package org.example.app.thread.user;
 
 import org.example.app.service.SessionService;
 import org.example.app.util.Util;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class LogoutPeriod extends Thread {
     private final SessionService sessionService;
     public LogoutPeriod(SessionService sessionService){

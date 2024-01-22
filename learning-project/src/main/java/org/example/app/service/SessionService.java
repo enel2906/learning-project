@@ -53,4 +53,8 @@ public class SessionService {
         return sessionRepository.getRoleByToken(token);
     }
 
+    public void deleteAllSessions() throws Exception {
+        sessionRepository.deleteAllSession();
+    }
+
 }

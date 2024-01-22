@@ -34,14 +34,21 @@ public class GetUserInforAPI extends CommonAPI<GetUserInforRequest, GetUserInfor
     }
 
     @Override
-    public GetUserInforResponse doExecute(GetUserInforRequest getUserInforRequest) throws Exception {
-        String token = getUserInforRequest.getToken();
-        String userId = getUserInforRequest.getUserId();
-        int role = sessionService.getRoleByToken(token);
-        UserDTO userDTO = userService.findDTOByKey(userId);
-        if(role != ADMIN.getRole() && userDTO.getRole() == ADMIN.getRole()){
-            throw new BusinessException(REQUEST.getCode(), "Normal user can't view information of admin");
+    public GetUserInforResponse execute(GetUserInforRequest getUserInforRequest) {
+        try{
+            doExecute(getUserInforRequest);
+            String token = getUserInforRequest.getToken();
+            String userId = getUserInforRequest.getUserId();
+            int role = sessionService.getRoleByToken(token);
+            UserDTO userDTO = userService.findDTOByKey(userId);
+            if(role != ADMIN.getRole() && userDTO.getRole() == ADMIN.getRole()){
+                throw new BusinessException(REQUEST.getCode(), "Normal user can't view information of admin");
+            }
+            return new GetUserInforResponse(userDTO);
+        }catch(BusinessException e){
+            return new GetUserInforResponse(e.getCode(), e.getMessage());
+        }catch(Exception e){
+            return new GetUserInforResponse(UNKNOWN.getCode(), e.getMessage());
         }
-        return new GetUserInforResponse(userDTO);
     }
 }

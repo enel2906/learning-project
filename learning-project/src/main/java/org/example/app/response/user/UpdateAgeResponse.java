@@ -20,4 +20,8 @@ public class UpdateAgeResponse extends ResponseData {
         super(SUCCESS.getCode(), "Add age successfully!");
         this.success = success;
     }
+
+    public UpdateAgeResponse(int code, String message){
+        super(code, message);
+    }
 }

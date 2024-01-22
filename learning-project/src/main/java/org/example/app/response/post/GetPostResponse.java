@@ -17,6 +17,10 @@ public class GetPostResponse extends ResponseData {
         this.listPost = listPost;
     }
 
+    public GetPostResponse(int code, String message){
+        super(code, message);
+    }
+
     public ArrayList<PostDTO> getListPost() {
         return listPost;
     }

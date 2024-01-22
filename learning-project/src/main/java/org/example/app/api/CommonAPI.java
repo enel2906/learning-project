@@ -19,34 +19,22 @@ import static org.example.app.constant.ApiName.UNAUTHEN_API;
 import static org.example.app.constant.ExceptionCode.*;
 
 
-public abstract class CommonAPI<T extends RequestData, V extends ResponseData> implements InterfaceAPI<T> {
+public abstract class CommonAPI<T extends RequestData, V extends ResponseData> implements InterfaceAPI<T, V> {
     private final SessionService sessionService;
-
     public CommonAPI(SessionService sessionService){
         this.sessionService = sessionService;
     }
-
-    public ResponseData execute(T requestData){
-        try {
+    public void doExecute(T requestData) throws Exception{
             requestData.checkValidation();
             String apiNameString = requestData.getApiName();
             ApiName apiName = ApiName.fromString(apiNameString);
-            if(!UNAUTHEN_API.contains(apiName)){
+            if(!UNAUTHEN_API.contains(apiName)) {
                 String token = requestData.getToken();
                 boolean check = sessionService.isValid(token);
-                if(!check){
+                if (!check) {
                     throw new BusinessException(INVALID.getCode(), "token doesn't exist in system");
                 }
                 sessionService.updateRecentActivity(token);
             }
-            return doExecute(requestData);
-        }catch (BusinessException e){
-            return new ResponseData(e.getCode(), e.getMessage());
-        } catch(Exception e){
-            return new ResponseData(UNKNOWN.getCode(), e.getMessage());
-        }
     }
-    public abstract V doExecute(T r) throws Exception;
-
-
 }

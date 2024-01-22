@@ -1,21 +1,25 @@
 package org.example.app.response.post;
 
+
 import org.example.app.response.ResponseData;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @ResponseBody
 public class AddNewPostResponse extends ResponseData {
-    private String message;
+    private String notification;
 
-    public String getMessage() {
-        return message;
+    public String getNotification() {
+        return notification;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setNotification(String notification) {
+        this.notification = notification;
     }
 
-    public AddNewPostResponse(String message) {
-        this.message = message;
+    public AddNewPostResponse(String notification) {
+        this.notification = notification;
+    }
+    public AddNewPostResponse(int code, String message){
+        super(code, message);
     }
 }

@@ -113,4 +113,15 @@ public class PostRepository {
         FindIterable<Document> result = postCollection.find(query).limit(1);
         return result.iterator().hasNext();
     }
+
+    public ArrayList<String> getPostIdByUserIdWithPage(String userId, int skip, int limit) throws Exception {
+        if(skip < 0) skip = 0;
+        ArrayList<String> listPost = new ArrayList<>();
+        Document filter = new Document(USER_ID, userId);
+        for(Document idDoc : postCollection.find(filter).skip(skip).limit(limit)){
+            String postId = idDoc.get(POST_ID).toString();
+            listPost.add(postId);
+        }
+        return listPost;
+    }
 }

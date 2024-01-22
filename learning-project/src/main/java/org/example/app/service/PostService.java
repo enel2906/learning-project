@@ -41,4 +41,8 @@ public class PostService {
     public List<String> getListPostIdByUserId(String userId) throws Exception {
         return postRepository.getListPostId(userId);
     }
+
+    public List<String> getListPostIdWithPage(String userId, int skip, int limit) throws Exception {
+        return postRepository.getPostIdByUserIdWithPage(userId, skip, limit);
+    }
 }

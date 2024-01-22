@@ -4,7 +4,6 @@ import org.example.app.response.ResponseData;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import static org.example.app.constant.ExceptionCode.*;
-@ResponseBody
 public class LoginResponse extends ResponseData {
     private String token;
 
@@ -25,6 +24,7 @@ public class LoginResponse extends ResponseData {
         super(SUCCESS.getCode(), "Login successfully!");
         this.token = token;
     }
+
     public String toString(){
         return "Token: "+token;
     }

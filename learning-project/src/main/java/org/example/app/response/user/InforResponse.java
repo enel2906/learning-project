@@ -20,6 +20,10 @@ public class InforResponse extends ResponseData {
         this.age = age;
     }
 
+    public InforResponse(int code, String message){
+        super(code, message);
+    }
+
     public String getName() {
         return name;
     }

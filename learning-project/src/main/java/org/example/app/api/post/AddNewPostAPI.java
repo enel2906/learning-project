@@ -33,21 +33,29 @@ public class AddNewPostAPI extends CommonAPI<AddNewPostRequest, AddNewPostRespon
     }
 
     @Override
-    public AddNewPostResponse doExecute(AddNewPostRequest addNewPostRequest) throws Exception {
-        String token = addNewPostRequest.getToken();
-        String userId = sessionService.getUserId(token);
-        int role = userService.getRole(userId);
-        String type = addNewPostRequest.getType();
-        if(!ListPostType.contains(type)){
-            throw new BusinessException(REQUEST.getCode(), "Invalid type");
+    public AddNewPostResponse execute(AddNewPostRequest addNewPostRequest){
+        try {
+            doExecute(addNewPostRequest);
+            String token = addNewPostRequest.getToken();
+            String userId = sessionService.getUserId(token);
+            int role = userService.getRole(userId);
+            String type = addNewPostRequest.getType();
+            if(!ListPostType.contains(type)){
+                throw new BusinessException(REQUEST.getCode(), "Invalid type");
+            }
+            if(role == USER.getRole() && !type.equals(GREEN.getType())){
+                throw new BusinessException(REQUEST.getCode(), "normal user only has type "+GREEN.getType());
+            }
+            String name = userService.getName(userId);
+            String content = addNewPostRequest.getContent();
+            String id = postService.addNewPost(userId, name, content, type);
+            return new AddNewPostResponse("Add post successfully!");
+        }catch (BusinessException e){
+            return new AddNewPostResponse(e.getCode(), e.getMessage());
         }
-        if(role == USER.getRole() && !type.equals(GREEN.getType())){
-            throw new BusinessException(REQUEST.getCode(), "normal user only has type "+GREEN.getType());
+        catch (Exception e){
+            return new AddNewPostResponse(UNKNOWN.getCode(), e.getMessage());
         }
-        String name = userService.getName(userId);
-        String content = addNewPostRequest.getContent();
-        String id = postService.addNewPost(userId, name, content, type);
-        return new AddNewPostResponse("Add post successfully!");
     }
 
 }

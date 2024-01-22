@@ -1,6 +1,7 @@
 package org.example.app.request;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.JsonObject;
 import org.example.app.exception.BusinessException;
 import org.example.app.util.Util;
@@ -18,6 +19,7 @@ public class RequestData {
         this.token = token;
     }
 
+//    @JsonIgnore
     protected String token;
     public String getToken() {
         return token;

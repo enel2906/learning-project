@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.cache.ExpressionCacheKey;
 
 import java.util.List;
 
@@ -37,19 +38,26 @@ public class AddLikeAPI extends CommonAPI<AddLikeRequest, AddLikeResponse> {
     }
 
     @Override
-    public AddLikeResponse doExecute(AddLikeRequest addLikeRequest) throws Exception {
-        String token = addLikeRequest.getToken();
-        String postId = addLikeRequest.getPostId();
-        String userId = sessionService.getUserId(token);
-        if(likedInforService.alreadyLiked(userId, postId)){
-            throw new BusinessException(REQUEST.getCode(), "user already liked this post");
+    public AddLikeResponse execute(AddLikeRequest addLikeRequest) {
+        try{
+            doExecute(addLikeRequest);
+            String token = addLikeRequest.getToken();
+            String postId = addLikeRequest.getPostId();
+            String userId = sessionService.getUserId(token);
+            if(likedInforService.alreadyLiked(userId, postId)){
+                throw new BusinessException(REQUEST.getCode(), "user already liked this post");
+            }
+            likedInforService.addNewLikeInfor(userId, postId);
+            PostDTO postDTO = postService.findDTOByKey(postId);
+            long numLike = likedInforService.getNumLikeInfor(postId);
+            List<String> listUserIds = likedInforService.findByKey(postId);
+            List<UserDTO> users = userService.getListUserFromId(listUserIds);
+            return new AddLikeResponse(postDTO, numLike, users);
+        }catch(BusinessException e){
+            return new AddLikeResponse(e.getCode(), e.getMessage());
+        }catch(Exception e){
+            return new AddLikeResponse(UNKNOWN.getCode(), e.getMessage());
         }
-        likedInforService.addNewLikeInfor(userId, postId);
-        PostDTO postDTO = postService.findDTOByKey(postId);
-        long numLike = likedInforService.getNumLikeInfor(postId);
-        List<String> listUserIds = likedInforService.findByKey(postId);
-        List<UserDTO> users = userService.getListUserFromId(listUserIds);
-        return new AddLikeResponse(postDTO, numLike, users);
     }
 }
 

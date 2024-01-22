@@ -12,8 +12,11 @@ import org.example.app.service.PostService;
 import org.example.app.service.SessionService;
 import org.example.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static org.example.app.constant.ExceptionCode.*;
+
+@Component
 public class DeletePostAPI extends CommonAPI<DeletePostRequest, DeletePostResponse> {
     private final SessionService sessionService;
     private final PostService postService;
@@ -28,15 +31,22 @@ public class DeletePostAPI extends CommonAPI<DeletePostRequest, DeletePostRespon
         this.userService = userService;
     }
 
-    public DeletePostResponse doExecute(DeletePostRequest deleteRequest) throws Exception {
-        String token = deleteRequest.getToken();
-        String postId = deleteRequest.getPostId();
-        String userId = sessionService.getUserId(token);
-        if(!postService.existPostOfUserId(postId, userId)){
-            throw new BusinessException(REQUEST.getCode(), "No post id match this userId");
+    public DeletePostResponse execute(DeletePostRequest deleteRequest) {
+        try{
+            doExecute(deleteRequest);
+            String token = deleteRequest.getToken();
+            String postId = deleteRequest.getPostId();
+            String userId = sessionService.getUserId(token);
+            if(!postService.existPostOfUserId(postId, userId)){
+                throw new BusinessException(REQUEST.getCode(), "No post id match this userId");
+            }
+            likedInforService.remove(postId);
+            postService.remove(postId);
+            return new DeletePostResponse("Deleted post "+postId);
+        }catch(BusinessException e){
+            return new DeletePostResponse(e.getCode(), e.getMessage());
+        }catch(Exception e){
+            return new DeletePostResponse(UNKNOWN.getCode(), e.getMessage());
         }
-        likedInforService.remove(postId);
-        postService.remove(postId);
-        return new DeletePostResponse("Deleted post "+postId);
     }
 }

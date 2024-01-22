@@ -113,4 +113,9 @@ public class SessionRepository {
         return convertFromDocumentToTokenModel(tokenDoc);
     }
 
+    public void deleteAllSession() throws Exception{
+        Document query = new Document();
+        tokenIdCollection.deleteMany(query);
+    }
+
 }

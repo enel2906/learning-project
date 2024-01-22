@@ -6,7 +6,8 @@ import org.example.app.request.RequestData;
 import org.example.app.response.ResponseData;
 import org.springframework.web.bind.annotation.RestController;
 
-public interface InterfaceAPI<T>{
-    ResponseData execute(T requestData);
+public interface InterfaceAPI<T, V>{
+    void doExecute(T requestData) throws Exception;
+    public abstract V execute(T r);
 
 }

@@ -19,6 +19,10 @@ public class SigninResponse extends ResponseData {
         this.notification = notification;
     }
 
+    public SigninResponse(int code, String message){
+        super(code, message);
+    }
+
     public void setNotification(String notification) {
         this.notification = notification;
     }

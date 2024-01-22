@@ -21,4 +21,7 @@ public class GetUserInforResponse extends ResponseData {
     public GetUserInforResponse(UserDTO userDTO) {
         this.userDTO = userDTO;
     }
+    public GetUserInforResponse(int code, String message){
+        super(code, message);
+    }
 }

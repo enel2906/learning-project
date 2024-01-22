@@ -30,17 +30,24 @@ public class LoginAPI extends CommonAPI<LoginRequest, LoginResponse> {
     }
 
 
-    public LoginResponse doExecute(LoginRequest request) throws Exception{
-        String username = request.getUsername();
-        String password = request.getPassword();
-        String ipLogin = request.getIpLogin();
-        String id = userService.findAccoount(username, password).getId();
-        if(sessionService.countIpLogin(id) == 3){
-            throw new BusinessException(REQUEST.getCode(), "this account is already login from 3 different IP");
-        }
-        int role = userService.getRole(id);
-        String token = sessionService.createToken(id, ipLogin, role);
+    public LoginResponse execute(LoginRequest loginRequest) {
+        try{
+            doExecute(loginRequest);
+            String username = loginRequest.getUsername();
+            String password = loginRequest.getPassword();
+            String ipLogin = loginRequest.getIpLogin();
+            String id = userService.findAccoount(username, password).getId();
+            if(sessionService.countIpLogin(id) == 3){
+                throw new BusinessException(REQUEST.getCode(), "this account is already login from 3 different IP");
+            }
+            int role = userService.getRole(id);
+            String token = sessionService.createToken(id, ipLogin, role);
 
-        return new LoginResponse(token);
+            return new LoginResponse(token);
+        }catch(BusinessException e){
+            return new LoginResponse(e.getCode(), e.getMessage());
+        }catch(Exception e){
+            return new LoginResponse(UNKNOWN.getCode(), e.getMessage());
+        }
     }
 }

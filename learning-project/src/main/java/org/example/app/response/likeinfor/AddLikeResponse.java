@@ -22,6 +22,10 @@ public class AddLikeResponse extends ResponseData {
         this.listUserLiked = listUserLiked;
     }
 
+    public AddLikeResponse(int code, String message){
+        super(code, message);
+    }
+
     public PostDTO getPost() {
         return post;
     }

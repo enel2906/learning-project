@@ -15,6 +15,9 @@ public class GetPostByIdResponse extends ResponseData {
     public GetPostByIdResponse(PostDTO post) {
         this.post = post;
     }
+    public GetPostByIdResponse(int code, String message){
+        super(code, message);
+    }
 
     public PostDTO getPost() {
         return post;
