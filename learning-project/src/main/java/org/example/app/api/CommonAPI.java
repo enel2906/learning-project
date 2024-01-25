@@ -21,9 +21,11 @@ import static org.example.app.constant.ExceptionCode.*;
 
 public abstract class CommonAPI<T extends RequestData, V extends ResponseData> implements InterfaceAPI<T, V> {
     private final SessionService sessionService;
+
     public CommonAPI(SessionService sessionService){
         this.sessionService = sessionService;
     }
+
     public void doExecute(T requestData) throws Exception{
             requestData.checkValidation();
             String apiNameString = requestData.getApiName();
