@@ -44,54 +44,50 @@ public class UserController {
     }
     @PostMapping
     public LoginResponse doLogin(@RequestBody LoginRequest loginRequest){
-        return (LoginResponse) loginAPI.execute(loginRequest);
+        return loginAPI.execute(loginRequest);
     }
 
     @GetMapping("/information")
     public InforResponse getInforResponse(HttpServletRequest request){
         String token = request.getHeader(TOKEN_KEY);
         InforRequest inforRequest = new InforRequest(token);
-        return (InforResponse) getInforAPI.execute(inforRequest);
+        return getInforAPI.execute(inforRequest);
     }
 
     @GetMapping("/get-user-information/{userId}")
     public GetUserInforResponse getOtherUserInformation(HttpServletRequest request, @PathVariable String userId){
         String token = request.getHeader(TOKEN_KEY);
         GetUserInforRequest getUserInforRequest = new GetUserInforRequest(token, userId);
-        return (GetUserInforResponse) getUserInforAPI.execute(getUserInforRequest);
+        return getUserInforAPI.execute(getUserInforRequest);
     }
     @DeleteMapping("/logout")
     public LogoutResponse logout(HttpServletRequest request){
         String token = request.getHeader(TOKEN_KEY);
         LogoutRequest logoutRequest = new LogoutRequest(token);
-        return (LogoutResponse) logoutAPI.execute(logoutRequest);
+        return logoutAPI.execute(logoutRequest);
     }
-
     @PostMapping("/update-age")
     public UpdateAgeResponse updateAge(HttpServletRequest request){
         String token = request.getHeader(TOKEN_KEY);
         int ageUpdate = Integer.parseInt(request.getParameter(AGE_PARAM_KEY));
 
         UpdateAgeRequest updateAgeRequest = new UpdateAgeRequest(token, ageUpdate);
-        return (UpdateAgeResponse) updateAgeAPI.execute(updateAgeRequest);
+        return updateAgeAPI.execute(updateAgeRequest);
     }
-
     @GetMapping("/getPostOfUser/{userId}")
     public GetPostResponse getPostOfUser(@PathVariable String userId,
                                          @RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int limit){
 
         GetPostRequest getPostRequest = new GetPostRequest(userId, page, limit);
-        return (GetPostResponse) getPostOfUserAPI.execute(getPostRequest);
+        return getPostOfUserAPI.execute(getPostRequest);
     }
 
-    @PostMapping("/addPost")
+    @PostMapping("/add-post")
     public AddNewPostResponse addPost(HttpServletRequest request, @RequestBody AddNewPostRequest addNewPostRequest){
         String token = request.getHeader(TOKEN_KEY);
         addNewPostRequest.setToken(token);
-        AddNewPostResponse response = (AddNewPostResponse) addNewPostAPI.execute(addNewPostRequest);
-
-        return response;
+        return addNewPostAPI.execute(addNewPostRequest);
     }
 
 }
